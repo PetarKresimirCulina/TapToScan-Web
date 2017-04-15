@@ -201,7 +201,9 @@
 					if ($('.badge.notification')[0]){
 						$('.badge.notification').each(function() {
 							var value = $(this).val();
+							
 							alert(value);
+							alert($(this).html());
 							$(this).val($val + 1);
 						});
 					}
