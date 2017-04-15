@@ -25,4 +25,6 @@ return [
 	'served' => 'Posluženo',
 	'price' => 'Cijena',
 	'total' => 'Ukupno',
+	'notificationTitle' => 'Nova narudžba',
+	'notificationBody' => 'Pozdrav, imate novu narudžbu! Kliknite ovdje da ju vidite.',
 ];

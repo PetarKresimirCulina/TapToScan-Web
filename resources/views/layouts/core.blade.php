@@ -105,6 +105,7 @@
 				}
 			}
 		</script>
+		
 		<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 		<script>
 			$(document).ready(function() {
