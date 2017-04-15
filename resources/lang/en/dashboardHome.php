@@ -25,4 +25,6 @@ return [
 	'served' => 'Served',
 	'price' => 'Price',
 	'total' => 'Total',
+	'notificationTitle' => 'New order received',
+	'notificationBody' => 'Hey there, you have a new pending order! Click to view the order.',
 ];

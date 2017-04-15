@@ -92,7 +92,13 @@
 				}
 			  },
 			  "position": "top"
-			})});
+			})
+			
+			if (Notification && Notification.permission !== "granted") {
+				Notification.requestPermission();
+			}
+		});
+			
 	</script>
 	@yield('javascript')
 

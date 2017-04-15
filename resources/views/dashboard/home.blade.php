@@ -260,6 +260,22 @@
 					.append($('<td>').append($btn))
 					.hide().fadeIn(250)
 				);
+				
+				if(Notification) {
+					if (Notification.permission !== "granted") {
+						Notification.requestPermission();
+					}
+					else {
+						var notification = new Notification("@lang('dashboardHome.notificationTitle')", {
+							icon: "{{ URL::asset('img/favicon/android-icon-192x192.png') }}",
+							body: "@lang('dashboardHome.notificationBody')",
+						});
+					}
+
+					notification.onclick = function () {
+						window.open("http://stackoverflow.com/a/13328397/1269037");      
+					}
+				}
 			});
 
 			function pad(n) {
