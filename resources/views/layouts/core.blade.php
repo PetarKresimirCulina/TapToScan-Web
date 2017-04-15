@@ -93,19 +93,18 @@
 			  },
 			  "position": "top"
 			})
-			
-			@if(Auth::check())
-				if(Notification) {
-					if (Notification.permission !== "granted") {
-						Notification.requestPermission();
-					}
-				}
-			@endif
 		});
 			
 	</script>
 
 	@if (Auth::check())	
+		<script>
+			if(Notification) {
+				if (Notification.permission !== "granted") {
+					Notification.requestPermission();
+				}
+			}
+		</script>
 		<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 		<script>
 			$(document).ready(function() {
