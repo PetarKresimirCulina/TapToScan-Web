@@ -106,11 +106,7 @@
 		<script>
 			$(document).ready(function() {
 				
-				Pusher.log = function(message) {
-				if (window.console && window.console.log) {
-					window.console.log(message);
-				}
-				};
+				Pusher.logToConsole = false;
 				
 				var pusher = new Pusher('999bf93e7a60681c22c9', {
 					cluster: 'eu',
