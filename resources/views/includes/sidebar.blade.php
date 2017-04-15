@@ -4,7 +4,7 @@
 			@if(Auth::user()->orders()->where('status', 0)->count() > 0)
 				<span class="badge notification"> {{ Auth::user()->orders()->where('status', 0)->count() }} </span>
 			@else
-				<span hidden class="badge notification"> {{ Auth::user()->orders()->where('status', 0)->count() }} </span>
+				<span style="display: none;" class="badge notification"> {{ Auth::user()->orders()->where('status', 0)->count() }} </span>
 			@endif
 		</a></li>
 		
