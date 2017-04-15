@@ -17,7 +17,7 @@ return [
 	'keywords' => 'taptoscan, trenutne, narudžbe',
     'table' => 'Stol',
     'orderNo' => 'Nardužba br.',
-	'product' => 'Proizvod',
+	'product' => 'Naziv proizvoda',
 	'quantity' => 'Količina',
 	'datetime' => 'Datum i vrijeme',
 	'status' => 'Status',

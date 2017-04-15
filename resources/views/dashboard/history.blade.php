@@ -26,8 +26,7 @@
 					</ul>
 				</div>
 				
-				<div class="table-responsive">
-					<table class="table table-hover">
+				<table class="table table-hover table-responsive">
 						<tr class="text-capitalize">
 							<th>@lang('dashboardHistory.table')</th>
 							<th>@lang('dashboardHistory.orderNo')</th> 
@@ -59,6 +58,7 @@
 							
 							<td>
 								@php $i = 0; @endphp
+								
 								@foreach ($prodOrdersValue as $product)
 									
 									@if($i>0)
@@ -85,17 +85,47 @@
 							
 							</td>
 							<td>
-								@php $i = 0; @endphp
+								@php 
+									$i = 0;
+									$totalArray = array();
+								@endphp
+								
 								@foreach ($prodOrdersValue as $product)
 									
 									@if($i>0)
 										</br>
 									@endif
 									
-									{{ $product->formatCurrency(Lang::locale(), ($product->pivot->quantity * $product->price)) }}
-									@php $i+=1; @endphp
+									@php $price = $product->pivot->quantity * $product->price; @endphp
 									
-								@endforeach			
+									{{ $product->formatCurrency(Lang::locale(), $price) }}
+
+									@php 
+										if(isset($totalArray[$product->currency->code])) {
+											$totalArray[$product->currency->code]['price'] += $price;
+											$totalArray[$product->currency->code]['formatted'] = $product->formatCurrency(Lang::locale(), $totalArray[$product->currency->code]['price']);
+										} else {
+											$totalArray[$product->currency->code]['price'] = $price;
+											$totalArray[$product->currency->code]['formatted'] = $product->formatCurrency(Lang::locale(), $totalArray[$product->currency->code]['price']);
+										}
+										$i+=1; 
+									@endphp
+									
+								@endforeach		
+								
+								<hr class="noMargin">
+								<span class="bold">@lang('dashboardHistory.total')</span></br>
+								
+								@php $j = 0; @endphp
+								@foreach ($totalArray as $currency)
+									@if($j>0)
+										</br>
+									@endif
+									
+									{{ $currency['formatted'] }}
+									
+									@php $j+=1; @endphp
+								@endforeach
 							</td>
 							<td>
 									@if(!isset($_COOKIE['offset']))
@@ -113,7 +143,7 @@
 						</tr>
 						@endforeach
 					</table>
-				</div>
+
 				<div class="pagination"> {{ $orders->appends(Request::except('page'))->links() }} </div>
 			</div>
 		</div>

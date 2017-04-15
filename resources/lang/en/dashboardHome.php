@@ -17,7 +17,7 @@ return [
 	'keywords' => 'taptoscan, current, orders',
     'table' => 'Table',
     'orderNo' => 'Order No.',
-	'product' => 'Product',
+	'product' => 'Product name',
 	'quantity' => 'Quantity',
 	'datetime' => 'Date and time',
 	'status' => 'Status',

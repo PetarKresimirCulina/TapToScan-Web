@@ -11,6 +11,14 @@ body {
 .btn-round {
     border-radius: 10rem;
 }
+.bold {
+	font-weight: bold;
+}
+
+.noMargin {
+	margin: 0;
+}
+
 .material-icons {
     vertical-align: -15%;
 }

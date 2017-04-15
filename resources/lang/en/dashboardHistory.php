@@ -21,7 +21,7 @@ return [
 	'allTime' => 'All time',
 	'table' => 'Table',
 	'orderNo' => 'Order No.',
-	'product' => 'Product',
+	'product' => 'Product name',
 	'quantity' => 'Quantity',
 	'datetime' => 'Date and time',
 	'price' => 'Price',

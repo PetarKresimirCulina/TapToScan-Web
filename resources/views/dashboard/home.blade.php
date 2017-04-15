@@ -17,8 +17,8 @@
 			<div class="col-xs-12 col-lg-10 col-md-9 margin-4">
 				@include('includes.emailVerify')
 				<h1 class="margin-bottom-2 text-capitalize">@lang('navbar.orders')</h1>
-				<div class="table-responsive">
-					<table id="currentOrders" class="table table-hover">
+				
+				<table id="currentOrders" class="table table-hover table-responsive">
 						<tr class="text-capitalize">
 							<th>@lang('dashboardHome.table')</th>
 							<th>@lang('dashboardHome.orderNo')</th> 
@@ -77,17 +77,47 @@
 							</td>
 							
 							<td>
-								@php $i = 0; @endphp
+								@php 
+									$i = 0;
+									$totalArray = array();
+								@endphp
+								
 								@foreach ($productOrder as $product)
 									
 									@if($i>0)
 										</br>
 									@endif
+									
+									@php $price = $product->pivot->quantity * $product->price; @endphp
+									
+									{{ $product->formatCurrency(Lang::locale(), $price) }}
 
-									{{ $product->formatCurrency(Lang::locale(), $product->pivot->quantity * $product->price) }}
-									@php $i+=1; @endphp
+									@php 
+										if(isset($totalArray[$product->currency->code])) {
+											$totalArray[$product->currency->code]['price'] += $price;
+											$totalArray[$product->currency->code]['formatted'] = $product->formatCurrency(Lang::locale(), $totalArray[$product->currency->code]['price']);
+										} else {
+											$totalArray[$product->currency->code]['price'] = $price;
+											$totalArray[$product->currency->code]['formatted'] = $product->formatCurrency(Lang::locale(), $totalArray[$product->currency->code]['price']);
+										}
+										$i+=1; 
+									@endphp
 									
 								@endforeach		
+								
+								<hr class="noMargin">
+								<span class="bold">@lang('dashboardHistory.total')</span></br>
+								
+								@php $j = 0; @endphp
+								@foreach ($totalArray as $currency)
+									@if($j>0)
+										</br>
+									@endif
+									
+									{{ $currency['formatted'] }}
+									
+									@php $j+=1; @endphp
+								@endforeach
 							</td>
 							
 							<td>
@@ -109,8 +139,8 @@
 						</tr>
 						@endforeach
 					</table>
-					<input type="hidden" value="{{ Auth::id() }}" name="auth_id" id="auth_id">
-				</div>
+				
+				<input type="hidden" value="{{ Auth::id() }}" name="auth_id" id="auth_id">
 			</div>
 		</div>
 	</div>

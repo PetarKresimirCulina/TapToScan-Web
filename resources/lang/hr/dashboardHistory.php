@@ -21,7 +21,7 @@ return [
 	'allTime' => 'Sve',
 	'table' => 'Stol',
 	'orderNo' => 'Narudžba br.',
-	'product' => 'Proizvod',
+	'product' => 'Naziv proizvoda',
 	'quantity' => 'Količina',
 	'datetime' => 'Datum i vrijeme',
 	'price' => 'Cijena',
