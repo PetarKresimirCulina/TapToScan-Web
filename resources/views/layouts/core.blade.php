@@ -102,16 +102,17 @@
 	</script>
 
 	@if (Auth::check())	
-		<script src="https://js.pusher.com/4.0/pusher.min.js">
+		<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+		<script>
 			$(document).ready(function() {
-				// Enable pusher logging - don't include this in production
-				Pusher.logToConsole = true;
 				
 				Pusher.log = function(message) {
 				if (window.console && window.console.log) {
 					window.console.log(message);
 				}
 				};
+				
+				alert("{{ route('pusher.auth') }}");
 
 				var pusher = new Pusher('999bf93e7a60681c22c9', {
 					cluster: 'eu',
