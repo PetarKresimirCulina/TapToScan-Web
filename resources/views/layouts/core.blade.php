@@ -173,8 +173,8 @@
 						//format date string
 						var dateString = date + '.' + month + '.' + year + ' - ' + hours + ':' + minutes + ':' + seconds;
 
-						$btn = $('<button class="btn btn-danger btn-lg table-btn">@lang('dashboardHome.notServed')</button>');
-						$btn.attr('data-id', data['order']['id']);		
+						var btn = $('<button class="btn btn-danger btn-lg table-btn">@lang('dashboardHome.notServed')</button>');
+						btn.attr('data-id', data['order']['id']);		
 
 						var formatTotalAmmount = '';
 						
@@ -192,7 +192,7 @@
 							.append($('<td>').append(pQuantities)) 
 							.append($('<td>').append(formatTotals))
 							.append($('<td>').append(dateString))
-							.append($('<td>').append($btn))
+							.append($('<td>').append(btn))
 							.hide().fadeIn(250)
 						);
 						
@@ -200,8 +200,8 @@
 					
 					if ($('.badge.notification')[0]){
 						$('.badge.notification').each(function() {
-							$val = $(this).val();
-							alert($val);
+							var value = $(this).val();
+							alert(value);
 							$(this).val($val + 1);
 						});
 					}
