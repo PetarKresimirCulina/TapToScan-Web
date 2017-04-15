@@ -139,8 +139,6 @@
 						</tr>
 						@endforeach
 					</table>
-				
-				<input type="hidden" value="{{ Auth::id() }}" name="auth_id" id="auth_id">
 			</div>
 		</div>
 	</div>

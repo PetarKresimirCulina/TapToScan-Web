@@ -102,6 +102,7 @@
 	</script>
 
 	@if (Auth::check())	
+		<input type="hidden" value="{{ Auth::id() }}" name="auth_id" id="auth_id">
 		<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 		<script>
 			$(document).ready(function() {
@@ -112,8 +113,6 @@
 				}
 				};
 				
-				alert("{{ route('pusher.auth') }}");
-
 				var pusher = new Pusher('999bf93e7a60681c22c9', {
 					cluster: 'eu',
 					encrypted: true,
