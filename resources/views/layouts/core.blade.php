@@ -93,6 +93,14 @@
 			  },
 			  "position": "top"
 			})
+			
+			@if(Auth::check())
+				if(Notification) {
+					if (Notification.permission !== "granted") {
+						Notification.requestPermission();
+					}
+				}
+			@endif
 		});
 			
 	</script>
