@@ -202,7 +202,7 @@
 						$('.badge.notification').each(function() {
 							var value = $(this).html();
 
-							$(this).html($val + 1);
+							$(this).html(value + 1);
 						});
 					}
 					
