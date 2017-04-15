@@ -201,7 +201,7 @@
 					if ($('.badge.notification')[0]){
 						$('.badge.notification').each(function() {
 							var value = $(this).html();
-
+							$(this).show();
 							$(this).html(parseInt(value) + 1);
 						});
 					}
