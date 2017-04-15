@@ -1,8 +1,8 @@
 html {
-    font-size: 14px;
+    font-size: 16px;
 }
 body {
-    font-size: 14px;
+    font-size: 16px;
     background: #FDFFFC;
     line-height: 1.5;
     padding-top: 50px;
@@ -13,6 +13,10 @@ body {
 }
 .bold {
 	font-weight: bold;
+}
+
+.badge.notification {
+	background-color: #d9534f;
 }
 
 .noMargin {

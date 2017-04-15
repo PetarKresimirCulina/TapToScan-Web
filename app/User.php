@@ -25,10 +25,15 @@ class User extends Authenticatable
 	* @param $request
 	* @return User
      */
-	 
+	
 	public function confirmation()
 	{
 		return $this->hasOne('App\Confirmation');
+	}
+	
+	public function orders()
+	{
+		return $this->hasMany('App\Order', 'userID');
 	}
 	
 	public static function create($request)

@@ -198,6 +198,13 @@
 						
 					@endif
 					
+					if ($('.badge.notification')[0]){
+						$('.badge.notification').each(function() {
+							$val = $(this).val();
+							$(this).val($val + 1);
+						});
+					}
+					
 					if(Notification) {
 						if (Notification.permission !== "granted") {
 							Notification.requestPermission();

@@ -25,6 +25,11 @@ class Order extends Model
 		return $this->belongsToMany('App\Product', 'product_orders', 'order_id', 'product_id')->withPivot('quantity');
 	}
 	
+	public function orders()
+	{
+		return $this->belongsTo('App\User');
+	}
+	
 	/**
      * updateStatus
 	* Updates status from 0-not server to 1-served

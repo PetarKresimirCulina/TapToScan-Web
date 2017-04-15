@@ -1,6 +1,12 @@
 <div class="hidden-xs col-md-3 col-lg-2 sidebar">
 	<ul class="nav margin-4 text-capitalize">
-		<li><a  {{{ (Request::is('*/home') ? 'class=active' : '') }}} href="{{ route('dashboard.home', App::getLocale()) }}"><i class="material-icons">receipt</i> @lang('navbar.orders')</a></li>
+		<li><a  {{{ (Request::is('*/home') ? 'class=active' : '') }}} href="{{ route('dashboard.home', App::getLocale()) }}"><i class="material-icons">receipt</i> @lang('navbar.orders') 
+			@if(Auth::user()->orders()->where('status', 0)->count() > 0)
+				<span class="badge notification"> {{ Auth::user()->orders()->where('status', 0)->count() }} </span>
+			@endif
+		</a></li>
+		
+		
 		<li><a {{{ (Request::is('*/history') ? 'class=active' : '') }}} href="{{ route('dashboard.history', App::getLocale()) }}"><i class="material-icons">history</i> @lang('navbar.history')</a></li>
 		<li><a {{{ (Request::is('*/tables') ? 'class=active' : '') }}} href="{{ route('dashboard.tables', App::getLocale()) }}"><i class="material-icons">event_seat</i> @lang('navbar.tables')</a></li>
 		<li><a {{{ (Request::is('*/categories*') ? 'class=active' : '') }}} href="{{ route('dashboard.categories', App::getLocale()) }}"><i class="material-icons">free_breakfast</i> @lang('navbar.products')</a></li>

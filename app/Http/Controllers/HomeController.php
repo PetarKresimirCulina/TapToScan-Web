@@ -38,7 +38,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-		$orders = Order::where('userID', Auth::id())->where('status', 0)->get();
+		$orders = Auth::user()->orders()->where('status', 0)->get();
         return view('dashboard.home')->with('orders', $orders);
     }
 	
@@ -132,24 +132,24 @@ class HomeController extends Controller
 		switch ($period) {
 			case '30':
 				$date= Carbon::now()->subDays(30)->format('Y-m-d H:i:s'); 
-				$orders = Order::where('userID', Auth::id())->where('status', 1)->where('created_at', '>=', $date)->paginate(10);
+				$orders = Auth::user()->orders()->where('status', 1)->where('created_at', '>=', $date)->paginate(10);
 				$listFilter = $period;
 				$period = Lang::get('dashboardHistory.30days');
 				break;
 			case '90':
 				$date= Carbon::now()->subDays(90)->format('Y-m-d H:i:s'); 
-				$orders = Order::where('userID', Auth::id())->where('status', 1)->where('created_at', '>=', $date)->paginate(10);
+				$orders = Auth::user()->orders()->where('status', 1)->where('created_at', '>=', $date)->paginate(10);
 				$listFilter = $period;
 				$period = Lang::get('dashboardHistory.90days');
 				break;
 			case 'all':
-				$orders = Order::where('userID', Auth::id())->where('status', 1)->paginate(10);
+				$orders = Auth::user()->orders()->where('status', 1)->paginate(10);
 				$listFilter = $period;
 				$period = Lang::get('dashboardHistory.allTime');
 				break;
 			default: //today
 				$today = Carbon::today();
-				$orders = Order::where('userID', Auth::id())->where('status', 1)->where('created_at', '>=', $today)->paginate(10);
+				$orders = Auth::user()->orders()->where('status', 1)->where('created_at', '>=', $today)->paginate(10);
 				$listFilter = 'today';
 				$period =Lang::get('dashboardHistory.today');
 				break;
