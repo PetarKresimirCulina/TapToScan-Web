@@ -3,9 +3,6 @@
 @section('description', __('dashboardTables.description'))
 @section('keywords', __('dashboardTables.keywords'))
 
-@section('csrf-meta')
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-@stop
 
 @section('content')
 

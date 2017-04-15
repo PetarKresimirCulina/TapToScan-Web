@@ -3,10 +3,6 @@
 @section('description', __('dashboardHome.description'))
 @section('keywords', __('dashboardHome.keywords'))
 
-@section('csrf-meta')
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-@stop
-
 @section('content')
 
 	<div class="container-fluid">
