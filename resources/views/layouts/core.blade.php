@@ -102,7 +102,6 @@
 	</script>
 
 	@if (Auth::check())	
-		<input type="hidden" value="{{ Auth::id() }}" name="auth_id" id="auth_id">
 		<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 		<script>
 			$(document).ready(function() {
@@ -123,7 +122,7 @@
 						}
 					}
 				});
-				var id = $('#auth_id').val();
+				var id = "{{ Auth::id() }}";
 
 				var channel = pusher.subscribe('private-orders_' + id);
 				channel.bind('App\\Events\\OrderPlaced', function(data) {
