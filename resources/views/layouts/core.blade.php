@@ -100,6 +100,152 @@
 		});
 			
 	</script>
+
+	@if (Auth::check())	
+		<script src="https://js.pusher.com/4.0/pusher.min.js">
+			$(document).ready(function() {
+				// Enable pusher logging - don't include this in production
+				Pusher.logToConsole = true;
+				
+				Pusher.log = function(message) {
+				if (window.console && window.console.log) {
+					window.console.log(message);
+				}
+				};
+
+				var pusher = new Pusher('999bf93e7a60681c22c9', {
+					cluster: 'eu',
+					encrypted: true,
+					authEndpoint: '{{ route('pusher.auth') }}',
+					auth: {
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						}
+					}
+				});
+				var id = $('#auth_id').val();
+
+				var channel = pusher.subscribe('private-orders_' + id);
+				channel.bind('App\\Events\\OrderPlaced', function(data) {
+					
+					@if(Request::is('*/home'))
+						data = data.message;
+
+						var pOrders = [];
+						var pQuantities = [];
+						var pPrice = [];
+						var pTotals = [];
+						var pTotalAmmount = [];
+						var locale = $('html').attr('lang');
+
+						for (i = 0; i < data['productOrders'].length; i++) { 
+							pOrders[i] = data['productOrders'][i]['name'] + '</br>';
+							pQuantities[i] = data['productOrders'][i]['quantity'] + '</br>';
+							
+							pPrice[i] = formatCurrency(locale, data['productOrders'][i]['price'], data['productOrders'][i]['symbol'], data['productOrders'][i]['symbol_code']); 
+							pTotals[i] = formatCurrency(locale, (data['productOrders'][i]['price'] * data['productOrders'][i]['quantity']), data['productOrders'][i]['symbol'], data['productOrders'][i]['symbol_code']); 
+							
+							
+							if(!pTotalAmmount[data['productOrders'][i]['symbol_code']]) { 
+								pTotalAmmount[data['productOrders'][i]['symbol_code']] = [];
+								pTotalAmmount[data['productOrders'][i]['symbol_code']]['price'] = (data['productOrders'][i]['price'] * data['productOrders'][i]['quantity']);
+								pTotalAmmount[data['productOrders'][i]['symbol_code']]['formatted'] = formatCurrency(locale, pTotalAmmount[data['productOrders'][i]['symbol_code']]['price'], data['productOrders'][i]['symbol'], data['productOrders'][i]['symbol_code']); 
+							} else {
+								pTotalAmmount[data['productOrders'][i]['symbol_code']]['price'] += (data['productOrders'][i]['price'] * data['productOrders'][i]['quantity']);
+								pTotalAmmount[data['productOrders'][i]['symbol_code']]['formatted'] = formatCurrency(locale, pTotalAmmount[data['productOrders'][i]['symbol_code']]['price'], data['productOrders'][i]['symbol'], data['productOrders'][i]['symbol_code']);
+							}
+						}
+
+						var offset = parseInt($.cookie('offset'));
+
+						var time = new Date(data['order']['created_at']);
+
+						if(offset < 0) {
+							time.setMinutes(time.getMinutes() - offset);
+						}
+						else {
+							time.setMinutes(time.getMinutes() + offset);
+						}
+
+						var year = pad(time.getFullYear()).toString();
+						var date = pad(time.getDate()).toString();
+						var month = time.getMonth() + 1;
+						month = pad(month).toString();
+						var hours = pad(time.getHours()).toString();
+						var minutes = pad(time.getMinutes()).toString();
+						var seconds = pad(time.getSeconds()).toString();
+
+						//format date string
+						var dateString = date + '.' + month + '.' + year + ' - ' + hours + ':' + minutes + ':' + seconds;
+
+						$btn = $('<button class="btn btn-danger btn-lg table-btn">@lang('dashboardHome.notServed')</button>');
+						$btn.attr('data-id', data['order']['id']);		
+
+						var formatTotalAmmount = '';
+						
+						for (var key in pTotalAmmount) {
+							formatTotalAmmount = formatTotalAmmount + pTotalAmmount[key]['formatted'];
+						}
+						
+						var formatTotals = pTotals.join('') + "<hr class=\"noMargin\"><span class=\"bold\">@lang('dashboardHistory.total')</span></br>" + formatTotalAmmount;
+						$('#currentOrders').append(
+						$('<tr>')
+							.append($('<td>').append(data['table'])) 
+							.append($('<td>').append(data['order']['id'])) 
+							.append($('<td>').append(pOrders))
+							.append($('<td>').append(pPrice)) 
+							.append($('<td>').append(pQuantities)) 
+							.append($('<td>').append(formatTotals))
+							.append($('<td>').append(dateString))
+							.append($('<td>').append($btn))
+							.hide().fadeIn(250)
+						);
+						
+					@endif
+					
+					if(Notification) {
+						if (Notification.permission !== "granted") {
+							Notification.requestPermission();
+						}
+						else {
+							var notification = new Notification("@lang('dashboardHome.notificationTitle')", {
+								icon: "{{ URL::asset('img/favicon/logo_158x158.png') }}",
+								body: "@lang('dashboardHome.notificationBody')",
+							});
+						}
+
+						notification.onclick = function () {
+							window.open('http://taptoscan.com/' + locale + '/home');      
+						}
+					}
+				});
+
+				function pad(n) {
+					return (n < 10) ? ("0" + n) : n;
+				}
+				
+				function formatCurrency(locale, ammount, symbol, code) {
+					
+					ammount = parseFloat(ammount).toFixed(2);
+					
+					switch(locale) {
+						case 'en':
+							var ammountString = ammount.toString();
+							return code + ammountString + '</br>';
+						case 'hr':
+							var ammountString = ammount.toString();
+							ammountString = ammountString.replace(".", ",")
+							return ammountString + ' ' + symbol + '</br>';
+						default:
+							//en
+							var ammountString = ammount.toString();
+							return code + ammountString + '</br>';
+					}
+				}
+			});
+		</script>
+	@endif
+	
 	@yield('javascript')
 
   </body>
