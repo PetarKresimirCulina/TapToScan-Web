@@ -123,6 +123,7 @@
 				var channel = pusher.subscribe('private-orders_' + id);
 				channel.bind('App\\Events\\OrderPlaced', function(data) {
 					
+					var locale = $('html').attr('lang');
 					@if(Request::is('*/home'))
 						data = data.message;
 
@@ -131,7 +132,6 @@
 						var pPrice = [];
 						var pTotals = [];
 						var pTotalAmmount = [];
-						var locale = $('html').attr('lang');
 
 						for (i = 0; i < data['productOrders'].length; i++) { 
 							pOrders[i] = data['productOrders'][i]['name'] + '</br>';
