@@ -162,6 +162,16 @@
 								$(btn).closest("tr").fadeOut(250, function(){ $(this).remove();
 							});
 						});
+						if ($('.badge.notification')[0]){
+							$('.badge.notification').each(function() {
+								var value = $(this).html();
+
+								$(this).html(parseInt(value) - 1);
+								if((parseInt(value) - 1) < 1) {
+									$(this).hide();
+								}
+							});
+						}
 					}
 				},
 				error: function(xhr, status, error) {
