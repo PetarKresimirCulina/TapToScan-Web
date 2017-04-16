@@ -32,7 +32,11 @@ return [
 	'errorInvalidRequest' => 'Invalid request.',
 	'errorFailedDelete' => 'Failed to delete the table. Please refresh the page.',
 	'errorFailedUpdate' => 'Failed to update the table named',
-	'errorFailedEdit' => 'Failed to edit the table. Please refreshe the page.',
-	
+	'errorFailedEdit' => 'Failed to edit the table. Please refresh the page.',
+	'tableTagsActive' => 'Table tags active',
+	'currentPackage' => 'Current package',
+	'tagLimitTitle' => 'Tag limit reached',
+	'tagLimitMsg' => 'You have reached a maximum ammount of active table tags. In order to have more active tags, please consider upgrading your package.',
+	'upgradePackage' => 'Upgrade package',
 	
 ];

@@ -28,7 +28,8 @@
 				@endif
 
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addTag"><i class="material-icons">add_circle_outline</i> @lang('dashboardTables.addTable')</a>
-
+				<p class="small">@lang('dashboardTables.tableTagsActive'): {{ Auth::user()->tagsActive->count() }}/{{ Auth::user()->package->tags_limit }} | @lang('dashboardTables.currentPackage'): <a href="{{ route('dashboard.billing', App::getLocale()) }}">{{ Auth::user()->package->name }}</a></p>
+				
 				<div class="table-responsive">
 					<table id="currentTables" class="table table-hover">
 						<tr class="text-capitalize">
@@ -150,6 +151,25 @@
 		</div>
 	</div>
 	
+	<div id="tagLimit" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title text-capitalize">@lang('dashboardTables.tagLimitTitle')</h4>
+				</div>
+				<div class="modal-body text-center">
+					<p>@lang('dashboardTables.tagLimitMsg')</p>
+					<a href="{{ route('dashboard.billing', App::getLocale()) }}" class="btn btn-primary text-capitalize">Upgrade package</a>
+				</div>
+				<div class="modal-footer text-center">
+					<a href="#" class="btn btn-danger text-capitalize" data-dismiss="modal">@lang('actions.close')</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	
 @stop
 
@@ -180,9 +200,9 @@
 				url: "{{ route('tags.changeStatus', App::getLocale()) }}",
 				data: { "tag": $(this).data("id"), "status":  $(this).data("status") },
 					success: function(data ){
-						if(data == "Success")
+						if(data == 'Success')
 						{
-							if($(btn).data("status") == 1)
+							if($(btn).data('status') == 1)
 							{
 								$(btn).addClass("btn-success").removeClass("btn-warning").html("<i class=\"material-icons\">check_circle</i> @lang('dashboardTables.active')");
 								$(btn).data('requestRunning', false);
@@ -195,6 +215,9 @@
 								$(btn).data('status', 1);
 							}
 							
+						} else if(data = 'Tag limit reached'){
+							$(btn).data('requestRunning', false);
+							$('#tagLimit').modal('show');
 						}
 					},
 					error: function(xhr, status, error) {

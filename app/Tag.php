@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 	/**
      * Tag
@@ -21,6 +22,11 @@ class Tag extends Model
     public function userTags($userID)
 	{
 		 return $this->where('user', $userID)->where('deleted', 0)->orderBy('name')->paginate(10);
+	}
+	
+	public function userData() //bilo je orders prije pa vrati ako se sve sjebe
+	{
+		return $this->belongsTo('App\User', 'user');
 	}
 	
 	/**
@@ -51,13 +57,11 @@ class Tag extends Model
 	* @param int $id, int $active, int $user
 	* $return boolean
      */
-	public function changeStatus($id, $active, $user)
+	public function changeStatus($tag, $active, $user)
 	{
 		
-		$tag = $this->where('id', $id)->where('user', $user)->first();
-
-		if($tag)
-		{
+		if($tag->userData->id == $user)
+		{			
 			$tag->active = $active;
 			$tag->save();
 			return true;
@@ -95,12 +99,15 @@ class Tag extends Model
 	{
 		
 		$tag = $this->where('id', $id)->where('user', $user)->first();
+		
+		
 
 		if($tag)
 		{
 			$tag->name = $name;
 			$tag->save();
 			return true;
+			
 		}
 		return $tag;
 	}

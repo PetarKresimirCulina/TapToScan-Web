@@ -31,9 +31,24 @@ class User extends Authenticatable
 		return $this->hasOne('App\Confirmation');
 	}
 	
+	public function package()
+	{
+		return $this->belongsTo('App\Packages');
+	}
+	
 	public function orders()
 	{
 		return $this->hasMany('App\Order', 'userID');
+	}
+	
+	public function tags()
+	{
+		return $this->hasMany('App\Tag', 'user')->where('deleted', 0);
+	}
+	
+	public function tagsActive()
+	{
+		return $this->hasMany('App\Tag', 'user')->where('deleted', 0)->where('active', 1);
 	}
 	
 	public static function create($request)

@@ -25,7 +25,7 @@ class Order extends Model
 		return $this->belongsToMany('App\Product', 'product_orders', 'order_id', 'product_id')->withPivot('quantity');
 	}
 	
-	public function orders()
+	public function user() //bilo je orders prije pa vrati ako se sve sjebe
 	{
 		return $this->belongsTo('App\User');
 	}

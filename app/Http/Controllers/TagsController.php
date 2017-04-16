@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Tag;
+use App\User;
 use Auth;
 use Carbon\Carbon;
 use Session;
@@ -84,13 +85,18 @@ class TagsController extends Controller
 		{
 			$id = $data['tag'];
 			$active = $data['status'];
-			$tag = new Tag();
-			if($tag->changeStatus($id, $active, Auth::id()))
-			{
-				return 'Success';
+			$tag = Tag::find($id);
+			if($tag->userData->package->tags_limit > $tag->userData->tagsActive->count() || $active == 0) {
+				if($tag->changeStatus($tag, $active, Auth::id()))
+				{
+					return 'Success';
+				}
+			} else {
+				return 'Tag limit reached';
 			}
+			
 		}
-		return 'Failed to modify the table. Please refreshe the page.';
+		return 'Failed to modify the table. Please refresh the page.';
 	}
 	
 	/**
