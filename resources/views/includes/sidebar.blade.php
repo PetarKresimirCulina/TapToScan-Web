@@ -1,4 +1,4 @@
-<div class="hidden-xs col-md-3 col-lg-2 sidebar">
+<div class="hidden-xs col-sm-3 col-md-2 sidebar">
 	<ul class="nav margin-4 text-capitalize">
 		<li><a  {{{ (Request::is('*/home') ? 'class=active' : '') }}} href="{{ route('dashboard.home', App::getLocale()) }}"><i class="material-icons">receipt</i> @lang('navbar.orders') 
 			@if(Auth::user()->orders()->where('status', 0)->count() > 0)

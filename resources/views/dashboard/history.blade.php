@@ -10,7 +10,7 @@
 		<div class="row">
 			@include('includes.sidebar')
 			
-			<div class="col-xs-12 col-lg-10 col-md-9 margin-4">
+			<div class="col-xs-12 col-sm-9 col-md-10 margin-4">
 				@include('includes.emailVerify')
 				<h1 class="margin-bottom-2 text-capitalize">@lang('navbar.history')</h1>
 				<div class="btn-group margin-bottom-2">
@@ -25,8 +25,9 @@
 						
 					</ul>
 				</div>
+				<div class="table-responsive">
 				
-				<table class="table table-hover table-responsive">
+					<table class="table table-hover table-responsive">
 						<tr class="text-capitalize">
 							<th>@lang('dashboardHistory.table')</th>
 							<th>@lang('dashboardHistory.orderNo')</th> 
@@ -143,6 +144,7 @@
 						</tr>
 						@endforeach
 					</table>
+				</div>
 
 				<div class="pagination"> {{ $orders->appends(Request::except('page'))->links() }} </div>
 			</div>

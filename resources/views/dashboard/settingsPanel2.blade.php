@@ -10,7 +10,7 @@
 		<div class="row">
 			@include('includes.sidebar')
 			
-			<div class="col-xs-12 col-lg-10 col-md-9 margin-4">
+			<div class="col-xs-12 col-sm-9 col-md-10 margin-4">
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardSettings.title')</h1>
 				
 				<ul class="nav nav-tabs text-capitalize">
