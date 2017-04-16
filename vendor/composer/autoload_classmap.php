@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddPackageIdToUsersTable' => $baseDir . '/database/migrations/2017_04_16_071801_add_package_id_to_users_table.php',
-    'CreatePackagesTable' => $baseDir . '/database/migrations/2017_04_16_071047_create_packages_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
@@ -462,6 +461,8 @@ return array(
     'Pusher' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
     'PusherException' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
     'PusherInstance' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
+    'RenameTable' => $baseDir . '/database/migrations/2017_04_16_125256_rename_table.php',
+    'RenameUsersPackageId' => $baseDir . '/database/migrations/2017_04_16_125950_rename_users_package_id.php',
     'SebastianBergmann\\CodeCoverage\\CodeCoverage' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage.php',
     'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => $vendorDir . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
     'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => $vendorDir . '/phpunit/php-code-coverage/src/Driver/Driver.php',

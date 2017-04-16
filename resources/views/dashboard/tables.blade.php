@@ -8,7 +8,7 @@
 
 	<div class="container-fluid">
 	
-		<div class="row">
+		<div class="row flex">
 			@include('includes.sidebar')
 			
 			<div class="col-xs-12 col-sm-9 col-md-10 margin-4">
@@ -28,7 +28,7 @@
 				@endif
 
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addTag"><i class="material-icons">add_circle_outline</i> @lang('dashboardTables.addTable')</a>
-				<p class="small">@lang('dashboardTables.tableTagsActive'): {{ Auth::user()->tagsActive->count() }}/{{ Auth::user()->package->tags_limit }} | @lang('dashboardTables.currentPackage'): <a href="{{ route('dashboard.billing', App::getLocale()) }}">{{ Auth::user()->package->name }}</a></p>
+				<p class="small">@lang('dashboardTables.tableTagsActive'): {{ Auth::user()->tagsActive->count() }}/{{ Auth::user()->plan->tags_limit }} | @lang('dashboardTables.currentPlan'): <a href="{{ route('dashboard.billing', App::getLocale()) }}">{{ Auth::user()->plan->name }}</a></p>
 				
 				<div class="table-responsive">
 					<table id="currentTables" class="table table-hover">
@@ -161,7 +161,7 @@
 				</div>
 				<div class="modal-body text-center">
 					<p>@lang('dashboardTables.tagLimitMsg')</p>
-					<a href="{{ route('dashboard.billing', App::getLocale()) }}" class="btn btn-primary text-capitalize">Upgrade package</a>
+					<a href="{{ route('dashboard.billing', App::getLocale()) }}" class="btn btn-primary text-capitalize">@lang('dashboardTables.upgradePlan')</a>
 				</div>
 				<div class="modal-footer text-center">
 					<a href="#" class="btn btn-danger text-capitalize" data-dismiss="modal">@lang('actions.close')</a>

@@ -273,7 +273,6 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
 
     public static $classMap = array (
         'AddPackageIdToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_16_071801_add_package_id_to_users_table.php',
-        'CreatePackagesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_16_071047_create_packages_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
@@ -728,6 +727,8 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
         'PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
         'PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
+        'RenameTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_16_125256_rename_table.php',
+        'RenameUsersPackageId' => __DIR__ . '/../..' . '/database/migrations/2017_04_16_125950_rename_users_package_id.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',

@@ -17,4 +17,5 @@
 		<li><a {{{ (Request::is('*/settings*') ? 'class=active' : '') }}} href="{{ route('dashboard.settings', App::getLocale()) }}"><i class="material-icons">tune</i> @lang('navbar.settings')</a></li>
 		<li><a {{{ (Request::is('*/help') ? 'class=active' : '') }}} href="{{ route('dashboard.help', App::getLocale()) }}"><i class="material-icons">help</i> @lang('navbar.help')</a></li>
 	</ul>
+
 </div>

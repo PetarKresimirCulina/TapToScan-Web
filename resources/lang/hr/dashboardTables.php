@@ -34,8 +34,8 @@ return [
 	'errorFailedUpdate' => 'Nije moguće promijeniti stol',
 	'errorFailedEdit' => 'Nije moguće promijeniti postavke ovog stola. Pokušajte ponovno. ',
 	'tableTagsActive' => 'Aktivne naljepnice na stolovima',
-	'currentPackage' => 'Trenutni paket',
+	'currentPlan' => 'Trenutni paket',
 	'tagLimitTitle' => 'Dosegnut limit NFC naljepnica',
 	'tagLimitMsg' => 'Dosegnut je limit aktivnih NFC naljepnica. Kako biste dodali više NFC naljepnica na stolove, molimo razmotrite mogućnost nadogradnje paketa.',
-	'upgradePackage' => 'Nadogradi paket',
+	'upgradePlan' => 'Nadogradi paket',
 ];

@@ -31,9 +31,9 @@ class User extends Authenticatable
 		return $this->hasOne('App\Confirmation');
 	}
 	
-	public function package()
+	public function plan()
 	{
-		return $this->belongsTo('App\Packages');
+		return $this->belongsTo('App\Plan');
 	}
 	
 	public function orders()

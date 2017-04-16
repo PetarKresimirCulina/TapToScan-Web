@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Packages extends Model
+class Plan extends Model
 {
     public function users() //bilo je orders prije pa vrati ako se sve sjebe
 	{

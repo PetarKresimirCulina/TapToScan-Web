@@ -265,9 +265,19 @@ footer ul {
 .margin-bottom-1 {
     margin-bottom: 1rem;
 }
+.flex {
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
 .sidebar {
     color: #4281A4;
-    background: #fafafa;
+    padding: 15px;
     font-size: 1rem;
     line-height: 2.5rem;
 }

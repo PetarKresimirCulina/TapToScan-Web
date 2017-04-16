@@ -86,7 +86,7 @@ class TagsController extends Controller
 			$id = $data['tag'];
 			$active = $data['status'];
 			$tag = Tag::find($id);
-			if($tag->userData->package->tags_limit > $tag->userData->tagsActive->count() || $active == 0) {
+			if($tag->userData->plan->tags_limit > $tag->userData->tagsActive->count() || $active == 0) {
 				if($tag->changeStatus($tag, $active, Auth::id()))
 				{
 					return 'Success';
