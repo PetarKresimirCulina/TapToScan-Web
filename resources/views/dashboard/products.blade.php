@@ -15,17 +15,7 @@
 				<h1 class="margin-bottom-2 text-capitalize">@lang('navbar.products')</h1>
 				<h4 class="margin-bottom-2">@lang('dashboardProducts.category'): {{ $category->name }}</h4>
 				
-				@if($errors->count() > 0)
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-						@foreach($errors->all() as $message)
-						<div class="alert alert-danger" role="alert">
-							<p>{{ $message }}</p>
-						</div>
-						@endforeach 
-					</div>
-				</div>
-				@endif
+				@include('includes.alerts')
 
 				<a href="{{ url(App::getLocale(), 'categories') }}" class="btn btn-default text-capitalize margin-bottom-2"><i class="material-icons">keyboard_arrow_left</i> @lang('actions.back')</a>
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addProd"><i class="material-icons">add_circle_outline</i> @lang('dashboardProducts.addNewProduct')</a>

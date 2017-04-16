@@ -13,6 +13,7 @@
 			<div class="col-xs-12 col-sm-9 col-md-10 margin-4">
 				@include('includes.emailVerify')
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardBillingPlans.title')</h1>
+				<a href="{{ route('dashboard.billing', App::getLocale()) }}" class="btn btn-default text-capitalize margin-bottom-2"><i class="material-icons">keyboard_arrow_left</i> @lang('actions.back')</a>
 				
 				<div class="col-xs-12">
 					@foreach($plans as $plan)
@@ -23,23 +24,27 @@
 								<i class="material-icons">local_cafe</i>
 							</div>
 							<div class="panel-body">
-								<div class="panel-price">
-									@php $currencyDummy = new \App\Currency(); @endphp
-									<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, 'EUR', '€') }}/@lang('pages/business.month')</h1>
-									<ul class="list-group">
-										<li class="list-group-item">@lang('dashboardBillingPlans.tagsLimit1', ['limit' => $plan->tags_limit])</li>
-										<li class="list-group-item">@lang('pages/business.smallLine2')</li>
-										<li class="list-group-item">@lang('pages/business.smallLine3')</li>
-										<li class="list-group-item">@lang('pages/business.smallLine4')</li>
-									</ul>
-									<div class="text-center">
-										@if(Auth::user()->plan->id == $plan->id)
-											<p>@lang('dashboardBillingPlans.yourPlan')</p>
-										@else
-											<a href="{{ route('register', App::getLocale()) }}" class="btn btn-success btn-lg text-capitalize">@lang('actions.select')</a>
-										@endif
+								<form id="planForm" method="POST" action="{{ route('dashboard.billing.changePlanRequest', App::getLocale()) }}">
+									{{ csrf_field () }}
+									<div class="panel-price">
+										@php $currencyDummy = new \App\Currency(); @endphp
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price, 'EUR', '€') }}/@lang('pages/business.month')</h1>
+										<ul class="list-group">
+											<li class="list-group-item">@lang('dashboardBillingPlans.tagsLimit1', ['limit' => $plan->tags_limit])</li>
+											<li class="list-group-item">@lang('pages/business.smallLine2')</li>
+											<li class="list-group-item">@lang('pages/business.smallLine3')</li>
+											<li class="list-group-item">@lang('pages/business.smallLine4')</li>
+										</ul>
+										<div class="text-center">
+											@if(Auth::user()->plan->id == $plan->id)
+												<p>@lang('dashboardBillingPlans.yourPlan')</p>
+											@else
+												<input id="planID" name="planID" type="hidden" value="{{ $plan->id }}">
+												<input type="submit" class="btn btn-success btn-lg text-capitalize" value="@lang('actions.select')">
+											@endif
+										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 					</div>

@@ -22,6 +22,7 @@ return [
 	'nextPayment' => 'Next payment',
 	'nfcLimit' => 'NFC tags limit',
 	'changePlan' => 'Change plan',
-	'subscriptionSettings' => 'Subscription settings',
+	'subscriptionSettings' => 'Subscription',
 	'paymentHistory' => 'Payment history',
+	'planChangeSuccess' => 'You have successfully changed your subscription plan',
 ];

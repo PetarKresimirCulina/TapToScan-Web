@@ -24,4 +24,5 @@ return [
 	'changePlan' => 'Promjeni paket',
 	'subscriptionSettings' => 'Postavke paketa pretplate',
 	'paymentHistory' => 'Povijest računa',
+	'planChangeSuccess' => 'Uspješno ste promijenili preplatnički paket',
 ];

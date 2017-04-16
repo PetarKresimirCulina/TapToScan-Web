@@ -90,6 +90,11 @@ class User extends Authenticatable
 		return $this->save();
 	}
 	
+	public function changePlan($plan) {
+		$this->plan_id  = $plan;
+		return $this->save();
+	}
+	
 	/**
      * sendPasswordResetNotification
 	* Custom implementation for password reset email

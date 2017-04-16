@@ -14,17 +14,7 @@
 				@include('includes.emailVerify')
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardCategories.title')</h1>
 				
-				@if($errors->count() > 0)
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-						@foreach($errors->all() as $message)
-						<div class="alert alert-danger" role="alert">
-							<p>{{ $message }}</p>
-						</div>
-						@endforeach 
-					</div>
-				</div>
-				@endif
+				@include('includes.alerts')
 
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addCat"><i class="material-icons">add_circle_outline</i> @lang('dashboardCategories.addCategory')</a>
 

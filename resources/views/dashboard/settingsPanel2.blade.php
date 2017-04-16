@@ -11,6 +11,7 @@
 			@include('includes.sidebar')
 			
 			<div class="col-xs-12 col-sm-9 col-md-10 margin-4">
+				@include('includes.emailVerify')
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardSettings.title')</h1>
 				
 				<ul class="nav nav-tabs text-capitalize">
@@ -21,25 +22,7 @@
 				</ul>
 				
 				<div class="col-md-8 col-md-offset-2 margin-4">
-					@if($errors->count() > 0)
-					<div class="row">
-						<div class="col-md-6 col-md-offset-3">
-							@foreach($errors->all() as $message)
-							<div class="alert alert-danger" role="alert">
-								<p>{{ $message }}</p>
-							</div>
-							@endforeach 
-						</div>
-					</div>
-					@elseif(Session::has('success'))
-					<div class="row">
-						<div class="col-md-6 col-md-offset-3">
-							<div class="alert alert-success" role="alert">
-								<p>{{ Session::get('success') }}</p>
-							</div>
-						</div>
-					</div>
-					@endif
+					@include('includes.alerts')
 						<form id="update-form" action="{{ route('dashboard.updatePassword', App::getLocale()) }}" method="post">
 							
 							{{ csrf_field () }}

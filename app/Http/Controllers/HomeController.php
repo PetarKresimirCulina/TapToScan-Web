@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
 use App\Order;
 use App\Tag;
 use App\Plan;
@@ -169,10 +170,34 @@ class HomeController extends Controller
         return view('dashboard.billing');
     }
 	
-	public function billingDisplayPlans()
+	public function billingChangePlanDisplayAll()
     {
 		$plans = Plan::all();
         return view('dashboard.billingPlans')->with('plans', $plans);
+    }
+	
+	public function billingChangePlan(Request $request)
+    {
+		if ($request->isMethod('post')){
+			
+			$rules = ['planID' => 'numeric'];
+				
+			
+			$validator = Validator::make($request->all(), $rules);
+			
+			if ($validator->fails())
+			{
+				$messages = $validator->messages();
+				Session::flash('fail', $messages);
+				return Redirect::back()->withErrors($validator->messages());
+			}
+			if(Auth::user()->changePlan($request['planID'])) {
+				Session::flash('alert-success', Lang::get('dashboardBilling.planChangeSuccess'));
+				return redirect()->route('dashboard.billing', App::getLocale());
+			}
+		}
+		
+        return view('dashboard.billing');
     }
 	
 	/**

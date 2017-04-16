@@ -22,55 +22,36 @@
 				</ul>
 
 				<div class="col-md-8 col-md-offset-2 margin-4">
-					@if($errors->count() > 0)
-					<div class="row">
-						<div class="col-md-6 col-md-offset-3">
-							@foreach($errors->all() as $message)
-							<div class="alert alert-danger" role="alert">
-								<p>{{ $message }}</p>
-							</div>
-							@endforeach 
+					@include('includes.alerts')
+					
+					<form id="update-form" action="{{ route('dashboard.updateUserInformation', App::getLocale()) }}" method="post">
+						{{ csrf_field () }}
+						<div class="form-group">
+						<label class="text-capitalize" for="name">@lang('dashboardSettings.businessName')</label>
+							<input type="text" class="form-control input-lg" name="name" id="name" value="{{ Auth::user()->business_name }}">
 						</div>
-					</div>
-					@elseif(Session::has('success'))
-					<div class="row">
-						<div class="col-md-6 col-md-offset-3">
-							<div class="alert alert-success" role="alert">
-								<p>{{ Session::get('success') }}</p>
-							</div>
+						
+						<div class="form-group">
+							<label class="text-capitalize" for="address">@lang('dashboardSettings.address')</label>
+							<input type="text" class="form-control input-lg" name="address" id="address" value="{{ Auth::user()->address }}">
 						</div>
-					</div>
-					@endif
-						<form id="update-form" action="{{ route('dashboard.updateUserInformation', App::getLocale()) }}" method="post">
+						
+						<div class="form-group">
+							<label class="text-capitalize" for="city">@lang('dashboardSettings.city')</label>
+							<input type="text" class="form-control input-lg" name="city" id="city" value="{{ Auth::user()->city }}">
+						</div>
 							
-							{{ csrf_field () }}
+						<div class="form-group">
+							<label class="text-capitalize" for="zip">@lang('dashboardSettings.zip')</label>
+							<input type="numeric" class="form-control input-lg" name="zip" id="zip" value="{{ Auth::user()->zip }}">
+						</div>
 							
-							<div class="form-group">
-								<label class="text-capitalize" for="name">@lang('dashboardSettings.businessName')</label>
-								<input type="text" class="form-control input-lg" name="name" id="name" value="{{ Auth::user()->business_name }}">
-							</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success btn-lg text-uppercase margin-top-2">@lang('dashboardSettings.update')</button>
+						</div>
 							
-							<div class="form-group">
-								<label class="text-capitalize" for="address">@lang('dashboardSettings.address')</label>
-								<input type="text" class="form-control input-lg" name="address" id="address" value="{{ Auth::user()->address }}">
-							</div>
-							
-							<div class="form-group">
-								<label class="text-capitalize" for="city">@lang('dashboardSettings.city')</label>
-								<input type="text" class="form-control input-lg" name="city" id="city" value="{{ Auth::user()->city }}">
-							</div>
-							
-							<div class="form-group">
-								<label class="text-capitalize" for="zip">@lang('dashboardSettings.zip')</label>
-								<input type="numeric" class="form-control input-lg" name="zip" id="zip" value="{{ Auth::user()->zip }}">
-							</div>
-							
-							<div class="text-center">
-								<button type="submit" class="btn btn-success btn-lg text-uppercase margin-top-2">@lang('dashboardSettings.update')</button>
-							</div>
-							
-						</form>
-					</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
