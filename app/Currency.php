@@ -18,4 +18,21 @@ class Currency extends Model
 	{
 		$this->hasMany('App\Product', 'currency_id');
 	}
+
+	public function formatCurrency($locale, $value, $code, $symbol)
+	{
+		
+		switch ($locale) {
+			case 'en':
+				return $code . number_format($value, 2, '.', ',');
+				break;
+			case 'hr':
+				return number_format($value, 2, ',', '.') . ' ' . $symbol;
+				break;
+			default:
+				//en
+				return $code . number_format($value, 2, '.', ',');
+				break;
+		}
+	}
 }

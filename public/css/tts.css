@@ -17,6 +17,8 @@ body {
 
 .badge.notification {
 	background-color: #d9534f;
+	color: #fff;
+	transition: none;
 }
 
 .sidebar > ul > li > a {
@@ -281,21 +283,12 @@ footer ul {
     font-size: 1rem;
     line-height: 2.5rem;
 }
-.sidebar li:active,
-.sidebar li:hover,
-.sidebar li:focus {
-    transition: all 0.5s ease;
-}
+
 .sidebar ul li a {
     transition: all 0.5s ease;
     color: #4281A4;
 }
-.sidebar ul li a:active,
-.sidebar ul li a:hover,
-.sidebar ul li a:focus {
-    color: #F28F3B;
-    transition: all 0.5s ease;
-}
+
 .sidebar .active {
     color: #F28F3B;
 }

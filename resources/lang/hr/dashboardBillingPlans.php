@@ -12,14 +12,9 @@ return [
     */
 
 	//navigation
-    'delete' => 'Delete',
-    'rename' => 'Rename',
-	'edit' => 'Edit',
-	'save' => 'Save',
-	'cancel' => 'Cancel',
-	'back' => 'Back',
-	'close' => 'Close',
-	'yes' => 'Yes',
-	'no' => 'No',
-	'select' => 'Select',
+	'title' => 'Odaberite paket',
+	'description' => 'Odaberite TapToScan pretplatnički paket',
+	'keywords' => 'taptoscan, pretplatnički paket',
+	'tagsLimit1' => 'Do :limit stolova (aktivnih NFC oznaka)',
+	'yourPlan' => 'Vaš trenutni paket',
 ];

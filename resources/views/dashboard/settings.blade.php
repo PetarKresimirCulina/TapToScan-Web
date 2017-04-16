@@ -15,12 +15,12 @@
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardSettings.title')</h1>
 				
 				<ul class="nav nav-tabs text-capitalize">
-					<li class="active"><a href="{{ route('dashboard.settings', App::getLocale()) }}">@lang('dashboardSettings.basicInfo')</a></li>
-					<li><a href="{{ route('dashboard.settingsPanel2', App::getLocale()) }}">@lang('dashboardSettings.password')</a></li>
+					<li class="active"><a href="{{ route('dashboard.settings', App::getLocale()) }}"><i class="material-icons">account_circle</i> @lang('dashboardSettings.basicInfo')</a></li>
+					<li><a href="{{ route('dashboard.settingsPanel2', App::getLocale()) }}"><i class="material-icons">verified_user</i> @lang('dashboardSettings.password')</a></li>
 					
 					
 				</ul>
-				
+
 				<div class="col-md-8 col-md-offset-2 margin-4">
 					@if($errors->count() > 0)
 					<div class="row">

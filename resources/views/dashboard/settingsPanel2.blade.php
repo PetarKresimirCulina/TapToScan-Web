@@ -14,8 +14,8 @@
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardSettings.title')</h1>
 				
 				<ul class="nav nav-tabs text-capitalize">
-					<li><a href="{{ route('dashboard.settings', App::getLocale()) }}">@lang('dashboardSettings.basicInfo')</a></li>
-					<li class="active"><a href="{{ route('dashboard.settingsPanel2', App::getLocale()) }}">@lang('dashboardSettings.password')</a></li>
+					<li><a href="{{ route('dashboard.settings', App::getLocale()) }}"><i class="material-icons">account_circle</i> @lang('dashboardSettings.basicInfo')</a></li>
+					<li class="active"><a href="{{ route('dashboard.settingsPanel2', App::getLocale()) }}"><i class="material-icons">verified_user</i> @lang('dashboardSettings.password')</a></li>
 					
 					
 				</ul>

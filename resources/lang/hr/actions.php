@@ -21,4 +21,5 @@ return [
 	'close' => 'Zatvori',
 	'yes' => 'Da',
 	'no' => 'Ne',
+	'select' => 'Odaberi',
 ];

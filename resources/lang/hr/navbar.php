@@ -23,7 +23,7 @@ return [
 	'history' => 'Povijest narudžbi',
 	'tables' => 'Moji stolovi',
 	'products' => 'Moji proizvodi',
-	'billing' => 'Računi',
+	'billing' => 'Naplata',
 	'order' => 'Naruči NFC',
 	'settings' => 'Postavke',
 	'help' => 'Pomoć',

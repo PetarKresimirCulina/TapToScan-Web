@@ -62,6 +62,7 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 
 	/* billing */
 	Route::get('/billing', 'HomeController@billing')->name('dashboard.billing');
+	Route::get('/billing/plans', 'HomeController@billingDisplayPlans')->name('dashboard.billing.displayPlans');
 
 	/* ordertags */
 	Route::get('/ordertags', 'HomeController@ordertags')->name('dashboard.ordertags');

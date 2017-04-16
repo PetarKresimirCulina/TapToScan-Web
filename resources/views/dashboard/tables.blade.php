@@ -28,7 +28,7 @@
 				@endif
 
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addTag"><i class="material-icons">add_circle_outline</i> @lang('dashboardTables.addTable')</a>
-				<p class="small">@lang('dashboardTables.tableTagsActive'): {{ Auth::user()->tagsActive->count() }}/{{ Auth::user()->plan->tags_limit }} | @lang('dashboardTables.currentPlan'): <a href="{{ route('dashboard.billing', App::getLocale()) }}">{{ Auth::user()->plan->name }}</a></p>
+				<p class="small" id="tagsCounter" data-active="{{ Auth::user()->tagsActive->count() }}" data-limit="{{ Auth::user()->plan->tags_limit }}">@lang('dashboardTables.tableTagsActive'): {{ Auth::user()->tagsActive->count() }}/{{ Auth::user()->plan->tags_limit }} | @lang('dashboardTables.currentPlan'): <a href="{{ route('dashboard.billing', App::getLocale()) }}">{{ Auth::user()->plan->name }}</a></p>
 				
 				<div class="table-responsive">
 					<table id="currentTables" class="table table-hover">
@@ -207,12 +207,20 @@
 								$(btn).addClass("btn-success").removeClass("btn-warning").html("<i class=\"material-icons\">check_circle</i> @lang('dashboardTables.active')");
 								$(btn).data('requestRunning', false);
 								$(btn).data('status', 0);
+								var activeCounter = $('#tagsCounter').data('active') + 1;
+								var tagLimit = $('#tagsCounter').data('limit');
+								$('#tagsCounter').data('active', activeCounter);
+								$('#tagsCounter').html("@lang('dashboardTables.tableTagsActive'): " + activeCounter + "/" + tagLimit + " | @lang('dashboardTables.currentPlan'): <a href=\"{{ route('dashboard.billing', App::getLocale()) }}\">{{ Auth::user()->plan->name }}</a>");
 							}
 							else
 							{
 								$(btn).addClass("btn-warning").removeClass("btn-success").html("<i class=\"material-icons\">warning</i> @lang('dashboardTables.notActive')");
 								$(btn).data('requestRunning', false);
 								$(btn).data('status', 1);
+								var activeCounter = $('#tagsCounter').data('active') - 1;
+								var tagLimit = $('#tagsCounter').data('limit');
+								$('#tagsCounter').data('active', activeCounter);
+								$('#tagsCounter').html("@lang('dashboardTables.tableTagsActive'): " + activeCounter + "/" + tagLimit + " | @lang('dashboardTables.currentPlan'): <a href=\"{{ route('dashboard.billing', App::getLocale()) }}\">{{ Auth::user()->plan->name }}</a>");
 							}
 							
 						} else if(data = 'Tag limit reached'){

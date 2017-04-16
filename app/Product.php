@@ -58,7 +58,7 @@ class Product extends Model
 				return $this->currency->code . number_format($value, 2, '.', ',');
 				break;
 			case 'hr':
-				return number_format($value, 2, ',', '.') . ' ' . $this->currency->symbol;;
+				return number_format($value, 2, ',', '.') . ' ' . $this->currency->symbol;
 				break;
 			default:
 				//en

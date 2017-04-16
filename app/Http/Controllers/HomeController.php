@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Tag;
+use App\Plan;
 use Auth;
 use Carbon\Carbon;
 use Session;
@@ -166,6 +167,12 @@ class HomeController extends Controller
 	public function billing()
     {
         return view('dashboard.billing');
+    }
+	
+	public function billingDisplayPlans()
+    {
+		$plans = Plan::all();
+        return view('dashboard.billingPlans')->with('plans', $plans);
     }
 	
 	/**
