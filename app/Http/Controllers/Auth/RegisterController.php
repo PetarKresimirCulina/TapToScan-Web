@@ -74,7 +74,7 @@ class RegisterController extends Controller
     }
 	
 	public function redirectTo() {
-		return route('dashboard.home', App::getLocale());
+		return route('dashboard.verify', App::getLocale());
 	}
 	
 	// custom functions

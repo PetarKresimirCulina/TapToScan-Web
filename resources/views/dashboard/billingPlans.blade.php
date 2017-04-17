@@ -11,7 +11,6 @@
 			@include('includes.sidebar')
 			
 			<div class="col-xs-12 col-sm-9 col-md-10 margin-4">
-				@include('includes.emailVerify')
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardBillingPlans.title')</h1>
 				<a href="{{ route('dashboard.billing', App::getLocale()) }}" class="btn btn-default text-capitalize margin-bottom-2"><i class="material-icons">keyboard_arrow_left</i> @lang('actions.back')</a>
 				

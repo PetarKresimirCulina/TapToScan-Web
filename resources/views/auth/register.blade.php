@@ -9,17 +9,7 @@
 	
 		<div class="row text-center margin-4">
 			<h1 class="margin-bottom-2">@lang('register.register')</h1>
-					@if($errors->count() > 0)
-						<div class="row margin-4">
-							<div class="col-md-6 col-md-offset-3">
-								@foreach($errors->all() as $message)
-								<div class="alert alert-danger" role="alert">
-									<p>{{ $message }}</p>
-								</div>
-								@endforeach 
-							</div>
-						</div>
-					@endif
+			@include('includes.alerts')
 			
 			<div class="col-md-6 col-md-offset-3 text-center">
 				<form id="register-form" action="{{ route('register', App::getLocale()) }}" method="post">

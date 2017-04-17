@@ -21,6 +21,7 @@ return [
 	'password_confirmation' => 'Repeat password',
 	'country' => 'Country',
 	'register_btn' => 'Register',
+	'verifyTitle' => 'Verify your email',
 	'verifyEmail' => 'Please verify your email address by clicking on a link that has been sent to',
 	'resendVerification' => 'Resend email',
 ];

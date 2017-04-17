@@ -21,6 +21,7 @@ return [
 	'password_confirmation' => 'Ponovite lozinku',
 	'country' => 'Zemlja',
 	'register_btn' => 'Registriracija',
+	'verifyTitle' => 'Potvrdite svoj email',
 	'verifyEmail' => 'Molimo potvrdite svoju email adresu klikom na link u email poruci poslanoj na',
 	'resendVerification' => 'Ponovno pošalji email',
 ];

@@ -15,8 +15,13 @@ class User extends Authenticatable
     use Notifiable;
 	 
 	public $timestamps = false;
+	/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'email', 'password'
+        'email', 'password', 'stripe_customer_id'
     ];
 	
 	/**
@@ -49,6 +54,20 @@ class User extends Authenticatable
 	public function tagsActive()
 	{
 		return $this->hasMany('App\Tag', 'user')->where('deleted', 0)->where('active', 1);
+	}
+	
+	public function isUserVerified() {
+		if($this->email_verified == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public function isUserSetup() {
+		if($this->plan_id == null) {
+			return false;
+		}
+		return true;
 	}
 	
 	public static function create($request)

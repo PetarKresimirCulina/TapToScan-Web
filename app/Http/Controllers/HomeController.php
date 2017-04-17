@@ -8,6 +8,7 @@ use App\Order;
 use App\Tag;
 use App\Plan;
 use Auth;
+use emailVerification;
 use Carbon\Carbon;
 use Session;
 use Validator;
@@ -48,6 +49,10 @@ class HomeController extends Controller
 	{
 		Auth::user()->verified($token);
 		return Redirect::back();
+	}
+	
+	public function displayEmailVerification() {
+		return view('auth.emailVerify');
 	}
 	
 	public function resendVerification()

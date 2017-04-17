@@ -19,8 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-
-            return redirect()->route('dashboard.home', App::getLocale());
+			return redirect()->route('dashboard.home', App::getLocale());
         }
 
         return $next($request);
