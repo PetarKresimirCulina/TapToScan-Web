@@ -23,8 +23,6 @@
 								<i class="material-icons">local_cafe</i>
 							</div>
 							<div class="panel-body">
-								<form id="planForm" method="POST" action="{{ route('dashboard.billing.changePlanRequest', App::getLocale()) }}">
-									{{ csrf_field () }}
 									<div class="panel-price">
 										@php $currencyDummy = new \App\Currency(); @endphp
 										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price, 'EUR', '€') }}/@lang('pages/business.month')</h1>
@@ -37,13 +35,10 @@
 										<div class="text-center">
 											@if(Auth::user()->plan->id == $plan->id)
 												<p>@lang('dashboardBillingPlans.yourPlan')</p>
-											@else
-												<input id="planID" name="planID" type="hidden" value="{{ $plan->id }}">
-												<input type="submit" class="btn btn-success btn-lg text-capitalize" value="@lang('actions.select')">
+
 											@endif
 										</div>
 									</div>
-								</form>
 							</div>
 						</div>
 					</div>

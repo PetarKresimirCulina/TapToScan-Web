@@ -27,6 +27,7 @@
 							<p><span class="bold">@lang('dashboardBilling.currentPlanShort'): </span>{{ Auth::user()->plan->name }}</p>
 							@php $currencyDummy = new \App\Currency(); @endphp
 							<p><span class="bold">@lang('dashboardBilling.monthlyFee'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, 'EUR', '€') }}</p>
+
 							<hr>
 							<p><span class="bold">@lang('dashboardBilling.lastPayment'): </span>15/04/2017</p>
 							<p><span class="bold">@lang('dashboardBilling.nextPayment'): </span>15/05/2017</p>

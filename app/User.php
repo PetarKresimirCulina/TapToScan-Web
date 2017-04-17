@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use Laravel\Cashier\Billable;
+
 
 /**
      * User
@@ -13,6 +15,7 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
 class User extends Authenticatable
 {
     use Notifiable;
+	use Billable;
 	 
 	public $timestamps = false;
 	/**
@@ -21,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'stripe_customer_id'
+        'email', 'password'
     ];
 	
 	/**

@@ -25,4 +25,5 @@ return [
 	'subscriptionSettings' => 'Subscription',
 	'paymentHistory' => 'Payment history',
 	'planChangeSuccess' => 'You have successfully changed your subscription plan',
+	'trial' => 'Trial ends in',
 ];

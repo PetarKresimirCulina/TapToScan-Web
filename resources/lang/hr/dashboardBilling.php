@@ -25,4 +25,5 @@ return [
 	'subscriptionSettings' => 'Postavke paketa pretplate',
 	'paymentHistory' => 'Povijest računa',
 	'planChangeSuccess' => 'Uspješno ste promijenili preplatnički paket',
+	'trial' => 'Probni period prestaje',
 ];

@@ -83,6 +83,9 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 		
 		/* payment routes */
 		
+		Route::post('/checkout/subscribe', 'PaymentsController@subscribe')->name('stripe.subscribe');
+		Route::post('/checkout/changePlan', 'PaymentsController@changePlan')->name('stripe.subscribeChange');
+		
 	});
 	
 	
