@@ -32,9 +32,8 @@ return array(
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
-    'Laravel\\Cashier\\' => array($vendorDir . '/laravel/cashier/src'),
+    'Laravel\\Cashier\\' => array($vendorDir . '/laravel/cashier/src', $vendorDir . '/laravel/cashier-braintree/src'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
-    'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
@@ -42,5 +41,6 @@ return array(
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Cron\\' => array($vendorDir . '/mtdowling/cron-expression/src/Cron'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
+    'Braintree\\' => array($vendorDir . '/braintree/braintree_php/lib/Braintree'),
     'App\\' => array($baseDir . '/app'),
 );

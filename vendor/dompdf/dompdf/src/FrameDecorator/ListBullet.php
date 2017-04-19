@@ -27,19 +27,13 @@ class ListBullet extends AbstractFrameDecorator
 
     static $BULLET_TYPES = array("disc", "circle", "square");
 
-    /**
-     * ListBullet constructor.
-     * @param Frame $frame
-     * @param Dompdf $dompdf
-     */
+    //........................................................................
+
     function __construct(Frame $frame, Dompdf $dompdf)
     {
         parent::__construct($frame, $dompdf);
     }
 
-    /**
-     * @return float|int
-     */
     function get_margin_width()
     {
         $style = $this->_frame->get_style();
@@ -55,11 +49,7 @@ class ListBullet extends AbstractFrameDecorator
         return $style->get_font_size() * self::BULLET_SIZE + 2 * self::BULLET_PADDING;
     }
 
-    /**
-     * hits only on "inset" lists items, to increase height of box
-     *
-     * @return float|int
-     */
+    //hits only on "inset" lists items, to increase height of box
     function get_margin_height()
     {
         $style = $this->_frame->get_style();
@@ -71,17 +61,11 @@ class ListBullet extends AbstractFrameDecorator
         return $style->get_font_size() * self::BULLET_SIZE + 2 * self::BULLET_PADDING;
     }
 
-    /**
-     * @return float|int
-     */
     function get_width()
     {
         return $this->get_margin_height();
     }
 
-    /**
-     * @return float|int
-     */
     function get_height()
     {
         return $this->get_margin_height();

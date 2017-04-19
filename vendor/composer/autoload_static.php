@@ -78,7 +78,6 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         ),
         'F' => 
         array (
-            'FontLib\\' => 8,
             'Faker\\' => 6,
         ),
         'D' => 
@@ -92,6 +91,10 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         array (
             'Cron\\' => 5,
             'Carbon\\' => 7,
+        ),
+        'B' => 
+        array (
+            'Braintree\\' => 10,
         ),
         'A' => 
         array (
@@ -209,14 +212,11 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'Laravel\\Cashier\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/cashier/src',
+            1 => __DIR__ . '/..' . '/laravel/cashier-braintree/src',
         ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
-        ),
-        'FontLib\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
         ),
         'Faker\\' => 
         array (
@@ -246,6 +246,10 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'Braintree\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/braintree/braintree_php/lib/Braintree',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -258,10 +262,6 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
             'Svg\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src',
-            ),
-            'Sabberworm\\CSS' => 
-            array (
-                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
             ),
         ),
         'P' => 
@@ -293,6 +293,13 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
                 0 => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src',
             ),
         ),
+        'F' => 
+        array (
+            'FontLib\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phenx/php-font-lib/src',
+            ),
+        ),
         'D' => 
         array (
             'Doctrine\\Common\\Inflector\\' => 
@@ -300,9 +307,17 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
                 0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
             ),
         ),
+        'B' => 
+        array (
+            'Braintree' => 
+            array (
+                0 => __DIR__ . '/..' . '/braintree/braintree_php/lib',
+            ),
+        ),
     );
 
     public static $classMap = array (
+        'BraintreeTableModify' => __DIR__ . '/../..' . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
@@ -842,7 +857,6 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
-        'StripeMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_17_124516_stripe_migration.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
     );
 

@@ -18,9 +18,8 @@ use Dompdf\FrameDecorator\Table;
 class TableCell extends Block
 {
 
-    /**
-     * @param Frame $frame
-     */
+    //........................................................................
+
     function render(Frame $frame)
     {
         $style = $frame->get_style();
@@ -34,7 +33,7 @@ class TableCell extends Block
 
         // Draw our background, border and content
         if (($bg = $style->background_color) !== "transparent") {
-            $this->_canvas->filled_rectangle($x, $y, (float)$w, (float)$h, $bg);
+            $this->_canvas->filled_rectangle($x, $y, $w, $h, $bg);
         }
 
         if (($url = $style->background_image) && $url !== "none") {
@@ -67,9 +66,9 @@ class TableCell extends Block
         if (in_array($num_rows - 1, $cells["rows"])) {
             $draw_bottom = true;
             $bottom_row = $cellmap->get_row($num_rows - 1);
-        } else {
+        } else
             $draw_bottom = false;
-        }
+
 
         // Draw the horizontal borders
         foreach ($cells["columns"] as $j) {
@@ -82,12 +81,10 @@ class TableCell extends Block
             $w = $col["used-width"] + ($bp["left"]["width"] + $bp["right"]["width"]) / 2;
 
             if ($bp["top"]["style"] !== "none" && $bp["top"]["width"] > 0) {
-                $widths = array(
-                    (float)$bp["top"]["width"],
-                    (float)$bp["right"]["width"],
-                    (float)$bp["bottom"]["width"],
-                    (float)$bp["left"]["width"]
-                );
+                $widths = array($bp["top"]["width"],
+                    $bp["right"]["width"],
+                    $bp["bottom"]["width"],
+                    $bp["left"]["width"]);
                 $method = "_border_" . $bp["top"]["style"];
                 $this->$method($x, $y, $w, $bp["top"]["color"], $widths, "top", "square");
             }
@@ -99,12 +96,10 @@ class TableCell extends Block
 
                 $y = $bottom_row["y"] + $bottom_row["height"] + $bp["bottom"]["width"] / 2;
 
-                $widths = array(
-                    (float)$bp["top"]["width"],
-                    (float)$bp["right"]["width"],
-                    (float)$bp["bottom"]["width"],
-                    (float)$bp["left"]["width"]
-                );
+                $widths = array($bp["top"]["width"],
+                    $bp["right"]["width"],
+                    $bp["bottom"]["width"],
+                    $bp["left"]["width"]);
                 $method = "_border_" . $bp["bottom"]["style"];
                 $this->$method($x, $y, $w, $bp["bottom"]["color"], $widths, "bottom", "square");
 
@@ -118,9 +113,8 @@ class TableCell extends Block
         if (in_array($num_cols - 1, $cells["columns"])) {
             $draw_right = true;
             $right_col = $cellmap->get_column($num_cols - 1);
-        } else {
+        } else
             $draw_right = false;
-        }
 
         // Draw the vertical borders
         foreach ($cells["rows"] as $i) {
@@ -134,12 +128,11 @@ class TableCell extends Block
             $h = $row["height"] + ($bp["top"]["width"] + $bp["bottom"]["width"]) / 2;
 
             if ($bp["left"]["style"] !== "none" && $bp["left"]["width"] > 0) {
-                $widths = array(
-                    (float)$bp["top"]["width"],
-                    (float)$bp["right"]["width"],
-                    (float)$bp["bottom"]["width"],
-                    (float)$bp["left"]["width"]
-                );
+
+                $widths = array($bp["top"]["width"],
+                    $bp["right"]["width"],
+                    $bp["bottom"]["width"],
+                    $bp["left"]["width"]);
 
                 $method = "_border_" . $bp["left"]["style"];
                 $this->$method($x, $y, $h, $bp["left"]["color"], $widths, "left", "square");
@@ -147,27 +140,21 @@ class TableCell extends Block
 
             if ($draw_right) {
                 $bp = $cellmap->get_border_properties($i, $num_cols - 1);
-                if ($bp["right"]["style"] === "none" || $bp["right"]["width"] <= 0) {
+                if ($bp["right"]["style"] === "none" || $bp["right"]["width"] <= 0)
                     continue;
-                }
 
                 $x = $right_col["x"] + $right_col["used-width"] + $bp["right"]["width"] / 2;
 
-                $widths = array(
-                    (float)$bp["top"]["width"],
-                    (float)$bp["right"]["width"],
-                    (float)$bp["bottom"]["width"],
-                    (float)$bp["left"]["width"]
-                );
+                $widths = array($bp["top"]["width"],
+                    $bp["right"]["width"],
+                    $bp["bottom"]["width"],
+                    $bp["left"]["width"]);
 
                 $method = "_border_" . $bp["right"]["style"];
                 $this->$method($x, $y, $h, $bp["right"]["color"], $widths, "right", "square");
+
             }
         }
 
-        $id = $frame->get_node()->getAttribute("id");
-        if (strlen($id) > 0)  {
-            $this->_canvas->add_named_dest($id);
-        }
     }
 }
