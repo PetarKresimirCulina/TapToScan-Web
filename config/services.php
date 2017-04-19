@@ -28,5 +28,13 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
+	
+	'braintree' => [
+		'model'  => App\User::class,
+		'environment' => env('BRAINTREE_ENV'),
+		'merchant_id' => env('BRAINTREE_MERCHANT_ID'),
+		'public_key' => env('BRAINTREE_PUBLIC_KEY'),
+		'private_key' => env('BRAINTREE_PRIVATE_KEY'),
+	],
 
 ];
