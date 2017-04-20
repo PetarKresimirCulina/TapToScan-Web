@@ -6,6 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 use Laravel\Cashier\Billable;
+use Illuminate\Http\Request;
+use App\Plan;
+use Braintree_Customer;
+use Carbon\Carbon;
 
 
 /**
@@ -16,6 +20,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 	use Billable;
+	
 	 
 	public $timestamps = false;
 	/**
@@ -80,6 +85,7 @@ class User extends Authenticatable
 		$user->email = $request['email'];
 		$user->password = $request['password'];
 		$user->country = $request['country'];
+		$user->braintree_id = $user->createBraintreeUser();
 		
 		if($user->save())
 		{
@@ -112,10 +118,51 @@ class User extends Authenticatable
 		return $this->save();
 	}
 	
-	public function changePlan($plan) {
-		$this->plan_id  = $plan;
+	// Braintree integration
+	
+	public function createBraintreeUser() {
+		$result = Braintree_Customer::create(array(
+			'firstName' => 'Saurabh',
+			'lastName' => 'Sharma',
+			'email' => $this->email,
+			'company' => $this->business_name,
+		));
+		if ($result->success) {
+			return $result->customer->id;
+		}
+	}
+	
+	public function createFirstSubscription(Request $request) {
+		$plan = Plan::findOrFail($request['planID']);
+		  
+		// subscribe the user
+		// non-existing user
+		// $this->newSubscription('main', strval($plan->id))->trialDays(30)->create($request['payment_method_nonce']);
+			
+		// existing user
+		$this->newSubscription('main', strval($plan->id))->trialDays(30)->create();
+		$this->trial_ends_at = Carbon::now()->addDays(30);
+
+		$this->plan_id  = $plan->id;
 		return $this->save();
 	}
+	
+	public function changePlan(Request $request) {
+		// get the plan after submitting the form
+		$plan = Plan::findOrFail($request['planID']);
+		  
+		// subscribe the user
+		// non-existing user
+		//$this->newSubscription('main', strval($plan->id))->trialDays(30)->create($request['payment_method_nonce']);
+			
+		// existing user
+		$this->subscription('main')->swap(strval($plan->id));
+
+		$this->plan_id  = $plan->id;
+		return $this->save();
+	}
+	
+	/* ################################################## */
 	
 	/**
      * sendPasswordResetNotification

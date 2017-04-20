@@ -20,7 +20,16 @@
 						<div class="panel panel-default panel-business">
 							<div class="panel-heading text-center">
 								<h1>{{ $plan->name }}</h1>
-								<i class="material-icons">local_cafe</i>
+								@if($plan->name == 'Small')
+									<i class="material-icons">local_cafe</i>
+								@elseif($plan->name == 'Medium')
+									<i class="material-icons">local_cafe</i>
+									<i class="material-icons">local_cafe</i>
+								@else
+									<i class="material-icons">local_cafe</i>
+									<i class="material-icons">local_cafe</i>
+									<i class="material-icons">local_cafe</i>
+								@endif
 							</div>
 							<div class="panel-body">
 									<div class="panel-price">
@@ -35,7 +44,9 @@
 										<div class="text-center">
 											@if(Auth::user()->plan->id == $plan->id)
 												<p>@lang('dashboardBillingPlans.yourPlan')</p>
-
+											@else
+												<a href="#" class="btn btn-success btn-subscribe" data-toggle="modal" data-target="#planChange" data-id="{{ $plan->id }}" data-name="{{ $plan->name }}" data-price="{{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price, 'EUR', '€') }}/@lang('pages/business.month')">@lang('actions.select')</a>
+											
 											@endif
 										</div>
 									</div>
@@ -47,4 +58,64 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="planChange" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title text-capitalize">@lang('dashboardBilling.changePlan')</h4>
+				</div>
+				<form class="inline" action="{{ route('subscription.change', App::getLocale()) }}" method="POST">
+					{{ csrf_field() }}
+					<input type="hidden" name="planID" id="planID" value="1" />
+					<div class="modal-body text-center">
+						<h1 class="text-capitalize" id="planName"></h1>
+						<p class="text-capitalize" id="planPrice"></p>
+						<hr>
+						<div id="dropin-container"></div>
+					</div>
+					<div class="modal-footer text-center">
+						 <button id="payment-button" class="btn btn-primary btn-flat hidden" type="submit">@lang('actions.subscribe')</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>												
+	
+@stop	
+@section('javascript')
+	<script src="https://js.braintreegateway.com/js/braintree-2.30.0.min.js"></script>
+	
+	<script>
+        $.ajax({
+            url: '{{ route('braintree.generateToken', App::getLocale()) }}'
+        }).done(function (response) {
+            braintree.setup(response.data.token, 'dropin', {
+                container: 'dropin-container',
+				paypal: {
+					button: {
+						type: 'checkout'
+					}
+				},
+                onReady: function () {
+                    $('#payment-button').removeClass('hidden');
+                }
+            });
+        });
+    </script>
+	
+	<script>
+		$(document).ready(function() {
+			
+			$(".btn-subscribe").click(function(e){
+				$('#planID').val($(this).data('id'));
+				$('#planName').html($(this).data('name'));
+				$('#planPrice').html($(this).data('price'));
+			});
+		});
+	</script>
+	
+
 @stop

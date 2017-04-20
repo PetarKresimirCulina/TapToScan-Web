@@ -22,4 +22,5 @@ return [
 	'yes' => 'Da',
 	'no' => 'Ne',
 	'select' => 'Odaberi',
+	'subscribe' => 'Pretplati se',
 ];

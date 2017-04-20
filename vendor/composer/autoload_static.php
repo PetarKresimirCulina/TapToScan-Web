@@ -50,7 +50,6 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
-            'Stripe\\' => 7,
         ),
         'R' => 
         array (
@@ -177,10 +176,6 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'Stripe\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
-        ),
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -211,8 +206,7 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         ),
         'Laravel\\Cashier\\' => 
         array (
-            0 => __DIR__ . '/..' . '/laravel/cashier/src',
-            1 => __DIR__ . '/..' . '/laravel/cashier-braintree/src',
+            0 => __DIR__ . '/..' . '/laravel/cashier-braintree/src',
         ),
         'Illuminate\\' => 
         array (
@@ -775,6 +769,7 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'PHP_Token_XOR_EQUAL' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PlanIdForeignKey' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_152421_plan_id_foreign_key.php',
         'Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
         'PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
         'PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
@@ -858,6 +853,7 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'UserDetailsName' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_181355_user_details_name.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

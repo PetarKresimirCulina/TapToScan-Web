@@ -464,6 +464,7 @@ return array(
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
+    'PlanIdForeignKey' => $baseDir . '/database/migrations/2017_04_20_152421_plan_id_foreign_key.php',
     'Pusher' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
     'PusherException' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
     'PusherInstance' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
@@ -547,4 +548,5 @@ return array(
     'SebastianBergmann\\ResourceOperations\\ResourceOperations' => $vendorDir . '/sebastian/resource-operations/src/ResourceOperations.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UserDetailsName' => $baseDir . '/database/migrations/2017_04_20_181355_user_details_name.php',
 );

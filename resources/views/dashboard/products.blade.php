@@ -33,7 +33,7 @@
 								<td>{{ $product->formatCurrency(Lang::locale(), $product->price) }}</td> 
 								<td>
 									<a href="#" class="btn btn-primary btn-edit" data-toggle="modal" data-target="#editProd" data-id="{{ $product->id }}" data-price="{{ $product->price }}" data-name="{{ $product->name }}" data-currency="{{ $product->currency->id }}"><i class="material-icons">edit</i> @lang('actions.edit')</a>
-									<a href="#" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirmDelete" data-id="{{ $product->id }}"><i class="material-icons">delete</i> @lang('actions.delete')</button>
+									<a href="#" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirmDelete" data-id="{{ $product->id }}"><i class="material-icons">delete</i> @lang('actions.delete')</a>
 								</td>
 							</tr>
 						@endforeach
