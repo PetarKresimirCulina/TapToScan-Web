@@ -1,7 +1,7 @@
 @extends('layouts.core')
-@section('title', 'Billing')
-@section('description', 'Manage your account billing and invoices')
-@section('keywords', 'taptoscan, billing, user, dashboard')
+@section('title', __('dashboardBilling.title'))
+@section('description', __('dashboardBilling.description'))
+@section('keywords', __('dashboardBilling.keywords'))
 
 @section('content')
 
@@ -29,8 +29,19 @@
 							<p><span class="bold">@lang('dashboardBilling.monthlyFee'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, 'EUR', '€') }}</p>
 
 							<hr>
-							<p><span class="bold">@lang('dashboardBilling.lastPayment'): </span>15/04/2017</p>
-							<p><span class="bold">@lang('dashboardBilling.nextPayment'): </span>15/05/2017</p>
+							<p><span class="bold">@lang('dashboardBilling.balance'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->balance), 'EUR', '€') }}</p>
+							<p><span class="bold">@lang('dashboardBilling.nextPayment'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->nextBillAmount), 'EUR', '€') }}</p>
+							<p><span class="bold">@lang('dashboardBilling.nextPaymentDate'): </span>{{ $subscription->nextBillingDate->format("d.m.Y.")  }}</p>
+							<p><span class="bold">@lang('dashboardBilling.paymentMethod'): </span>
+							
+								@if(Auth::user()->card_last_four != null)
+									XXXX-XXXX-XXXX-{{ Auth::user()->card_last_four  }} ({{ Auth::user()->card_brand }}) 
+								@elseif(Auth::user()->paypal_email != null)
+								{{ Auth::user()->paypal_email }} (Paypal)
+								@endif
+								<a href="#" data-toggle="modal" data-target="#editCC">@lang('actions.edit')</a>
+								
+							</p>
 							<hr>
 							<p><span class="bold">@lang('dashboardBilling.nfcLimit'): </span>{{ Auth::user()->plan->tags_limit }}</p>
 							<div class="text-center">
@@ -42,4 +53,69 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="editCC" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title text-capitalize">@lang('dashboardBilling.editPaymentMethod')</h4>
+				</div>
+				<form id="change" class="inline" action="{{ route('subscription.editCC', App::getLocale()) }}" method="POST">
+					{{ csrf_field() }}
+					<div class="modal-body text-center">
+						<div id="dropin-container"></div>
+					</div>
+					<div class="modal-footer text-center">
+						 <button id="payment-button" class="btn btn-success btn-flat hidden" type="submit">@lang('actions.save')</button>
+						 <a href="#" id="btnNo" data-dismiss="modal" class="btn btn-danger btn-flat hidden">@lang('actions.cancel')</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>					
+@stop
+
+@section('javascript')
+	<script src="https://js.braintreegateway.com/js/braintree-2.30.0.min.js"></script>
+	
+	<script>
+        $.ajax({
+            url: '{{ route('braintree.generateToken', App::getLocale()) }}'
+        }).done(function (response) {
+            braintree.setup(response.data.token, 'dropin', {
+                container: 'dropin-container',
+				paypal: {
+					button: {
+						type: 'checkout'
+					}
+				},
+                onReady: function () {
+                    $('#payment-button').removeClass('hidden');
+					$('#btnNo').removeClass('hidden');
+                }
+            });
+        });
+    </script>
+	
+	<script>
+		$(document).ready(function() {
+			
+			$(".btn-subscribe").click(function(e){
+				$('#planID').val($(this).data('id'));
+				$('#planName').html($(this).data('name'));
+				$('#planPrice').html($(this).data('price'));
+			});
+			
+			$('form#change').submit(function(){
+				$(this).find(':input[type=submit]').attr('disabled', true);
+				$('#btnNo').attr('disabled', true);
+			});
+		});
+		
+
+	</script>
+	
+
 @stop

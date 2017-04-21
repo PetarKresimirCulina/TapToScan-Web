@@ -18,6 +18,7 @@ return [
 	'save' => 'Save',
 	'cancel' => 'Cancel',
 	'back' => 'Back',
+	'next' => 'Next',
 	'close' => 'Close',
 	'yes' => 'Yes',
 	'no' => 'No',

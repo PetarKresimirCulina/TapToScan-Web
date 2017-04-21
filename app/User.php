@@ -9,6 +9,7 @@ use Laravel\Cashier\Billable;
 use Illuminate\Http\Request;
 use App\Plan;
 use Braintree_Customer;
+use Braintree_PaymentMethod;
 use Carbon\Carbon;
 
 
@@ -72,11 +73,24 @@ class User extends Authenticatable
 	}
 	
 	public function isUserSetup() {
-		if($this->plan_id == null) {
+		if($this->plan_id == null || $this->first_name == null || $this->last_name == null || $this->business_name == null || $this->address == null || $this->city == null || $this->zip == null) {
 			return false;
 		}
 		return true;
 	}
+	
+	// first time only - after email verification
+	public function setupUser($request) {
+		$this->first_name = $request['first_name'];
+		$this->last_name = $request['last_name'];
+		$this->business_name = $request['name'];
+		$this->address = $request['address'];
+		$this->city = $request['city'];
+		$this->zip = $request['zip'];
+		$this->braintree_id = $this->createBraintreeUser();
+		return $this->save();
+	}
+	
 	
 	public static function create($request)
 	{
@@ -85,7 +99,6 @@ class User extends Authenticatable
 		$user->email = $request['email'];
 		$user->password = $request['password'];
 		$user->country = $request['country'];
-		$user->braintree_id = $user->createBraintreeUser();
 		
 		if($user->save())
 		{
@@ -122,8 +135,8 @@ class User extends Authenticatable
 	
 	public function createBraintreeUser() {
 		$result = Braintree_Customer::create(array(
-			'firstName' => 'Saurabh',
-			'lastName' => 'Sharma',
+			'firstName' => $this->first_name,
+			'lastName' => $this->last_name,
 			'email' => $this->email,
 			'company' => $this->business_name,
 		));
@@ -140,16 +153,28 @@ class User extends Authenticatable
 		// $this->newSubscription('main', strval($plan->id))->trialDays(30)->create($request['payment_method_nonce']);
 			
 		// existing user
-		$this->newSubscription('main', strval($plan->id))->trialDays(30)->create();
-		$this->trial_ends_at = Carbon::now()->addDays(30);
+		// add first payment method
+		
+		//if ($result->success) {
+			// subscribe
+			$this->newSubscription('main', strval($plan->id))->trialDays(30)->create($request['payment_method_nonce']);
+			$this->trial_ends_at = Carbon::now()->addDays(30);
 
-		$this->plan_id  = $plan->id;
-		return $this->save();
+			$this->plan_id  = $plan->id;
+			return $this->save();
+	/*	}
+		return false;*/
+	}
+	
+	public function updateCreditCard(Request $request) {
+		$this->updateCard($request['payment_method_nonce']);
+		return true;
 	}
 	
 	public function changePlan(Request $request) {
 		// get the plan after submitting the form
 		$plan = Plan::findOrFail($request['planID']);
+		
 		  
 		// subscribe the user
 		// non-existing user
@@ -157,7 +182,7 @@ class User extends Authenticatable
 			
 		// existing user
 		$this->subscription('main')->swap(strval($plan->id));
-
+		
 		$this->plan_id  = $plan->id;
 		return $this->save();
 	}

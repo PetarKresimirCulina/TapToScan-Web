@@ -26,4 +26,9 @@ return [
 	'paymentHistory' => 'Payment history',
 	'planChangeSuccess' => 'You have successfully changed your subscription plan',
 	'trial' => 'Trial ends in',
+	'balance' => 'Balance',
+	'nextPaymentDate' => 'Next payment date',
+	'paymentMethod' => 'Payment method',
+	'editPaymentMethod' => 'Edit payment method',
+	'creditCardChanged' => 'You have successfuly changed your payment method',
 ];

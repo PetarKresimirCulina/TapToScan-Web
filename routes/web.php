@@ -35,7 +35,7 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 	   Check if email and data are verified
 	   
 	*/
-	Route::group(['middleware' => 'emailVerify'], function () {
+	Route::group(['middleware' => ['emailVerify', 'userSetup']], function () {
 		/* home */
 		Route::get('/home', 'HomeController@index')->name('dashboard.home');;
 		Route::post('/home/served', 'HomeController@orderServed')->name('home.served');
@@ -81,19 +81,24 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 		Route::post('/settings/information/update', 'HomeController@updateUserInformation')->name('dashboard.updateUserInformation');
 		Route::post('/settings/password/update', 'HomeController@updatePassword')->name('dashboard.updatePassword');
 		
-		/* payment routes */
-		
-		Route::post('/checkout/subscribe', 'PaymentsController@subscribe')->name('subscription.subscribe');
-		Route::post('/checkout/changePlan', 'PaymentsController@changeSubscriptionPlan')->name('subscription.change');
-		Route::get('/braintree/token', 'PaymentsController@token')->name('braintree.generateToken');;
-		
 	});
 	
 	
 	/* email verification */
-	Route::get('/user/verify', 'HomeController@displayEmailVerification')->name('dashboard.verify');;	
+	Route::get('/user/verify', 'HomeController@displayEmailVerification')->name('dashboard.verify');
 	Route::get('/user/verify/resend', 'HomeController@resendVerification')->name('dashboard.resendVerification');
 	Route::get('/user/verify/update/{token}', 'HomeController@verifyEmail')->name('dashboard.verifyEmail');
+	
+	/* user setup on first launch */
+	Route::get('/user/setup', 'HomeController@displayUserSetup')->name('user.displaySetup');
+	Route::post('/user/setup/update', 'HomeController@setupUser')->name('user.setup.update');
+	Route::get('/user/setup/plan', 'HomeController@displayUserSetupPlans')->name('user.setup.plan');
+	
+	/* payment routes */
+	Route::post('/checkout/subscribe', 'PaymentsController@subscribe')->name('subscription.subscribe');
+	Route::post('/checkout/changePlan', 'PaymentsController@changeSubscriptionPlan')->name('subscription.change');
+	Route::post('/checkout/changePaymentMethod', 'PaymentsController@updateCreditCard')->name('subscription.editCC');
+	Route::get('/braintree/token', 'PaymentsController@token')->name('braintree.generateToken');;
 	
 	/* logout */
 	Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('dashboard.logout');

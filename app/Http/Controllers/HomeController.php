@@ -16,6 +16,8 @@ use Validator;
 use Redirect;
 use Lang;
 use App\Notifications\SendEmailVerification;
+use Braintree_Subscription;
+use Braintree_SubscriptionSearch;
 use Hash;
 
 
@@ -53,6 +55,42 @@ class HomeController extends Controller
 	
 	public function displayEmailVerification() {
 		return view('auth.emailVerify');
+	}
+	
+	public function displayUserSetup() {
+		$plans = Plan::where('display', 1)->get();
+		return view('auth.setup')->with('plans', $plans);
+	}
+	
+	public function setupUser(Request $request)
+	{
+		if ($request->isMethod('post')){
+			
+			$rules = ['first_name' => 'required|min:2',
+					'last_name' => 'required|min:2',
+					'name' => 'required|min:2',
+					'address' => 'required|min:2',
+					'zip' => 'required|numeric',
+					'city' => 'required|min:2',];
+				
+			
+			$validator = Validator::make($request->all(), $rules);
+			
+			if ($validator->fails())
+			{
+				$messages = $validator->messages();
+				Session::flash('fail', $messages);
+				return Redirect::back()->withErrors($validator->messages());
+			}
+			if(Auth::user()->setupUser($request)) {
+				return redirect()->route('user.setup.plan', App::getLocale());
+			}
+		}
+	}
+	
+	public function displayUserSetupPlans() {
+		$plans = Plan::where('display', 1)->get();
+		return view('auth.setupPlan')->with('plans', $plans);
 	}
 	
 	public function resendVerification()
@@ -98,7 +136,10 @@ class HomeController extends Controller
 	{
 		if ($request->isMethod('post')){
 			
-			$rules = ['zip' => 'numeric'];
+			$rules = ['name' => 'required|min:2',
+					'address' => 'required|min:2',
+					'zip' => 'required|numeric',
+					'city' => 'required|min:2',];
 				
 			
 			$validator = Validator::make($request->all(), $rules);
@@ -172,7 +213,8 @@ class HomeController extends Controller
 	*/
 	public function billing()
     {
-        return view('dashboard.billing');
+		$subscription = Braintree_Subscription::find(Auth::user()->subscription('main')->braintree_id);
+        return view('dashboard.billing')->with('subscription', $subscription);
     }
 	
 	public function billingChangePlanDisplayAll()

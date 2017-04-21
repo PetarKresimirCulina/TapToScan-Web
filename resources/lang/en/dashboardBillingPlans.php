@@ -17,4 +17,5 @@ return [
 	'keywords' => 'taptoscan, subscription, plan, select',
 	'tagsLimit1' => 'Up to :limit tables (active NFC tags)',
 	'yourPlan' => 'Your current plan',
+	'changePlanQuestion' => 'Are you sure you want to change your subscription plan?',
 ];

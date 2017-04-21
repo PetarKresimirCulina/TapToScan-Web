@@ -18,6 +18,7 @@ return [
 	'save' => 'Spremi',
 	'cancel' => 'Odustani',
 	'back' => 'Natrag',
+	'next' => 'Naprijed',
 	'close' => 'Zatvori',
 	'yes' => 'Da',
 	'no' => 'Ne',

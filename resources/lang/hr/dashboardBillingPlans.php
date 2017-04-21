@@ -17,4 +17,5 @@ return [
 	'keywords' => 'taptoscan, pretplatnički paket',
 	'tagsLimit1' => 'Do :limit stolova (aktivnih NFC oznaka)',
 	'yourPlan' => 'Vaš trenutni paket',
+	'changePlanQuestion' => 'Jeste li sigurni da želite promjeniti pretplatnički paket?',
 ];

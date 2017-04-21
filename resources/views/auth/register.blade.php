@@ -9,9 +9,9 @@
 	
 		<div class="row text-center margin-4">
 			<h1 class="margin-bottom-2">@lang('register.register')</h1>
-			@include('includes.alerts')
 			
 			<div class="col-md-6 col-md-offset-3 text-center">
+				@include('includes.alerts')
 				<form id="register-form" action="{{ route('register', App::getLocale()) }}" method="post">
 					
 					{{ csrf_field () }}

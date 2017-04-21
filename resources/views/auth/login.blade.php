@@ -10,9 +10,8 @@
 		<div class="row text-center margin-4">
 			<h1 class="margin-bottom-2">@lang('login.login')</h1>
 			
-			@include('includes.alerts')
-			
 			<div class="col-md-6 col-md-offset-3 text-center">
+				@include('includes.alerts')
 				<form id="login-form" action="{{ route('login', App::getLocale()) }}" method="post">
 					
 					{{ csrf_field () }}

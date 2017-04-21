@@ -26,4 +26,9 @@ return [
 	'paymentHistory' => 'Povijest računa',
 	'planChangeSuccess' => 'Uspješno ste promijenili preplatnički paket',
 	'trial' => 'Probni period prestaje',
+	'balance' => 'Stanje',
+	'nextPaymentDate' => 'Datum sljedeće naplate',
+	'paymentMethod' => 'Način plaćanja',
+	'editPaymentMethod' => 'Promjeni način plaćanja',
+	'creditCardChanged' => 'Uspješno ste promjenili način plaćanja',
 ];
