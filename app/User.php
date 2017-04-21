@@ -157,11 +157,14 @@ class User extends Authenticatable
 		
 		//if ($result->success) {
 			// subscribe
-			$this->newSubscription('main', strval($plan->id))->trialDays(30)->create($request['payment_method_nonce']);
-			$this->trial_ends_at = Carbon::now()->addDays(30);
+			if($this->updateCreditCard($request)) {
+				$this->newSubscription('main', strval($plan->id))->trialDays(30)->create();
+				$this->trial_ends_at = Carbon::now()->addDays(30);
 
-			$this->plan_id  = $plan->id;
-			return $this->save();
+				$this->plan_id  = $plan->id;
+				return $this->save();
+			}
+			return false;
 	/*	}
 		return false;*/
 	}
