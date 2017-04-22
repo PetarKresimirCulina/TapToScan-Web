@@ -6,7 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "laravel/cashier-braintree": "^2.0",
+        "barryvdh/laravel-snappy": "^0.3.3",
+        "doctrine/dbal": "^2.5",
+        "h4cc/wkhtmltoimage-i386": "0.12.x",
+        "h4cc/wkhtmltopdf-i386": "0.12.x",
+        "laravel/cashier-braintree": "^2.0.6",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "pusher/pusher-php-server": "^2.6"
@@ -49,4 +53,5 @@
         "preferred-install": "dist",
         "sort-packages": true
     }
+	
 }

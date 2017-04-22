@@ -72,6 +72,10 @@ class User extends Authenticatable
 		return false;
 	}
 	
+	public function taxPercentage() {
+		return 25;
+	}
+	
 	public function isUserSetup() {
 		if($this->plan_id == null || $this->first_name == null || $this->last_name == null || $this->business_name == null || $this->address == null || $this->city == null || $this->zip == null) {
 			return false;
@@ -157,21 +161,20 @@ class User extends Authenticatable
 		
 		//if ($result->success) {
 			// subscribe
-			if($this->updateCreditCard($request)) {
-				$this->newSubscription('main', strval($plan->id))->trialDays(30)->create();
-				$this->trial_ends_at = Carbon::now()->addDays(30);
+			
+		$this->updateCreditCard($request);
 
-				$this->plan_id  = $plan->id;
-				return $this->save();
-			}
-			return false;
-	/*	}
-		return false;*/
+		$this->newSubscription('main', strval($plan->id))->trialDays(30)->create();
+		$this->trial_ends_at = Carbon::now()->addDays(30);
+
+		$this->plan_id  = $plan->id;
+		return $this->save();
+
+
 	}
 	
 	public function updateCreditCard(Request $request) {
 		$this->updateCard($request['payment_method_nonce']);
-		return true;
 	}
 	
 	public function changePlan(Request $request) {

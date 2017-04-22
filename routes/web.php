@@ -64,8 +64,11 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 
 		/* billing */
 		Route::get('/billing', 'HomeController@billing')->name('dashboard.billing');
+		Route::get('/billing/history', 'HomeController@billingHistory')->name('dashboard.billing.history');
 		Route::get('/billing/plans', 'HomeController@billingChangePlanDisplayAll')->name('dashboard.billing.changePlan');
 		Route::post('/billing/plans/change', 'HomeController@billingChangePlan')->name('dashboard.billing.changePlanRequest');
+		/* invoices */
+		Route::post('/billing/invoice', 'HomeController@billingInvoice')->name('dashboard.billing.invoice');
 
 		/* ordertags */
 		Route::get('/ordertags', 'HomeController@ordertags')->name('dashboard.ordertags');

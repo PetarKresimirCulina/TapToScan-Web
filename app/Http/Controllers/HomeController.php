@@ -12,6 +12,8 @@ use emailVerification;
 use Carbon\Carbon;
 use Session;
 use Validator;
+use Illuminate\Support\Facades\Input;
+use Response;
 
 use Redirect;
 use Lang;
@@ -50,7 +52,7 @@ class HomeController extends Controller
 	public function verifyEmail($lang, $token)
 	{
 		Auth::user()->verified($token);
-		return Redirect::back();
+		return redirect()->route('dashboard.home', App::getLocale());
 	}
 	
 	public function displayEmailVerification() {
@@ -215,6 +217,26 @@ class HomeController extends Controller
     {
 		$subscription = Braintree_Subscription::find(Auth::user()->subscription('main')->braintree_id);
         return view('dashboard.billing')->with('subscription', $subscription);
+    }
+	
+	public function billingHistory()
+    {
+		$invoices = Auth::user()->invoicesIncludingPending();
+        return view('dashboard.billingHistory')->with('invoices', $invoices);
+    }
+	
+	public function billingInvoice(Request $request)
+    {
+		if ($request->isMethod('post')){
+			$invoiceId = $request['invoiceId'];
+
+			//$pdf = App::make('snappy.pdf');
+			
+			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.pdf', ['data' => $request]);
+			
+
+			return $pdf->download($invoiceId . '.pdf');
+		}
     }
 	
 	public function billingChangePlanDisplayAll()

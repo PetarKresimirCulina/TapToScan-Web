@@ -16,8 +16,8 @@
 				@include('includes.alerts')
 				
 				<ul class="nav nav-tabs text-capitalize">
-					<li class="active"><a href="{{ route('dashboard.settings', App::getLocale()) }}"><i class="material-icons">payment</i> @lang('dashboardBilling.subscriptionSettings')</a></li>
-					<li><a href="{{ route('dashboard.settingsPanel2', App::getLocale()) }}"><i class="material-icons">history</i> @lang('dashboardBilling.paymentHistory')</a></li>
+					<li class="active"><a href="{{ route('dashboard.billing', App::getLocale()) }}"><i class="material-icons">payment</i> @lang('dashboardBilling.subscriptionSettings')</a></li>
+					<li><a href="{{ route('dashboard.billing.history', App::getLocale()) }}"><i class="material-icons">history</i> @lang('dashboardBilling.paymentHistory')</a></li>
 				</ul>
 				
 				<div class="col-xs-12 col-md-8 col-md-offset-2">
@@ -52,6 +52,8 @@
 				</div>
 			</div>
 		</div>
+		<table>
+</table>
 	</div>
 	
 	<div id="editCC" class="modal fade" role="dialog">
