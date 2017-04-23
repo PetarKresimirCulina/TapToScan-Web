@@ -10,6 +10,8 @@
 		<div class="row text-center margin-4">
 			<h1 class="margin-bottom-2">@lang('setup.chooseSubscriptionPlan')</h1>
 			
+			@include('includes.alerts')
+			
 			<div class="col-md-6 col-md-offset-3 text-center">
 				<div class="progress">
 					<div id="progress" class="progress-bar" role="progressbar" aria-valuenow="66"

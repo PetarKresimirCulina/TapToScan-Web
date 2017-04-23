@@ -73,7 +73,7 @@ class User extends Authenticatable
 	}
 	
 	public function taxPercentage() {
-		return 25;
+		return 0;
 	}
 	
 	public function isUserSetup() {
@@ -161,8 +161,6 @@ class User extends Authenticatable
 		
 		//if ($result->success) {
 			// subscribe
-			
-		$this->updateCreditCard($request);
 
 		$this->newSubscription('main', strval($plan->id))->trialDays(30)->create();
 		$this->trial_ends_at = Carbon::now()->addDays(30);
@@ -174,7 +172,7 @@ class User extends Authenticatable
 	}
 	
 	public function updateCreditCard(Request $request) {
-		$this->updateCard($request['payment_method_nonce']);
+		return $this->updateCard($request['payment_method_nonce']);
 	}
 	
 	public function changePlan(Request $request) {

@@ -31,4 +31,6 @@ return [
 	'paymentMethod' => 'Način plaćanja',
 	'editPaymentMethod' => 'Promjeni način plaćanja',
 	'creditCardChanged' => 'Uspješno ste promjenili način plaćanja',
+	'creditCardError' => 'Postoji problem sa Vašom karticom. Molimo provjerite jeste li unijeli sve informacije točno.',
+	'creditCardErrorNotAccepted' => 'Ova kartica nije podržana, molimo probajte sa drugom karticom',
 ];

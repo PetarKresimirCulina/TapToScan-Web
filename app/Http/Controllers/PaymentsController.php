@@ -11,7 +11,7 @@ use Braintree_ClientToken;
 use Validator;
 use Session;
 use Lang;
-
+use Redirect;
 
 
 class PaymentsController extends Controller
@@ -60,9 +60,19 @@ class PaymentsController extends Controller
 				Session::flash('fail', $messages);
 				return Redirect::back()->withErrors($validator->messages());
 			}
-			if(Auth::user()->createFirstSubscription($request)) {
-				Session::flash('alert-success', Lang::get('dashboardBilling.planChangeSuccess'));
+			try {
+				Auth::user()->updateCreditCard($request);
+				Auth::user()->createFirstSubscription($request);
 				return redirect()->route('dashboard.home', App::getLocale());
+			}
+			catch(\Exception $e) {
+				if(strpos($e, 'Credit card type is not accepted by this merchant account') !== false) {
+					Session::flash('alert-danger', Lang::get('dashboardBilling.creditCardErrorNotAccepted'));
+				}
+				else {
+					Session::flash('alert-danger', Lang::get('dashboardBilling.creditCardError'));
+				}
+				return Redirect::back();
 			}
 		}
 		
@@ -72,11 +82,26 @@ class PaymentsController extends Controller
 	public function updateCreditCard(Request $request)
     {
 		if ($request->isMethod('post')){
-			
-			if(Auth::user()->updateCreditCard($request)) {
+			try {
+				$res = Auth::user()->updateCreditCard($request);
 				Session::flash('alert-success', Lang::get('dashboardBilling.creditCardChanged'));
 				return redirect()->route('dashboard.billing', App::getLocale());
 			}
+			catch(\Exception $e) {
+				if(strpos($e, 'Credit card type is not accepted by this merchant account') !== false) {
+					Session::flash('alert-danger', Lang::get('dashboardBilling.creditCardErrorNotAccepted'));
+				}
+				else {
+					Session::flash('alert-danger', Lang::get('dashboardBilling.creditCardError'));
+				}
+				return redirect()->route('dashboard.billing', App::getLocale());
+			}
+			
+			
+			/*if() {
+				Session::flash('alert-success', Lang::get('dashboardBilling.creditCardChanged'));
+				return redirect()->route('dashboard.billing', App::getLocale());
+			}*/
 		}
 		
         return redirect()->route('dashboard.billing', App::getLocale());

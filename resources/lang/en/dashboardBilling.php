@@ -31,4 +31,6 @@ return [
 	'paymentMethod' => 'Payment method',
 	'editPaymentMethod' => 'Edit payment method',
 	'creditCardChanged' => 'You have successfuly changed your payment method',
+	'creditCardError' => 'There was a problem with your card. Please check if  you entered all the details correctly.',
+	'creditCardErrorNotAccepted' => 'This card is not supported, please use a different card type',
 ];

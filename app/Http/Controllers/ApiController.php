@@ -162,4 +162,8 @@ class ApiController extends Controller
 			));
 		}
 	}
+	
+	public function handleBraintreeWebhook(Request $request) {
+		
+	}
 }

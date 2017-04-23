@@ -19,6 +19,8 @@ Route::post('/v1/getTag', 'ApiController@getUserData');
 //receives userID, productOrders[id, quantity]
 Route::post('/v1/addOrder', 'ApiController@addOrder');
 
+Route::post('/v1/braintree', 'ApiController@handleBraintreeWebhook');
+
 //Route::post('/v1/pusher/auth', 'ApiController@auth');
 //receives tagID, userID, productOrders[id, quantity]
 //Route::post('/v1/getTag', 'ApiController@getUserData');
