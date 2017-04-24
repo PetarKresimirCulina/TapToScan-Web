@@ -166,21 +166,49 @@ class ApiController extends Controller
 	}
 	
 	public function handleBraintreeWebhook(Request $request) {
-		if(
-			isset($_POST["bt_signature"]) &&
-			isset($_POST["bt_payload"])
-		) {
+		if(isset($_POST["bt_signature"]) && isset($_POST["bt_payload"])) {
 			$webhookNotification = Braintree_WebhookNotification::parse(
 				$_POST["bt_signature"], $_POST["bt_payload"]
 			);
 
-			$message =
-				"[Webhook Received " 
-				. $webhookNotification->timestamp->format('Y-m-d H:i:s') . "] "
-				. "Kind: " . $webhookNotification->kind . " | "
-				. "Subscription: " . $webhookNotification->subscription->id . "\n";
-
-			file_put_contents("/tmp/webhook.log", $message, FILE_APPEND);
+			switch($webhookNotification->kind) {
+				case Braintree_WebhookNotification::CHECK:
+					$msg = "Test notification";
+					break;
+				case Braintree_WebhookNotification::SUBSCRIPTION_CANCELED:
+					// Add cancelled = 1 (create migration first)
+					
+					//get id $webhookNotification->subscription->id
+					
+					$subscription = App\Subscription::where('braintree_id', $webhookNotification->subscription->id)->first();
+					$user = App\User::find($subscription->user_id)->first();
+					
+					
+					
+					$msg = "Subscription canceled" . $subscription . " " . $user;
+					
+					file_put_contents("webhook.log", $msg, FILE_APPEND);
+					
+					break;
+				case Braintree_WebhookNotification::SUBSCRIPTION_CHARGED_SUCCESSFULLY:
+					// Send email receipt
+					// Set blocked = 0
+					// Also check on subscription create if user blocked
+					
+					$msg = "Subscription charged successfuly";
+					break;
+				case Braintree_WebhookNotification::SUBSCRIPTION_CHARGED_UNSUCCESSFULLY:
+					// Do nothing atm, comment out the case
+					$msg = "Subscription charge failed";
+					break;
+				case Braintree_WebhookNotification::SUBSCRIPTION_WENT_PAST_DUE:
+					// set blocked = 1 for user
+					// TO-DO: Add notification in dashboard
+					$msg = "Subscription went past due";
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }
