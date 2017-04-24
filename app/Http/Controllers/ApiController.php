@@ -181,12 +181,12 @@ class ApiController extends Controller
 					
 					//get id $webhookNotification->subscription->id
 					
-					$subscription = Subscription::where('braintree_id', $webhookNotification)->user;
-					$user = User::find($subscription->user_id)->first();
+					$subscription = Subscription::where('braintree_id', $webhookNotification)->user();
+					//$user = User::find($subscription->user_id)->first();
 					
 					
 					
-					$msg = "Subscription canceled" . $subscription . " " . $user;
+					$msg = "Subscription canceled" . $subscription . " ";
 					
 					file_put_contents("webhook.log", $msg, FILE_APPEND);
 					
