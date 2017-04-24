@@ -177,19 +177,10 @@ class ApiController extends Controller
 					$msg = "Test notification";
 					break;
 				case Braintree_WebhookNotification::SUBSCRIPTION_CANCELED:
-					// Add cancelled = 1 (create migration first)
-					
-					//get id $webhookNotification->subscription->id
-					
-					$subscription = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
-					//$user = User::find($subscription->user_id)->first();
-					
-					
-					
-					$msg = "Subscription canceled" . $subscription . " ";
-					
-					file_put_contents("webhook.log", $msg, FILE_APPEND);
-					
+					$user = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
+					if($user != null) {
+						//$user->subscriptionCanceled();
+					}
 					break;
 				case Braintree_WebhookNotification::SUBSCRIPTION_CHARGED_SUCCESSFULLY:
 					// Send email receipt
