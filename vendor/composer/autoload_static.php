@@ -892,6 +892,7 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'SubscriptionUserIdFk' => __DIR__ . '/../..' . '/database/migrations/2017_04_24_195449_subscription_user_id_fk.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'UserDetailsName' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_181355_user_details_name.php',
         'UsersDefVal' => __DIR__ . '/../..' . '/database/migrations/2017_04_22_131851_users_def_val.php',

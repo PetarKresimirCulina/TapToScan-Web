@@ -548,6 +548,7 @@ return array(
     'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => $vendorDir . '/sebastian/recursion-context/src/InvalidArgumentException.php',
     'SebastianBergmann\\ResourceOperations\\ResourceOperations' => $vendorDir . '/sebastian/resource-operations/src/ResourceOperations.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'SubscriptionUserIdFk' => $baseDir . '/database/migrations/2017_04_24_195449_subscription_user_id_fk.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'UserDetailsName' => $baseDir . '/database/migrations/2017_04_20_181355_user_details_name.php',
     'UsersDefVal' => $baseDir . '/database/migrations/2017_04_22_131851_users_def_val.php',
