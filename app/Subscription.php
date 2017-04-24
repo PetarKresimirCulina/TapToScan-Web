@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
 {
-    public function user() {
-		$this->hasOne('App\User');
-	}
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

@@ -181,7 +181,7 @@ class ApiController extends Controller
 					
 					//get id $webhookNotification->subscription->id
 					
-					$subscription = Subscription::where('braintree_id', $webhookNotification)->user();
+					$subscription = Subscription::where('braintree_id', $webhookNotification)->first()->user;
 					//$user = User::find($subscription->user_id)->first();
 					
 					
