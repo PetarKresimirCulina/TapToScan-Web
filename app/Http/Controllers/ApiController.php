@@ -10,6 +10,7 @@ use App\Tag;
 use App\User;
 use App\Currency;
 use App\Order;
+use App\Subscription;
 use Validator;
 use Response;
 use Auth;
@@ -180,8 +181,8 @@ class ApiController extends Controller
 					
 					//get id $webhookNotification->subscription->id
 					
-					$subscription = App\Subscription::where('braintree_id', $webhookNotification)->user;
-					$user = App\User::find($subscription->user_id)->first();
+					$subscription = Subscription::where('braintree_id', $webhookNotification)->user;
+					$user = User::find($subscription->user_id)->first();
 					
 					
 					
