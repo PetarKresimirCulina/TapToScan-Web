@@ -62,7 +62,7 @@ class HomeController extends Controller
 	public function displayUserSetup() {
 		if(Auth::user()->blocked == 0) {
 			if(!Auth::user()->isUserSetup())  {
-				return view('auth.setup')->with('plans', $plans);
+				return view('auth.setup');
 			}
 			return redirect()->route('dashboard.home', App::getLocale());
 		}
