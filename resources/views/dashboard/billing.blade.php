@@ -46,7 +46,11 @@
 							<hr>
 							<p><span class="bold">@lang('dashboardBilling.nfcLimit'): </span>{{ Auth::user()->plan->tags_limit }}</p>
 							<div class="text-center">
-								<a href="{{ route('dashboard.billing.changePlan', App::getLocale()) }}" class="btn btn-primary text-capitalize"><i class="material-icons">edit</i> @lang('dashboardBilling.changePlan')</a>
+								@if(Auth::user()->blocked == 0)
+									<a href="{{ route('dashboard.billing.changePlan', App::getLocale()) }}" class="btn btn-primary text-capitalize"><i class="material-icons">edit</i> @lang('dashboardBilling.changePlan')</a>
+								@else
+									<a href="{{ route('dashboard.billing.retryCharge', App::getLocale()) }}" class="btn btn-primary text-capitalize">@lang('dashboardBilling.retryCharge')</a>
+								@endif
 							</div>
 						</div>
 					</div>

@@ -21,6 +21,28 @@ class PaymentsController extends Controller
         $this->middleware('auth');
     }
 	
+	public function billingRetryCharge() {
+		$id = Auth::user()->subscribed('main')->braintree_id;
+		
+		$retryResult = Braintree_Subscription::retryCharge($id);
+
+		if ($retryResult->success) {
+			$result = Braintree_Transaction::submitForSettlement(
+				$retryResult->transaction->id
+			);
+			if($result->success) {
+				Session::flash('alert-success', Lang::get('dashboardBilling.chargeSuccess'));
+				$user = Auth::user();
+				$user->unblock();
+				return redirect()->route('dashboard.billing', App::getLocale());
+			} else {
+				Session::flash('alert-danger', Lang::get('dashboardBilling.chargeFail'));
+				return redirect()->route('dashboard.billing', App::getLocale());
+			}
+			# true
+		}
+	}
+	
 	public function changeSubscriptionPlan(Request $request)
     {
 		if ($request->isMethod('post')){

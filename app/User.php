@@ -212,8 +212,10 @@ class User extends Authenticatable
 	}
 	
 	public function unblock() {
-		$this->blocked = 0;
-		return $this->save();
+		if($this->blocked == 1) {
+			$this->blocked = 0;
+			return $this->save();
+		}
 	}
 	
 	public function cancel() {

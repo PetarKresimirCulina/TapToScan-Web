@@ -34,4 +34,7 @@ return [
 	'creditCardError' => 'Postoji problem sa Vašom karticom. Molimo provjerite jeste li unijeli sve informacije točno.',
 	'creditCardErrorNotAccepted' => 'Ova kartica nije podržana, molimo probajte sa drugom karticom',
 	'userBlocked' => 'Vaš račun je blokiran radi nepodmirenih dugovanja.  Molimo otvorite stavku Računi u navigaciji i probajte ručno pokrenuti plaćanje preostalog dugovanja.',
+	'retryCharge' => 'Pokušaj platiti ponovno',
+	'chargeSuccess' => 'Plaćanje uspješno izvršeno',
+	'chargeFail' => 'Plaćanje nije uspjelo. Provjerite svoje podatke o načinu plaćanja i pokušajte ponovno.',
 ];

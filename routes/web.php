@@ -67,6 +67,8 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 		Route::get('/billing/history', 'HomeController@billingHistory')->name('dashboard.billing.history');
 		Route::get('/billing/plans', 'HomeController@billingChangePlanDisplayAll')->name('dashboard.billing.changePlan');
 		Route::post('/billing/plans/change', 'HomeController@billingChangePlan')->name('dashboard.billing.changePlanRequest');
+		/* retry payment in subscription */
+		Route::get('/billing/plans/charge', 'PaymentController@billingRetryCharge')->name('dashboard.billing.RetryCharge');
 		/* invoices */
 		Route::post('/billing/invoice', 'HomeController@billingInvoice')->name('dashboard.billing.invoice');
 

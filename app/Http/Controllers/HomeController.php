@@ -60,8 +60,11 @@ class HomeController extends Controller
 	}
 	
 	public function displayUserSetup() {
-		$plans = Plan::where('display', 1)->get();
-		return view('auth.setup')->with('plans', $plans);
+		if(Auth::user()->blocked == 0) {
+			$plans = Plan::where('display', 1)->get();
+			return view('auth.setup')->with('plans', $plans);
+		}
+		return redirect()->route('dashboard.billing', App::getLocale());
 	}
 	
 	public function setupUser(Request $request)
@@ -96,8 +99,11 @@ class HomeController extends Controller
 	}
 	
 	public function displayUserSetupPlans() {
-		$plans = Plan::where('display', 1)->get();
-		return view('auth.setupPlan')->with('plans', $plans);
+		if(Auth::user()->blocked == 0) {
+			$plans = Plan::where('display', 1)->get();
+			return view('auth.setupPlan')->with('plans', $plans);
+		}
+		return redirect()->route('dashboard.billing', App::getLocale());
 	}
 	
 	public function resendVerification()

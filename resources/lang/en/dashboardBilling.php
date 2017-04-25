@@ -34,4 +34,7 @@ return [
 	'creditCardError' => 'There was a problem with your card. Please check if  you entered all the details correctly.',
 	'creditCardErrorNotAccepted' => 'This card is not supported, please use a different card type',
 	'userBlocked' => 'Your account is blocked due to unpaid subscription fees. Please head over to billing to try to manually initialize outstanding payments.',
+	'retryCharge' => 'Retry payment',
+	'chargeSuccess' => 'Payment made successfuly',
+	'chargeFail' => 'Payment failed. Please check your payment method and try again.',
 ];
