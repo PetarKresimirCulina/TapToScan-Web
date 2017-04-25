@@ -252,8 +252,11 @@ class HomeController extends Controller
 	
 	public function billingChangePlanDisplayAll()
     {
-		$plans = Plan::where('display', 1)->get();
-        return view('dashboard.billingPlans')->with('plans', $plans);
+		if(Auth::user()->blocked == 0) {
+			$plans = Plan::where('display', 1)->get();
+			return view('dashboard.billingPlans')->with('plans', $plans);
+		}
+		return redirect()->route('dashboard.billing', App::getLocale());
     }
 	
 	/**
