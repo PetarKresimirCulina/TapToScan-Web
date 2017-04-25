@@ -163,7 +163,7 @@ class User extends Authenticatable
 		//if ($result->success) {
 			// subscribe
 
-		$this->newSubscription('main', strval($plan->id))->trialDays(30)->create();
+		$this->newSubscription('main', strval($plan->id))->trialDays(1)->create(); // <<<<<<<<<<< CHANGE THIS TO 30 DAYS
 		$this->trial_ends_at = Carbon::now()->addDays(30);
 
 		$this->plan_id  = $plan->id;
