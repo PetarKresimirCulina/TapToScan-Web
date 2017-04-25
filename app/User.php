@@ -45,11 +45,6 @@ class User extends Authenticatable
 		return $this->hasOne('App\Confirmation');
 	}
 	
-	public function subscription()
-	{
-		return $this->hasOne('App\Subscription');
-	}
-	
 	public function plan()
 	{
 		return $this->belongsTo('App\Plan');
