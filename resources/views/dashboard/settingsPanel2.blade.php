@@ -13,6 +13,9 @@
 			<div class="col-xs-12 col-sm-9 col-md-10 margin-4">
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardSettings.title')</h1>
 				
+				@include('includes.alerts')
+				@include('includes.blocked')
+				
 				<ul class="nav nav-tabs text-capitalize">
 					<li><a href="{{ route('dashboard.settings', App::getLocale()) }}"><i class="material-icons">account_circle</i> @lang('dashboardSettings.basicInfo')</a></li>
 					<li class="active"><a href="{{ route('dashboard.settingsPanel2', App::getLocale()) }}"><i class="material-icons">verified_user</i> @lang('dashboardSettings.password')</a></li>
@@ -21,7 +24,7 @@
 				</ul>
 				
 				<div class="col-md-8 col-md-offset-2 margin-4">
-					@include('includes.alerts')
+					
 						<form id="update-form" action="{{ route('dashboard.updatePassword', App::getLocale()) }}" method="post">
 							
 							{{ csrf_field () }}

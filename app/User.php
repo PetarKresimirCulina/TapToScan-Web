@@ -97,6 +97,7 @@ class User extends Authenticatable
 		$this->city = $request['city'];
 		$this->zip = $request['zip'];
 		$this->braintree_id = $this->createBraintreeUser();
+		$this->canceled = 0;
 		return $this->save();
 	}
 	
@@ -205,9 +206,30 @@ class User extends Authenticatable
      */
 	public function sendPasswordResetNotification($token)
     {
-        // Your your own implementation.
         $this->notify(new ResetPasswordNotification($token));
     }
+	
+	// SUBSCRIPTION CALLS
+	
+	public function block() {
+		$this->blocked = 1;
+		return $this->save();
+	}
+	
+	public function unblock() {
+		$this->blocked = 0;
+		return $this->save();
+	}
+	
+	public function cancel() {
+		$this->plan_id = null;
+		$this->braintree_id = null;
+		$this->paypal_email = null;
+		$this->card_brand = null;
+		$this->card_last_four = null;
+		$this->canceled = 1;
+		return $this->save();
+	}
 	
     protected $hidden = [
         'password', 'remember_token',

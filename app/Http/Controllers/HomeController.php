@@ -84,6 +84,11 @@ class HomeController extends Controller
 				Session::flash('fail', $messages);
 				return Redirect::back()->withErrors($validator->messages());
 			}
+			if(Auth::user()->blocked == 1)
+			{
+				Session::flash('danger', __('dashboardBilling.userBlocked') );
+				return Redirect::back();
+			}
 			if(Auth::user()->setupUser($request)) {
 				return redirect()->route('user.setup.plan', App::getLocale());
 			}

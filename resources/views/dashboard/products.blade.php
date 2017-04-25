@@ -15,6 +15,7 @@
 				<h4 class="margin-bottom-2">@lang('dashboardProducts.category'): {{ $category->name }}</h4>
 				
 				@include('includes.alerts')
+				@include('includes.blocked')
 
 				<a href="{{ url(App::getLocale(), 'categories') }}" class="btn btn-default text-capitalize margin-bottom-2"><i class="material-icons">keyboard_arrow_left</i> @lang('actions.back')</a>
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addProd"><i class="material-icons">add_circle_outline</i> @lang('dashboardProducts.addNewProduct')</a>

@@ -61,6 +61,11 @@ class PaymentsController extends Controller
 				return Redirect::back()->withErrors($validator->messages());
 			}
 			try {
+				if(Auth::user()->blocked == 1)
+				{
+					Session::flash('danger', __('dashboardBilling.userBlocked') );
+					return Redirect::back();
+				}
 				Auth::user()->updateCreditCard($request);
 				Auth::user()->createFirstSubscription($request);
 				return redirect()->route('dashboard.home', App::getLocale());

@@ -14,6 +14,7 @@
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardCategories.title')</h1>
 				
 				@include('includes.alerts')
+				@include('includes.blocked')
 
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addCat"><i class="material-icons">add_circle_outline</i> @lang('dashboardCategories.addCategory')</a>
 

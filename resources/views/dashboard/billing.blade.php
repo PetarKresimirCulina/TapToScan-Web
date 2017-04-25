@@ -14,6 +14,7 @@
 				<h1 class="margin-bottom-2 text-capitalize">@lang('dashboardBilling.title')</h1>
 				
 				@include('includes.alerts')
+				@include('includes.blocked')
 				
 				<ul class="nav nav-tabs text-capitalize">
 					<li class="active"><a href="{{ route('dashboard.billing', App::getLocale()) }}"><i class="material-icons">payment</i> @lang('dashboardBilling.subscriptionSettings')</a></li>

@@ -59,7 +59,7 @@ class ApiController extends Controller
 							'message'  => 'Tag not found.'
 				));
 			}
-			$user = User::where('id', $tag->user)->select('business_name', 'address', 'city', 'zip', 'country')->first();
+			$user = User::where('id', $tag->user)->select('business_name', 'address', 'city', 'zip', 'country', 'blocked', 'canceled')->first();
 			
 			if(!$user)
 			{
@@ -174,18 +174,20 @@ class ApiController extends Controller
 
 			switch($webhookNotification->kind) {
 				case Braintree_WebhookNotification::CHECK:
-					$msg = "Test notification";
+					// none
 					break;
 				case Braintree_WebhookNotification::SUBSCRIPTION_CANCELED:
 					$user = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
 					if($user != null) {
-						//$user->subscriptionCanceled();
+						$user->cancel();
 					}
 					break;
 				case Braintree_WebhookNotification::SUBSCRIPTION_CHARGED_SUCCESSFULLY:
-					// Send email receipt
-					// Set blocked = 0
-					// Also check on subscription create if user blocked
+					$user = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
+					if($user != null) {
+						$user->unblock();
+						
+					}
 					
 					$msg = "Subscription charged successfuly";
 					break;
@@ -194,9 +196,10 @@ class ApiController extends Controller
 					$msg = "Subscription charge failed";
 					break;
 				case Braintree_WebhookNotification::SUBSCRIPTION_WENT_PAST_DUE:
-					// set blocked = 1 for user
-					// TO-DO: Add notification in dashboard
-					$msg = "Subscription went past due";
+					$user = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
+					if($user != null) {
+						$user->block();
+					}
 					break;
 				default:
 					break;

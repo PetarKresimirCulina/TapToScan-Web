@@ -33,4 +33,5 @@ return [
 	'creditCardChanged' => 'Uspješno ste promjenili način plaćanja',
 	'creditCardError' => 'Postoji problem sa Vašom karticom. Molimo provjerite jeste li unijeli sve informacije točno.',
 	'creditCardErrorNotAccepted' => 'Ova kartica nije podržana, molimo probajte sa drugom karticom',
+	'userBlocked' => 'Vaš račun je blokiran radi nepodmirenih dugovanja.  Molimo otvorite stavku Računi u navigaciji i probajte ručno pokrenuti plaćanje preostalog dugovanja.',
 ];

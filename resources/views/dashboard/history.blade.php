@@ -12,6 +12,9 @@
 			
 			<div class="col-xs-12 col-sm-9 col-md-10 margin-4">
 				<h1 class="margin-bottom-2 text-capitalize">@lang('navbar.history')</h1>
+				
+				@include('includes.blocked')
+				
 				<div class="btn-group margin-bottom-2">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $period }} <span class="caret"></span>
 					</button>
