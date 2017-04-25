@@ -91,8 +91,10 @@ class HomeController extends Controller
 			}
 			if(Auth::user()->blocked == 1)
 			{
-				Session::flash('danger', __('dashboardBilling.userBlocked') );
-				return Redirect::back();
+				return redirect()->route('dashboard.billing', App::getLocale());
+			}
+			if(Auth::user()->isUserSetup()) {
+				return redirect()->route('dashboard.home', App::getLocale());
 			}
 			if(Auth::user()->setupUser($request)) {
 				return redirect()->route('user.setup.plan', App::getLocale());

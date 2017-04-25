@@ -90,6 +90,9 @@ class PaymentsController extends Controller
 					Session::flash('danger', __('dashboardBilling.userBlocked') );
 					return Redirect::back();
 				}
+				if(Auth::user()->isUserSetup()) {
+					return redirect()->route('dashboard.home', App::getLocale());
+				}
 				Auth::user()->updateCreditCard($request);
 				Auth::user()->createFirstSubscription($request);
 				return redirect()->route('dashboard.home', App::getLocale());
