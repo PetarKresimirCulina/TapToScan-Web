@@ -1,7 +1,7 @@
 @extends('layouts.core')
-@section('title', __('login.title'))
-@section('description', __('login.description'))
-@section('keywords', __('login.keywords'))
+@section('title', __('register.verifyTitle'))
+@section('description', __('register.description'))
+@section('keywords', __('register.keywords'))
 
 @section('content')
 
