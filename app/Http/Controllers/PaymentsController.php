@@ -8,6 +8,8 @@ use App;
 use App\User;
 use App\Plan;
 use Braintree_ClientToken;
+use Braintree_Transaction;
+use Braintree_Subscription;
 use Validator;
 use Session;
 use Lang;
