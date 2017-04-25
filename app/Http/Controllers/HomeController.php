@@ -60,7 +60,7 @@ class HomeController extends Controller
 	}
 	
 	public function displayUserSetup() {
-		if(Auth::user()->blocked == 0) {
+		if(Auth::user()->blocked == 0 && Auth::user()->isUserSetup == false) {
 			$plans = Plan::where('display', 1)->get();
 			return view('auth.setup')->with('plans', $plans);
 		}
