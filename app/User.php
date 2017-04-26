@@ -81,7 +81,7 @@ class User extends Authenticatable
 	}
 	
 	public function isUserSetup() {
-		if($this->blocked == 0 && ($this->plan_id == null || $this->first_name == null || $this->last_name == null || $this->business_name == null || $this->address == null || $this->city == null || $this->zip == null || $this->canceled == 1 || $this->plan_id == null)) {
+		if($this->blocked == 0 && ($this->plan_id == null || $this->first_name == null || $this->last_name == null || $this->business_name == null || $this->address == null || $this->city == null || $this->zip == null || $this->canceled == 1)) {
 			return false;
 		}
 		return true;
@@ -101,7 +101,6 @@ class User extends Authenticatable
 		} else {
 			$this->vat_id = $request['countryCode'] . '000000000';
 		}
-		$this->canceled = 0;
 		return $this->save();
 	}
 	

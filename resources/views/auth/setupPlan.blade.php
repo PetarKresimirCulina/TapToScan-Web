@@ -113,10 +113,6 @@
 				$('#planName').html($(this).data('name'));
 				$('#planPrice').html($(this).data('price'));
 			});
-			
-			$('form#change').submit(function(){
-				$(this).find(':input[type=submit]').attr('disabled', true);
-			});
 		});
 		
 
