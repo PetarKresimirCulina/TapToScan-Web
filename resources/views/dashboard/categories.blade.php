@@ -15,6 +15,7 @@
 				
 				@include('includes.alerts')
 				@include('includes.blocked')
+				@include('includes.noTags')
 
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addCat"><i class="material-icons">add_circle_outline</i> @lang('dashboardCategories.addCategory')</a>
 

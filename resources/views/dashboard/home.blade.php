@@ -15,6 +15,7 @@
 				
 				@include('includes.alerts')
 				@include('includes.blocked')
+				@include('includes.noTags')
 				
 				<div class="table-responsive">
 				

@@ -16,6 +16,7 @@
 				
 				@include('includes.alerts')
 				@include('includes.blocked')
+				@include('includes.noTags')
 
 				<a href="#" class="btn btn-success text-capitalize margin-bottom-2" data-toggle="modal" data-target="#addTag"><i class="material-icons">add_circle_outline</i> @lang('dashboardTables.addTable')</a>
 				<p class="small" id="tagsCounter" data-active="{{ Auth::user()->tagsActive->count() }}" data-limit="{{ Auth::user()->plan->tags_limit }}">@lang('dashboardTables.tableTagsActive'): {{ Auth::user()->tagsActive->count() }}/{{ Auth::user()->plan->tags_limit }} | @lang('dashboardTables.currentPlan'): <a href="{{ route('dashboard.billing', App::getLocale()) }}">{{ Auth::user()->plan->name }}</a></p>

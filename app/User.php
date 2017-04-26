@@ -175,6 +175,7 @@ class User extends Authenticatable
 		$this->trial_ends_at = Carbon::now()->addDays(30);
 
 		$this->plan_id  = $plan->id;
+		$this->canceled = 0;
 		return $this->save();
 
 

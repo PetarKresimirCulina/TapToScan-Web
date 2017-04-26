@@ -15,6 +15,7 @@
 				
 				@include('includes.alerts')
 				@include('includes.blocked')
+				@include('includes.noTags')
 				
 				<div class="btn-group margin-bottom-2">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $period }} <span class="caret"></span>

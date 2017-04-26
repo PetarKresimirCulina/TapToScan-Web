@@ -15,6 +15,7 @@
 				
 				@include('includes.alerts')
 				@include('includes.blocked')
+				@include('includes.noTags')
 				
 				<ul class="nav nav-tabs text-capitalize">
 					<li class="active"><a href="{{ route('dashboard.settings', App::getLocale()) }}"><i class="material-icons">account_circle</i> @lang('dashboardSettings.basicInfo')</a></li>

@@ -15,6 +15,7 @@
 				
 				@include('includes.alerts')
 				@include('includes.blocked')
+				@include('includes.noTags')
 				
 				<ul class="nav nav-tabs text-capitalize">
 					<li><a href="{{ route('dashboard.billing', App::getLocale()) }}"><i class="material-icons">payment</i> @lang('dashboardBilling.subscriptionSettings')</a></li>
