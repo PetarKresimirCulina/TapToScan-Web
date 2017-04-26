@@ -131,7 +131,6 @@ body {
 }
 .business-banner-container {
     background: #232C33;
-    height: calc(100vh - 50px);
     min-height: calc(100vh - 50px);
     padding: 0;
     color: #fff;
