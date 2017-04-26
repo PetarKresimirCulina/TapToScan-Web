@@ -50,6 +50,10 @@ class User extends Authenticatable
 		return $this->belongsTo('App\Plan');
 	}
 	
+	public function country() {
+		$this->belongsTo('App\Country', 'country');
+	}
+	
 	public function orders()
 	{
 		return $this->hasMany('App\Order', 'userID');
@@ -77,7 +81,7 @@ class User extends Authenticatable
 	}
 	
 	public function isUserSetup() {
-		if($this->plan_id == null || $this->first_name == null || $this->last_name == null || $this->business_name == null || $this->address == null || $this->city == null || $this->zip == null) {
+		if($this->blocked == 0 && ($this->plan_id == null || $this->first_name == null || $this->last_name == null || $this->business_name == null || $this->address == null || $this->city == null || $this->zip == null || $this->canceled == 1 || $this->plan_id == null)) {
 			return false;
 		}
 		return true;
@@ -92,6 +96,11 @@ class User extends Authenticatable
 		$this->city = $request['city'];
 		$this->zip = $request['zip'];
 		$this->braintree_id = $this->createBraintreeUser();
+		if($request['vatID'] != null) {
+			$this->vat_id = $request['countryCode'] . $request['vatID'];
+		} else {
+			$this->vat_id = $request['countryCode'] . '000000000';
+		}
 		$this->canceled = 0;
 		return $this->save();
 	}
@@ -219,7 +228,6 @@ class User extends Authenticatable
 	}
 	
 	public function cancel() {
-		$this->plan_id = null;
 		$this->braintree_id = null;
 		$this->paypal_email = null;
 		$this->card_brand = null;

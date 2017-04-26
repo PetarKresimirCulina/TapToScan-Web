@@ -68,6 +68,17 @@
 							<label class="text-capitalize" for="zip">@lang('dashboardSettings.zip')</label>
 							<input type="numeric" class="form-control input-lg" name="zip" id="zip" required>
 						</div>
+						
+						<div>
+							<label class="text-capitalize" for="zip">@lang('dashboardSettings.vat')</label>
+							<div class="input-group">
+								
+								<div class="input-group-addon">{{ $country }}</div>
+								<input type="hidden" id="countryCode" name="countryCode" value="{{ $country }}">
+								<input type="text" class="form-control" id="vatID" name="vatID" placeholder="123456789">
+							</div>
+						</div>
+						
 						<button id="step2" type="submit" class="btn btn-primary margin-top-2">@lang('actions.next')</button>
 					</div>
 					

@@ -7,6 +7,7 @@ use App;
 use App\Order;
 use App\Tag;
 use App\Plan;
+use App\Country;
 use Auth;
 use emailVerification;
 use Carbon\Carbon;
@@ -60,13 +61,8 @@ class HomeController extends Controller
 	}
 	
 	public function displayUserSetup() {
-		if(Auth::user()->blocked == 0) {
-			if(!Auth::user()->isUserSetup())  {
-				return view('auth.setup');
-			}
-			return redirect()->route('dashboard.home', App::getLocale());
-		}
-		return redirect()->route('dashboard.billing', App::getLocale());
+		$country = Auth::user()->country;
+		return view('auth.setup')->with('country', $country);
 	}
 	
 	public function setupUser(Request $request)
@@ -78,6 +74,7 @@ class HomeController extends Controller
 					'name' => 'required|min:2',
 					'address' => 'required|min:2',
 					'zip' => 'required|numeric',
+					'countryCode' => 'required',
 					'city' => 'required|min:2',];
 				
 			
@@ -89,13 +86,7 @@ class HomeController extends Controller
 				Session::flash('fail', $messages);
 				return Redirect::back()->withErrors($validator->messages());
 			}
-			if(Auth::user()->blocked == 1)
-			{
-				return redirect()->route('dashboard.billing', App::getLocale());
-			}
-			if(Auth::user()->isUserSetup()) {
-				return redirect()->route('dashboard.home', App::getLocale());
-			}
+
 			if(Auth::user()->setupUser($request)) {
 				return redirect()->route('user.setup.plan', App::getLocale());
 			}
@@ -103,14 +94,8 @@ class HomeController extends Controller
 	}
 	
 	public function displayUserSetupPlans() {
-		if(Auth::user()->blocked == 0) {
-			if(!Auth::user()->isUserSetup()) {
-				$plans = Plan::where('display', 1)->get();
-				return view('auth.setupPlan')->with('plans', $plans);
-			}
-			return redirect()->route('dashboard.home', App::getLocale());
-		}
-		return redirect()->route('dashboard.billing', App::getLocale());
+		$plans = Plan::where('display', 1)->get();
+		return view('auth.setupPlan')->with('plans', $plans);
 	}
 	
 	public function resendVerification()

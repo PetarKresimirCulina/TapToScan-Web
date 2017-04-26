@@ -29,5 +29,6 @@ return [
 	'newPass' => 'Nova lozinka',
 	'repeatNewPass' => 'Ponovite novu lozinku',
 	'updatePass' => 'Promijeni lozinku',
+	'vat' => 'VAT ID (OIB pravne osobe)',
 	
 ];

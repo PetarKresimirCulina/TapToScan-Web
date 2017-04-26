@@ -24,4 +24,5 @@ return [
 	'no' => 'Ne',
 	'select' => 'Odaberi',
 	'subscribe' => 'Pretplati se',
+	'orderTags' => 'Primjetili smo da nemate NFC naljepnice. Možete ih naručiti odlaskom na stranicu za narudžbe NFC naljepnica'
 ];

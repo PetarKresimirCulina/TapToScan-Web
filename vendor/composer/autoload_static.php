@@ -896,6 +896,8 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'UserDetailsName' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_181355_user_details_name.php',
         'UsersDefVal' => __DIR__ . '/../..' . '/database/migrations/2017_04_22_131851_users_def_val.php',
+        'VATID' => __DIR__ . '/../..' . '/database/migrations/2017_04_26_191805_VAT_ID.php',
+        'VatValues' => __DIR__ . '/../..' . '/database/migrations/2017_04_26_194118_vat_values.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -29,5 +29,6 @@ return [
 	'newPass' => 'New password',
 	'repeatNewPass' => 'Repeat new password',
 	'updatePass' => 'Update password',
+	'vat' => 'VAT ID',
 	
 ];

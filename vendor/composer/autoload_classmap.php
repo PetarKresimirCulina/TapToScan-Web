@@ -552,4 +552,6 @@ return array(
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'UserDetailsName' => $baseDir . '/database/migrations/2017_04_20_181355_user_details_name.php',
     'UsersDefVal' => $baseDir . '/database/migrations/2017_04_22_131851_users_def_val.php',
+    'VATID' => $baseDir . '/database/migrations/2017_04_26_191805_VAT_ID.php',
+    'VatValues' => $baseDir . '/database/migrations/2017_04_26_194118_vat_values.php',
 );

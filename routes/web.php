@@ -68,7 +68,7 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 		Route::get('/billing/plans', 'HomeController@billingChangePlanDisplayAll')->name('dashboard.billing.changePlan');
 		Route::post('/billing/plans/change', 'HomeController@billingChangePlan')->name('dashboard.billing.changePlanRequest');
 		/* retry payment in subscription */
-		Route::get('/billing/plans/charge', 'PaymentController@billingRetryCharge')->name('dashboard.billing.RetryCharge');
+		Route::get('/billing/plans/charge', 'PaymentController@billingRetryCharge')->name('dashboard.billing.retryCharge');
 		/* invoices */
 		Route::post('/billing/invoice', 'HomeController@billingInvoice')->name('dashboard.billing.invoice');
 
@@ -95,9 +95,9 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 	Route::get('/user/verify/update/{token}', 'HomeController@verifyEmail')->name('dashboard.verifyEmail');
 	
 	/* user setup on first launch */
-	Route::get('/user/setup', 'HomeController@displayUserSetup')->name('user.displaySetup');
-	Route::post('/user/setup/update', 'HomeController@setupUser')->name('user.setup.update');
-	Route::get('/user/setup/plan', 'HomeController@displayUserSetupPlans')->name('user.setup.plan');
+	Route::get('/user/setup', 'HomeController@displayUserSetup')->name('user.displaySetup')->middleware('userBlockedOrSetup');
+	Route::post('/user/setup/update', 'HomeController@setupUser')->name('user.setup.update')->middleware('userBlockedOrSetup');
+	Route::get('/user/setup/plan', 'HomeController@displayUserSetupPlans')->name('user.setup.plan')->middleware('userBlockedOrSetup');
 	
 	/* payment routes */
 	Route::post('/checkout/subscribe', 'PaymentsController@subscribe')->name('subscription.subscribe');
