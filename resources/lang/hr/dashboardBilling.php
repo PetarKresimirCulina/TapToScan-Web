@@ -37,4 +37,5 @@ return [
 	'retryCharge' => 'Pokušaj platiti ponovno',
 	'chargeSuccess' => 'Plaćanje uspješno izvršeno',
 	'chargeFail' => 'Plaćanje nije uspjelo. Provjerite svoje podatke o načinu plaćanja i pokušajte ponovno.',
+	'blockedCanceled' => 'Vaša pretplata je poništena radi neplaćenih naknada. Ako želite ponovno koristiti uslugu, molimo kontaktirajte podršku.',
 ];

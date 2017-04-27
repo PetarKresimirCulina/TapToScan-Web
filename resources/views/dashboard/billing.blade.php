@@ -28,11 +28,11 @@
 						<div class="panel-body">
 							<p><span class="bold">@lang('dashboardBilling.currentPlanShort'): </span>{{ Auth::user()->plan->name }}</p>
 							@php $currencyDummy = new \App\Currency(); @endphp
-							<p><span class="bold">@lang('dashboardBilling.monthlyFee'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, 'EUR', '€') }}</p>
+							<p><span class="bold">@lang('dashboardBilling.monthlyFee'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, Auth::user()->plan->currency->code, Auth::user()->plan->currency->symbol) }}</p>
 
 							<hr>
-							<p><span class="bold">@lang('dashboardBilling.balance'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->balance), 'EUR', '€') }}</p>
-							<p><span class="bold">@lang('dashboardBilling.nextPayment'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->nextBillAmount), 'EUR', '€') }}</p>
+							<p><span class="bold">@lang('dashboardBilling.balance'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->balance), Auth::user()->plan->currency->code, Auth::user()->plan->currency->symbol) }}</p>
+							<p><span class="bold">@lang('dashboardBilling.nextPayment'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->nextBillAmount), Auth::user()->plan->currency->code, Auth::user()->plan->currency->symbol) }}</p>
 							<p><span class="bold">@lang('dashboardBilling.nextPaymentDate'): </span>{{ $subscription->nextBillingDate->format("d.m.Y.")  }}</p>
 							<p><span class="bold">@lang('dashboardBilling.paymentMethod'): </span>
 							
@@ -49,6 +49,8 @@
 							<div class="text-center">
 								@if(Auth::user()->blocked == 0)
 									<a href="{{ route('dashboard.billing.changePlan', App::getLocale()) }}" class="btn btn-primary text-capitalize"><i class="material-icons">edit</i> @lang('dashboardBilling.changePlan')</a>
+								@elseif(Auth::user()->canceled == 1 && Auth::user()->blocked == 1)
+									<p>@lang('dashboardBilling.blockedCanceled')</p>
 								@else
 									<a href="{{ route('dashboard.billing.retryCharge', App::getLocale()) }}" class="btn btn-primary text-capitalize">@lang('dashboardBilling.retryCharge')</a>
 								@endif
