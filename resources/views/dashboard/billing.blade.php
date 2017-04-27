@@ -27,12 +27,12 @@
 						<div class="panel-heading">@lang('dashboardBilling.currentPlan')</div>
 						<div class="panel-body">
 							<p><span class="bold">@lang('dashboardBilling.currentPlanShort'): </span>{{ Auth::user()->plan->name }}</p>
-							@php $currencyDummy = new \App\Currency(); @endphp
-							<p><span class="bold">@lang('dashboardBilling.monthlyFee'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, Auth::user()->plan->currency->code, Auth::user()->plan->currency->symbol) }}</p>
+							@php $currencyDummy = \App\Currency::where('id', Auth::user()->plan->currency)->first(); @endphp
+							<p><span class="bold">@lang('dashboardBilling.monthlyFee'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, $currencyDummy->code, $currencyDummy->symbol) }}</p>
 
 							<hr>
-							<p><span class="bold">@lang('dashboardBilling.balance'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->balance), Auth::user()->plan->currency->code, Auth::user()->plan->currency->symbol) }}</p>
-							<p><span class="bold">@lang('dashboardBilling.nextPayment'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->nextBillAmount), Auth::user()->plan->currency->code, Auth::user()->plan->currency->symbol) }}</p>
+							<p><span class="bold">@lang('dashboardBilling.balance'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->balance), $currencyDummy->code, $currencyDummy->symbol)  }}</p>
+							<p><span class="bold">@lang('dashboardBilling.nextPayment'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->nextBillAmount), $currencyDummy->code, $currencyDummy->symbol)  }}</p>
 							<p><span class="bold">@lang('dashboardBilling.nextPaymentDate'): </span>{{ $subscription->nextBillingDate->format("d.m.Y.")  }}</p>
 							<p><span class="bold">@lang('dashboardBilling.paymentMethod'): </span>
 							
