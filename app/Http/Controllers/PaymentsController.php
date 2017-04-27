@@ -24,7 +24,7 @@ class PaymentsController extends Controller
     }
 	
 	public function billingRetryCharge() {
-		return $id = Auth::user()->subscribed('main');
+		return $id = Auth::user()->subscription->braintree_id;
 		
 		$retryResult = Braintree_Subscription::retryCharge($id);
 

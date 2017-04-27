@@ -70,6 +70,10 @@ class User extends Authenticatable
 		return $this->hasMany('App\Tag', 'user')->where('deleted', 0)->where('active', 1);
 	}
 	
+	public function subscription() {
+		return $this->hasOne('App\Subscription');
+	}
+	
 	public function isUserVerified() {
 		if($this->email_verified == 1) {
 			return true;
