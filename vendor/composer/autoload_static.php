@@ -351,6 +351,7 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
 
     public static $classMap = array (
         'AddCanceledToUser' => __DIR__ . '/../..' . '/database/migrations/2017_04_24_191546_add_canceled_to_user.php',
+        'AddHRK' => __DIR__ . '/../..' . '/database/migrations/2017_04_27_145142_addHRK.php',
         'BraintreeTableModify' => __DIR__ . '/../..' . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',

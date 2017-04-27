@@ -22,7 +22,12 @@
 							</div>
 							<div class="panel-body">
 								<div class="panel-price">
-									<h1 class="text-center">7.99 EUR/@lang('pages/business.month')</h1>
+									@php $currencyDummy = new \App\Currency(); @endphp
+									@if(App::getLocale() == 'hr')
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 60, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+									@else
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 8, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.smallLine1')</li>
 										<li class="list-group-item">@lang('pages/business.smallLine2')</li>
@@ -44,7 +49,11 @@
 							</div>
 							<div class="panel-body">
 								<div class="panel-price">
-									<h1 class="text-center">19.99 EUR/@lang('pages/business.month')</h1>
+									@if(App::getLocale() == 'hr')
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 150, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+									@else
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 20, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.mediumLine1')</li>
 										<li class="list-group-item">@lang('pages/business.mediumLine2')</li>
@@ -67,7 +76,11 @@
 							</div>
 							<div class="panel-body">
 								<div class="panel-price">
-									<h1 class="text-center">29.99 EUR/@lang('pages/business.month')</h1>
+									@if(App::getLocale() == 'hr')
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 225, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+									@else
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 30, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.largeLine1')</li>
 										<li class="list-group-item">@lang('pages/business.largeLine2')</li>
@@ -163,7 +176,11 @@
 							</div>
 							<div class="panel-body">
 								<div class="panel-price">
-									<h1 class="text-center">7.99 EUR/@lang('pages/business.month')</h1>
+									@if(App::getLocale() == 'hr')
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 60, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+									@else
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 8, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.smallLine1')</li>
 										<li class="list-group-item">@lang('pages/business.smallLine2')</li>
@@ -185,7 +202,11 @@
 							</div>
 							<div class="panel-body">
 								<div class="panel-price">
-									<h1 class="text-center">19.99 EUR/@lang('pages/business.month')</h1>
+									@if(App::getLocale() == 'hr')
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 150, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+									@else
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 20, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.mediumLine1')</li>
 										<li class="list-group-item">@lang('pages/business.mediumLine2')</li>
@@ -208,7 +229,11 @@
 							</div>
 							<div class="panel-body">
 								<div class="panel-price">
-									<h1 class="text-center">29.99 EUR/@lang('pages/business.month')</h1>
+									@if(App::getLocale() == 'hr')
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 225, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+									@else
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 30, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.largeLine1')</li>
 										<li class="list-group-item">@lang('pages/business.largeLine2')</li>

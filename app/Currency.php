@@ -18,6 +18,11 @@ class Currency extends Model
 	{
 		$this->hasMany('App\Product', 'currency_id');
 	}
+	
+	public function plan()
+	{
+		$this->hasMany('App\Plan', 'currency');
+	}
 
 	public function formatCurrency($locale, $value, $code, $symbol)
 	{

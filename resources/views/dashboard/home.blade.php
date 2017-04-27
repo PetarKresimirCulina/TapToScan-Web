@@ -17,6 +17,7 @@
 				@include('includes.blocked')
 				@include('includes.noTags')
 				
+				
 				<div class="table-responsive">
 				
 					<table id="currentOrders" class="table table-hover table-responsive">

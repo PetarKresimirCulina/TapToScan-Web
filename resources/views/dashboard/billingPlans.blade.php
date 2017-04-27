@@ -23,6 +23,9 @@
 						<div class="panel panel-default panel-business">
 							<div class="panel-heading text-center">
 								<h1>{{ $plan->name }}</h1>
+								
+									 {{ $plan->getCurrency->id }}
+									 
 								@if($plan->name == 'Small')
 									<i class="material-icons">local_cafe</i>
 								@elseif($plan->name == 'Medium')
@@ -37,7 +40,7 @@
 							<div class="panel-body">
 									<div class="panel-price">
 										@php $currencyDummy = new \App\Currency(); @endphp
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price, 'EUR', '€') }}/@lang('pages/business.month')</h1>
+										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price, $plan->getCurrency->code, $plan->getCurrency->symbol) }}/@lang('pages/business.month')</h1>
 										<ul class="list-group">
 											<li class="list-group-item">@lang('dashboardBillingPlans.tagsLimit1', ['limit' => $plan->tags_limit])</li>
 											<li class="list-group-item">@lang('pages/business.smallLine2')</li>

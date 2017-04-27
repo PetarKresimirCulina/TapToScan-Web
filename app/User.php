@@ -11,6 +11,7 @@ use App\Plan;
 use Braintree_Customer;
 use Braintree_PaymentMethod;
 use Carbon\Carbon;
+use Braintree_Subscription;
 
 
 /**
@@ -171,7 +172,21 @@ class User extends Authenticatable
 		//if ($result->success) {
 			// subscribe
 
-		$this->newSubscription('main', strval($plan->id))->trialDays(1)->create(); // <<<<<<<<<<< CHANGE THIS TO 30 DAYS
+		if($this->country == 'hr') {
+			$this->newSubscription('main', strval($plan->id))->trialDays(1)->create(null, [], ['merchantAccountId' => 'taptoscancomHRK']); // <<<<<<<<<<< CHANGE THIS TO 30 DAYS
+		} else {
+			$this->newSubscription('main', strval($plan->id))->trialDays(1)->create(); // <<<<<<<<<<< CHANGE THIS TO 30 DAYS
+		}
+		
+		
+		/*$result = Braintree_Subscription::create([
+		  'planId' => strval($plan->id),
+		  'merchantAccountId' => 'taptoscancomHRK',
+		  'paymentMethodNonce' => $request['payment_method_nonce'],
+		]);
+		return $result;*/
+		
+		
 		$this->trial_ends_at = Carbon::now()->addDays(30);
 
 		$this->plan_id  = $plan->id;

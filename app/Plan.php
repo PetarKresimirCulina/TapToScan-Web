@@ -10,4 +10,9 @@ class Plan extends Model
 	{
 		return $this->hasMany('App\User');
 	}
+	
+	public function getCurrency() {
+		return $this->belongsTo('App\Currency', 'currency');
+	}
 }
+
