@@ -43,6 +43,10 @@ class PaymentsController extends Controller
 			}
 			# true
 		}
+		else {
+			Session::flash('alert-danger', Lang::get('dashboardBilling.chargeFail'));
+			return redirect()->route('dashboard.billing', App::getLocale());
+		}
 	}
 	
 	public function changeSubscriptionPlan(Request $request)
