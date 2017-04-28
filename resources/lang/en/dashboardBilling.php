@@ -38,4 +38,7 @@ return [
 	'chargeSuccess' => 'Payment made successfuly',
 	'chargeFail' => 'Payment failed. Please check your payment method and try again.',
 	'blockedCanceled' => 'Your account was canceled due to outstanding payments. If you want to reactivate your account please contact support.',
+	'price' => 'Price',
+	'VAT' => 'VAT',
+	'total' => 'Total',
 ];

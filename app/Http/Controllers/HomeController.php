@@ -95,7 +95,7 @@ class HomeController extends Controller
 	
 	public function displayUserSetupPlans() {
 		if(Auth::user()->country == 'HR') {
-			$plans = Plan::where('display', 1)->where('currency', 'HRK')->get();
+			$plans = Plan::where('display', 1)->where('currency', 28)->get();
 		} else {
 			$plans = Plan::where('display', 1)->get();
 		}

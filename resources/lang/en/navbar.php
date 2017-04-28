@@ -29,7 +29,7 @@ return [
 	'help' => 'Help',
 	'logout' => 'Logout',
 	'copyright' => 'All rights reserved.',
-	'terms' => 'Terms of use',
+	'terms' => 'Terms of service',
 	'privacy' => 'Privacy policy',
 
 ];

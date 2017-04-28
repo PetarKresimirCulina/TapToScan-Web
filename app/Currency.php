@@ -32,7 +32,7 @@ class Currency extends Model
 				return $code . number_format($value, 2, '.', ',');
 				break;
 			case 'hr':
-				return number_format($value, 2, ',', '.') . ' ' . $symbol;
+				return number_format($value, 2, ',', '.') . $symbol;
 				break;
 			default:
 				//en

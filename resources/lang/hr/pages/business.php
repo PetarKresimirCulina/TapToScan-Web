@@ -45,4 +45,5 @@ return [
 	'feature4Title' => 'Obavijesti u stvarnom vremenu',
 	'feature4Text' => 'Svaki puta kada je narudžba napravljena, obavijest će se prikazati na Vašem korisničkom računu, u stvarnom vremenu.',
 	'month' => 'mjesečno',
+	'vatNotice' => '* PDV nije uključen u cijenu',
 ];

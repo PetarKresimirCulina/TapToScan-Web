@@ -51,8 +51,8 @@ class User extends Authenticatable
 		return $this->belongsTo('App\Plan');
 	}
 	
-	public function country() {
-		$this->belongsTo('App\Country', 'country');
+	public function getCountry() {
+		return $this->belongsTo('App\Country', 'country', 'id');
 	}
 	
 	public function orders()
@@ -78,7 +78,20 @@ class User extends Authenticatable
 	}
 	
 	public function taxPercentage() {
-		return 0;
+		if($this->getCountry->id == 'HR') {
+			// nalazi se u Hrvatskoj, rokaj PDV
+			return $this->getCountry->vat;
+		}
+		if($this->getCountry->eu == 1) {
+			if($this->vat_id != $this->getCountry->id . '000000000') {
+				// Pravna osoba
+				return 0;
+			}
+			else {
+				// fizička
+				return $this->getCountry->vat;
+			}
+		}
 	}
 	
 	public function isUserSetup() {
@@ -172,7 +185,7 @@ class User extends Authenticatable
 		//if ($result->success) {
 			// subscribe
 
-		if($this->country == 'hr') {
+		if(strtolower($this->country) == 'hr') {
 			$this->newSubscription('main', strval($plan->id))->trialDays(1)->create(null, [], ['merchantAccountId' => 'taptoscancomHRK']); // <<<<<<<<<<< CHANGE THIS TO 30 DAYS
 		} else {
 			$this->newSubscription('main', strval($plan->id))->trialDays(1)->create(); // <<<<<<<<<<< CHANGE THIS TO 30 DAYS

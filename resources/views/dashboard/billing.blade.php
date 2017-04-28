@@ -28,8 +28,12 @@
 						<div class="panel-body">
 							<p><span class="bold">@lang('dashboardBilling.currentPlanShort'): </span>{{ Auth::user()->plan->name }}</p>
 							@php $currencyDummy = \App\Currency::where('id', Auth::user()->plan->currency)->first(); @endphp
-							<p><span class="bold">@lang('dashboardBilling.monthlyFee'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, $currencyDummy->code, $currencyDummy->symbol) }}</p>
-
+							<p><span class="bold">@lang('dashboardBilling.monthlyFee'): </span>
+							@if(Auth::user()->taxPercentage() > 0)
+								 {{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price + ( Auth::user()->plan->price * (Auth::user()->taxPercentage()/100)), $currencyDummy->code, $currencyDummy->symbol) }}</p>
+							@else
+								{{ $currencyDummy->formatCurrency(App::getLocale(), Auth::user()->plan->price, $currencyDummy->code, $currencyDummy->symbol) }}</p>
+							@endif
 							<hr>
 							<p><span class="bold">@lang('dashboardBilling.balance'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->balance), $currencyDummy->code, $currencyDummy->symbol)  }}</p>
 							<p><span class="bold">@lang('dashboardBilling.nextPayment'): </span>{{ $currencyDummy->formatCurrency(App::getLocale(), floatval($subscription->nextBillAmount), $currencyDummy->code, $currencyDummy->symbol)  }}</p>

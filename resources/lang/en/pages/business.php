@@ -45,4 +45,5 @@ return [
 	'feature4Title' => 'Realtime Notifications',
 	'feature4Text' => 'Receive realtime notifications in your user account as soon as an order has been placed.',
 	'month' => 'month',
+	'vatNotice' => '* VAT not included in price',
 ];

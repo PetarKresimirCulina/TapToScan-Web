@@ -106,7 +106,7 @@ class PaymentsController extends Controller
 					Session::flash('alert-danger', Lang::get('dashboardBilling.creditCardErrorNotAccepted'));
 				}
 				else {
-					Session::flash('alert-danger', Lang::get('dashboardBilling.creditCardError'));
+					Session::flash('alert-danger', Lang::get('dashboardBilling.creditCardError') . $e);
 				}
 				return Redirect::back();
 			}

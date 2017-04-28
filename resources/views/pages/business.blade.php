@@ -24,9 +24,9 @@
 								<div class="panel-price">
 									@php $currencyDummy = new \App\Currency(); @endphp
 									@if(App::getLocale() == 'hr')
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 60, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 60, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
 									@else
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 8, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 8, 'EUR', '€') }} /@lang('pages/business.month')</h1>
 									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.smallLine1')</li>
@@ -35,6 +35,7 @@
 										<li class="list-group-item">@lang('pages/business.smallLine4')</li>
 									</ul>
 									<a href="{{ route('register', App::getLocale()) }}" class="btn btn-success btn-lg text-capitalize btn-signup" data-id="1">@lang('pages/business.signUp')</a>
+									<p class="small">@lang('pages/business.vatNotice')</p>
 								</div>
 							</div>
 						</div>
@@ -50,9 +51,9 @@
 							<div class="panel-body">
 								<div class="panel-price">
 									@if(App::getLocale() == 'hr')
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 150, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 150, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
 									@else
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 20, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 20, 'EUR', '€') }} /@lang('pages/business.month')</h1>
 									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.mediumLine1')</li>
@@ -61,6 +62,7 @@
 										<li class="list-group-item">@lang('pages/business.mediumLine4')</li>
 									</ul>
 									<a href="{{ route('register', App::getLocale()) }}" class="btn btn-success btn-lg text-capitalize btn-signup" data-id="2">@lang('pages/business.signUp')</a>
+									<p class="small">@lang('pages/business.vatNotice')</p>
 								</div>
 							</div>
 						</div>
@@ -77,9 +79,9 @@
 							<div class="panel-body">
 								<div class="panel-price">
 									@if(App::getLocale() == 'hr')
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 225, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 225, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
 									@else
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 30, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 30, 'EUR', '€') }} /@lang('pages/business.month')</h1>
 									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.largeLine1')</li>
@@ -88,6 +90,7 @@
 										<li class="list-group-item">@lang('pages/business.largeLine4')</li>
 									</ul>
 									<a href="{{ route('register', App::getLocale()) }}" class="btn btn-success btn-lg text-capitalize btn-signup" data-id="3">@lang('pages/business.signUp')</a>
+									<p class="small">@lang('pages/business.vatNotice')</p>
 								</div>
 							</div>
 						</div>
@@ -177,9 +180,9 @@
 							<div class="panel-body">
 								<div class="panel-price">
 									@if(App::getLocale() == 'hr')
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 60, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 60, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
 									@else
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 8, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 8, 'EUR', '€') }} /@lang('pages/business.month')</h1>
 									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.smallLine1')</li>
@@ -188,6 +191,7 @@
 										<li class="list-group-item">@lang('pages/business.smallLine4')</li>
 									</ul>
 									<a href="{{ route('register', App::getLocale()) }}" class="btn btn-success btn-lg text-capitalize btn-signup" data-id="1">@lang('pages/business.signUp')</a>
+									<p class="small">@lang('pages/business.vatNotice')</p>
 								</div>
 							</div>
 						</div>
@@ -203,9 +207,9 @@
 							<div class="panel-body">
 								<div class="panel-price">
 									@if(App::getLocale() == 'hr')
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 150, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 150, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
 									@else
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 20, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 20, 'EUR', '€') }} /@lang('pages/business.month')</h1>
 									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.mediumLine1')</li>
@@ -214,6 +218,7 @@
 										<li class="list-group-item">@lang('pages/business.mediumLine4')</li>
 									</ul>
 									<a href="{{ route('register', App::getLocale()) }}" class="btn btn-success btn-lg text-capitalize btn-signup" data-id="2">@lang('pages/business.signUp')</a>
+									<p class="small">@lang('pages/business.vatNotice')</p>
 								</div>
 							</div>
 						</div>
@@ -230,9 +235,9 @@
 							<div class="panel-body">
 								<div class="panel-price">
 									@if(App::getLocale() == 'hr')
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 225, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 225, 'HRK', 'kn') }} /@lang('pages/business.month')</h1>
 									@else
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), 30, 'EUR', '€') }} /@lang('pages/business.month')</h1>
+										<h1 class="text-center h1PlanSmall">{{ $currencyDummy->formatCurrency(App::getLocale(), 30, 'EUR', '€') }} /@lang('pages/business.month')</h1>
 									@endif
 									<ul class="list-group">
 										<li class="list-group-item">@lang('pages/business.largeLine1')</li>
@@ -241,6 +246,7 @@
 										<li class="list-group-item">@lang('pages/business.largeLine4')</li>
 									</ul>
 									<a href="{{ route('register', App::getLocale()) }}" class="btn btn-success btn-lg text-capitalize btn-signup" data-id="3">@lang('pages/business.signUp')</a>
+									<p class="small">@lang('pages/business.vatNotice')</p>
 								</div>
 							</div>
 						</div>

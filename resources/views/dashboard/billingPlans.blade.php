@@ -23,8 +23,6 @@
 						<div class="panel panel-default panel-business">
 							<div class="panel-heading text-center">
 								<h1>{{ $plan->name }}</h1>
-								
-									 {{ $plan->getCurrency->id }}
 									 
 								@if($plan->name == 'Small')
 									<i class="material-icons">local_cafe</i>
@@ -40,7 +38,17 @@
 							<div class="panel-body">
 									<div class="panel-price">
 										@php $currencyDummy = new \App\Currency(); @endphp
-										<h1 class="text-center">{{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price, $plan->getCurrency->code, $plan->getCurrency->symbol) }}/@lang('pages/business.month')</h1>
+										
+										<span id="priceTag{{$plan->id}}">
+										@if(Auth::user()->taxPercentage() > 0)
+											<p class="text-center small">@lang('dashboardBilling.price'): {{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price, $plan->getCurrency->code, $plan->getCurrency->symbol) }}</p>
+											<p class="text-center small">+ @lang('dashboardBilling.VAT')({{ Auth::user()->taxPercentage() }}%):  {{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price * (Auth::user()->taxPercentage()/100), $plan->getCurrency->code, $plan->getCurrency->symbol) }}</p>
+											<h1 class="text-center h1PlanSmall">@lang('dashboardBilling.total'):  {{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price + ($plan->price * (Auth::user()->taxPercentage()/100)), $plan->getCurrency->code, $plan->getCurrency->symbol) }}/@lang('pages/business.month')</h1>
+										@else
+											<h1 class="text-center h1PlanSmall">@lang('dashboardBilling.price'): {{ $currencyDummy->formatCurrency(App::getLocale(), $plan->price, $plan->getCurrency->code, $plan->getCurrency->symbol) }}/@lang('pages/business.month')</h1>
+										@endif
+										</span>
+										
 										<ul class="list-group">
 											<li class="list-group-item">@lang('dashboardBillingPlans.tagsLimit1', ['limit' => $plan->tags_limit])</li>
 											<li class="list-group-item">@lang('pages/business.smallLine2')</li>
@@ -78,7 +86,7 @@
 					<input type="hidden" name="planID" id="planID" value="1" />
 					<div class="modal-body text-center">
 						<h1 class="text-capitalize" id="planName"></h1>
-						<p class="text-capitalize" id="planPrice"></p>
+						<p id="planPrice"></p>
 						<hr>
 						<p>@lang('dashboardBillingPlans.changePlanQuestion')</p>
 					</div>
@@ -100,7 +108,8 @@
 			$(".btn-subscribe").click(function(e){
 				$('#planID').val($(this).data('id'));
 				$('#planName').html($(this).data('name'));
-				$('#planPrice').html($(this).data('price'));
+				var id = '#priceTag' + $(this).data('id');
+				$('#planPrice').html($(id).html());
 			});
 			
 		});
