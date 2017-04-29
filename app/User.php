@@ -83,7 +83,7 @@ class User extends Authenticatable
 			return $this->getCountry->vat;
 		}
 		if($this->getCountry->eu == 1) {
-			if($this->vat_id != $this->getCountry->id . '000000000') {
+			if($this->vat_id != null) {
 				// Pravna osoba
 				return 0;
 			}
@@ -113,7 +113,7 @@ class User extends Authenticatable
 		if($request['vatID'] != null) {
 			$this->vat_id = $request['countryCode'] . $request['vatID'];
 		} else {
-			$this->vat_id = $request['countryCode'] . '000000000';
+			$this->vat_id = null;
 		}
 		return $this->save();
 	}
