@@ -239,7 +239,7 @@ class HomeController extends Controller
 
 			//$pdf = App::make('snappy.pdf');
 			
-			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.pdf', ['data' => $request]);
+			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['data' => $request]);
 			
 
 			return $pdf->download($invoiceId . '.pdf');

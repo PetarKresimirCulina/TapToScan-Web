@@ -43,7 +43,6 @@
 								<form id="generatePDF{{ $i }}" action="{{ route('dashboard.billing.invoice', App::getLocale())  }}" method="post">
 									{{ csrf_field() }}
 									<input type="hidden" value="{{ $invoice->id }}" name="invoiceId"/>
-									<input type="hidden" value="{{ $invoice->merchantAccountId }}" name="merchantAccountId"/>
 									<input type="hidden" value="{{ $invoice->amount }}" name="amount"/>
 									<input type="hidden" value="{{ $invoice->currencyIsoCode }}" name="currency"/>
 									<input type="hidden" value="{{ $invoice->taxAmount }}" name="tax"/>
@@ -59,17 +58,23 @@
 											<input type="hidden" value="{{ $cc->cardType }}" name="card_brand"/>
 											<input type="hidden" value="{{ $cc->cardholderName }}" name="cardholderName"/>
 										@endif
-											
-										@if($invoice->paymentInstrumentType == 'paypal_account')
-											@php $pp = $invoice->paypalDetails @endphp
-											<input type="hidden" value="{{ $pp->payerEmail }}" name="payerEmail"/>
-											<input type="hidden" value="{{ $pp->paymentId }}" name="paymentId"/>
-											<input type="hidden" value="{{ $pp->payerFirstName }}" name="payerFirst"/>
-											<input type="hidden" value="{{ $pp->payerLastName }}" name="payerLast"/>
-										@endif
+										
+										
+										
+										
+									<input type="hidden" value="{{ Auth::user()->business_name }}" name="name"/>
+									<input type="hidden" value="{{ Auth::user()->vat_id }}" name="vatID"/>
+									
+									<input type="hidden" value="{{ Auth::user()->address }}" name="address1"/>
+									<input type="hidden" value="{{ Auth::user()->zip . ' ' .  Auth::user()->city . ', ' .  Auth::user()->country }}" name="address2"/>
 									
 									<input type="hidden" value="{{ $invoice->date() }}" name="invoiceDate"/>
 									<a href="javascript:{}" onclick="document.getElementById('generatePDF{{ $i }}').submit(); return false;">@lang('dashboardBillingHistory.download')</a>
+								
+								
+									
+								
+								
 								</form>
 							</td>
 						</tr>

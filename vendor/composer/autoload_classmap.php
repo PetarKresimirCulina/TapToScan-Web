@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddCanceledToUser' => $baseDir . '/database/migrations/2017_04_24_191546_add_canceled_to_user.php',
-    'AddHRK' => $baseDir . '/database/migrations/2017_04_27_145142_addHRK.php',
     'BraintreeTableModify' => $baseDir . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
     'Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
@@ -470,6 +469,7 @@ return array(
     'Pusher' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
     'PusherException' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
     'PusherInstance' => $vendorDir . '/pusher/pusher-php-server/lib/Pusher.php',
+    'ReceiptsTable' => $baseDir . '/database/migrations/2017_05_13_130851_receipts_table.php',
     'SebastianBergmann\\CodeCoverage\\CodeCoverage' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage.php',
     'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => $vendorDir . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
     'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => $vendorDir . '/phpunit/php-code-coverage/src/Driver/Driver.php',

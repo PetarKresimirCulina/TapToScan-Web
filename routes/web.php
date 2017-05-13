@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('/test', function()
+	{
+		return View::make('emails/bill');
+	});
+
 Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 	/* ======================================================
 	   Public routes
@@ -64,7 +69,7 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 
 		/* billing */
 		Route::get('/billing', 'HomeController@billing')->name('dashboard.billing');
-		Route::get('/billing/history', 'HomeController@billingHistory')->name('dashboard.billing.history');
+		Route::get('/billing/invoices', 'HomeController@billingHistory')->name('dashboard.billing.history');
 		Route::get('/billing/plans', 'HomeController@billingChangePlanDisplayAll')->name('dashboard.billing.changePlan');
 		Route::post('/billing/plans/change', 'HomeController@billingChangePlan')->name('dashboard.billing.changePlanRequest');
 		/* retry payment in subscription */
@@ -111,3 +116,5 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 });
 
 	Route::post('/pusher/auth', 'PusherAuth@auth')->name('pusher.auth');
+	
+	

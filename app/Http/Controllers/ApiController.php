@@ -14,7 +14,9 @@ use App\Subscription;
 use Validator;
 use Response;
 use Auth;
-
+use App\Invoice;
+use App\InvoiceItem;
+use App\Plan;
 use Braintree_WebhookNotification;
 
 /**
@@ -187,6 +189,16 @@ class ApiController extends Controller
 					if($user != null) {
 						$user->unblock();
 						
+						$invoice = new Invoice();
+						$invoice->create($user->id, $user->taxPercentage(), 0, 0, 1, 1);
+						$price = $user->plan->price;
+						$it = new InvoiceItem();
+						$plan = Plan::where('id', $user->plan_id;
+						$desc = 'Pretplatnički paket/Subscription package ' . $plan->name;
+						$it->create($invoice->id, $desc, $plan->price, $plan->currency->code, 1);
+						$invoice->totalNet = $plan->price;
+						$invoice->totalWVat = $plan->price + ($plan->price * ($user->taxPercentage()/100))
+						$invoice->save();
 					}
 					
 					$msg = "Subscription charged successfuly";

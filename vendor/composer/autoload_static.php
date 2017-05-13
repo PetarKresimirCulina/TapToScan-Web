@@ -351,7 +351,6 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
 
     public static $classMap = array (
         'AddCanceledToUser' => __DIR__ . '/../..' . '/database/migrations/2017_04_24_191546_add_canceled_to_user.php',
-        'AddHRK' => __DIR__ . '/../..' . '/database/migrations/2017_04_27_145142_addHRK.php',
         'BraintreeTableModify' => __DIR__ . '/../..' . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
@@ -814,6 +813,7 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
         'PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
         'PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
+        'ReceiptsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_13_130851_receipts_table.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',
