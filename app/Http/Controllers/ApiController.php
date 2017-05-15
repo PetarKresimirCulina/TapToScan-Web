@@ -194,7 +194,7 @@ class ApiController extends Controller
 						$invoice->create($user->id, $user->taxPercentage(), 0, 0, 1, 1);
 						$price = $user->plan->price;
 						$it = new InvoiceItem();
-						$plan = Plan::where('id', $user->plan_id;
+						$plan = Plan::where('id', $user->plan_id);
 						$desc = 'Pretplatnički paket/Subscription package ' . $plan->name;
 						$it->create($invoice->id, $desc, $plan->price, $plan->currency->code, 1);
 						$invoice->totalNet = $plan->price;

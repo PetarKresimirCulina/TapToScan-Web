@@ -13,10 +13,16 @@ class PagesController extends Controller
     {
 		if(\Request::path() == '/')
 		{
-			$locale = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-			if(!array_key_exists($locale, config('app.locales'))) {
+			if(empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 				$locale = 'en';
 			}
+			else {
+				$locale = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+				if(!array_key_exists($locale, config('app.locales'))) {
+					$locale = 'en';
+				}
+			}
+			
 			App::setLocale($locale);
 			return redirect($locale . '/');
 		}
