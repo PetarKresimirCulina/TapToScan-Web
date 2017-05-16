@@ -23,7 +23,6 @@ return [
 	'notActive' => 'Neaktivno',
 	'inactive' => 'Neaktivno',
 	'active' => 'Aktivno',
-	'tagIdNo' => 'ID broj naljepnice',
 	'tableStatus' => 'Status stola',
 	'renameTable' => 'Preimenuj stol',
 	'deleteTable' => 'Obriši stol',

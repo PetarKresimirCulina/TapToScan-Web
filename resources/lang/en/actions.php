@@ -24,5 +24,7 @@ return [
 	'no' => 'No',
 	'select' => 'Select',
 	'subscribe' => 'Subscribe',
-	'orderTags' => 'We noticed you don\'t have any tags yet. Feel free to order them by visiting the ordering page'
+	'orderTags' => 'We noticed you don\'t have any tags yet. Feel free to order them by visiting the ordering page',
+	'generate' => 'Generate',
+	'filter' => 'Filter',
 ];

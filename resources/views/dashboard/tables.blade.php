@@ -66,7 +66,7 @@
 					<form id="addTable" action="{{ route('tags.add', App::getLocale()) }}" method="post">
 					{{ csrf_field () }}
 						<div class="form-group">
-							<label for="tag">@lang('dashboardTables.tagIdNo')</label>
+							<label for="tag">@lang('dashboardTables.tagId')</label>
 							<input type="text" class="form-control input-lg" required autofocus placeholder="ABCD1234" name="tag" id="tag">
 						</div>
 						<div class="form-group">

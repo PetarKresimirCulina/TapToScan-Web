@@ -31,5 +31,7 @@ return [
 	'copyright' => 'All rights reserved.',
 	'terms' => 'Terms of service',
 	'privacy' => 'Privacy policy',
+	'usersManagement' => 'Users management',
+	'tagsManagement' => 'Tags management',
 
 ];

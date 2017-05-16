@@ -1,5 +1,11 @@
 <div class="hidden-xs col-sm-3 col-md-2 sidebar">
 	<ul class="nav margin-4 text-capitalize">
+	
+		@if(Auth::user()->admin == 1)
+			<li><a {{{ (Request::is('*/tags') ? 'class=active' : '') }}} href="{{ route('dashboard.tagsManagement', App::getLocale()) }}"><i class="material-icons">storage</i> @lang('navbar.tagsManagement')</a></li>
+			<li><a {{{ (Request::is('*/users') ? 'class=active' : '') }}} href="{{ route('dashboard.usersManagement', App::getLocale()) }}"><i class="material-icons">people</i> @lang('navbar.usersManagement')</a></li>	
+			<hr class="separator">
+		@endif
 		<li><a  {{{ (Request::is('*/home') ? 'class=active' : '') }}} href="{{ route('dashboard.home', App::getLocale()) }}"><i class="material-icons">receipt</i> @lang('navbar.orders') 
 			@if(Auth::user()->orders()->where('status', 0)->count() > 0)
 				<span class="badge notification"> {{ Auth::user()->orders()->where('status', 0)->count() }} </span>

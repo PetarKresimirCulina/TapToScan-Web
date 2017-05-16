@@ -78,6 +78,9 @@ class User extends Authenticatable
 	}
 	
 	public function taxPercentage() {
+		// Nije obveznik PDV-a
+		if(env('TAX_EXEMPT') == 0) { return 0; }
+		
 		if($this->getCountry->id == 'HR') {
 			// nalazi se u Hrvatskoj, rokaj PDV
 			return $this->getCountry->vat;

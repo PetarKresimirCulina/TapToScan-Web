@@ -51,6 +51,19 @@ class Tag extends Model
 		return false;
 	}
 	
+	public function addAdmin($id)
+	{
+		
+		$tag = new Tag();
+
+		$tag->id = $id;
+		
+		if($tag->save()) {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
      * changeStatus
 	* Changes the tags status 0=inactive 1=active. Only active tags can be scanned by mobile phone aoo
@@ -59,6 +72,13 @@ class Tag extends Model
      */
 	public function changeStatus($tag, $active, $user)
 	{
+		$userObj = User::where('id', $user)->first();
+		
+		if($userObj->admin == 1){
+			$tag->active = $active;
+			$tag->save();
+			return true;
+		}
 		
 		if($tag->userData->id == $user)
 		{			
@@ -66,6 +86,7 @@ class Tag extends Model
 			$tag->save();
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -77,8 +98,14 @@ class Tag extends Model
      */
 	public function deleteTag($id, $user)
 	{
+		$userObj = User::where('id', $user)->first();
 		
-		$tag = $this->where('id', $id)->where('user', $user)->first();
+		if($userObj->admin == 1) {
+			$tag = $this->where('id', $id)->first();
+		}
+		else {
+			$tag = $this->where('id', $id)->where('user', $user)->first();
+		}
 
 		if($tag)
 		{

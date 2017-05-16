@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
 		'emailVerify' => \App\Http\Middleware\EmailVerification::class,
 		'userSetup' => \App\Http\Middleware\UserSetup::class,
 		'userBlockedOrSetup' => \App\Http\Middleware\UserBlockedOrSetup::class,
+		'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ];
 }

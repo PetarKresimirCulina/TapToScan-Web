@@ -91,6 +91,18 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 		Route::post('/settings/information/update', 'HomeController@updateUserInformation')->name('dashboard.updateUserInformation');
 		Route::post('/settings/password/update', 'HomeController@updatePassword')->name('dashboard.updatePassword');
 		
+		Route::group(['middleware' => 'admin'], function () {
+			/* ADMIN SECTION */
+			
+			/* Tags Management */
+			Route::get('/tags', 'AdminController@tags')->name('dashboard.tagsManagement');
+			Route::post('/tags/add', 'AdminController@tagsAdd')->name('tags.addAdmin');
+			Route::post('/tags/bulkAdd', 'AdminController@tagsBulkAdd')->name('tags.addBulkAdmin');
+			
+			/* Users Management */
+			Route::get('/users', 'AdminController@users')->name('dashboard.usersManagement');
+		});
+		
 	});
 	
 	

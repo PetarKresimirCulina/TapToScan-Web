@@ -23,7 +23,6 @@ return [
 	'notActive' => 'Not active',
 	'inactive' => 'Inactive',
 	'active' => 'Active',
-	'tagIdNo' => 'Tag ID number',
 	'tableStatus' => 'Table status',
 	'renameTable' => 'Rename table',
 	'deleteTable' => 'Delete table',
