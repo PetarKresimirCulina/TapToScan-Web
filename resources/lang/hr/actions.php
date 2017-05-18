@@ -27,4 +27,8 @@ return [
 	'orderTags' => 'Primjetili smo da nemate NFC naljepnice. Možete ih naručiti odlaskom na stranicu za narudžbe NFC naljepnica',
 	'generate' => 'Generiraj',
 	'filter' => 'Filtriraj',
+	'ban' => 'Ban',
+	'unban' => 'Unban',
+	'block' => 'Block',
+	'unblock' => 'Unblock',
 ];

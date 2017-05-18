@@ -101,6 +101,8 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 			
 			/* Users Management */
 			Route::get('/users', 'AdminController@users')->name('dashboard.usersManagement');
+			Route::post('/users/ban', 'AdminController@userBanChangeStatus')->name('users.banned');
+			Route::post('/users/blocked', 'AdminController@userBlockChangeStatus')->name('users.blocked');
 		});
 		
 	});

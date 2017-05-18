@@ -42,6 +42,7 @@
 				
 				<div class="table-responsive">
 					<table id="currentTables" class="table table-hover">
+					<thead>
 						<tr class="text-capitalize">
 							<th>@lang('dashboardTags.tagId')</th>
 							<th>@lang('dashboardTags.tableName')</th> 
@@ -51,7 +52,9 @@
 							<th>@lang('dashboardTags.createdAt')</th> 
 							<th>@lang('dashboardTags.updatedAt')</th> 
 						</tr>
+					</thead>
 
+					<tbody>
 						@foreach($tags as $tag)
 							<tr>
 								<td>{{ $tag->id }}</td>
@@ -69,7 +72,7 @@
 									@endif
 								</td>
 								<td class="text-center">
-									<a href="#" data-id="{{ $tag->id }}" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger btn-delete"><i class="material-icons">delete</i> @lang('actions.delete')</button>
+									<a href="#" data-id="{{ $tag->id }}" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger btn-delete"><i class="material-icons">delete</i> @lang('actions.delete')</a>
 								</td>
 								<td>
 									{{ $tag->created_at }}
@@ -79,6 +82,7 @@
 								</td>
 							</tr>
 						@endforeach
+					</tbody>
 					</table>
 				</div>
 				<div class="pagination"> {{ $tags->appends(Request::except('page'))->links() }} </div>
@@ -182,13 +186,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title text-capitalize">@lang('dashboardTags.deleteTable')</h4>
+					<h4 class="modal-title text-capitalize">@lang('dashboardTags.deleteTag')</h4>
 				</div>
 				<form class="inline" action="{{ route('tags.deleteTable', App::getLocale()) }}" method="POST">
 					{{ csrf_field() }}
 					<input id="confirmDeleteID" type="hidden" name="tag" value=""/>
 					<div class="modal-body text-center">
-						<h3>@lang('dashboardTags.deleteTableQuestion')</h3>
+						<h3>@lang('dashboardTags.deleteTagQuestion')</h3>
 					</div>
 					<div class="modal-footer text-center">
 						<button type="submit" class="btn btn-success btn-yes">@lang('actions.yes')</a>
@@ -208,9 +212,9 @@
 	
 	$(document).ready(function() {
 		
-		
 		$(".btn-tables").click(function(e) {
 			e.preventDefault();
+			
 			var btn = $(this);
 			if($(btn).data('requestRunning') ) {
 				return;

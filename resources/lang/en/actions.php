@@ -27,4 +27,8 @@ return [
 	'orderTags' => 'We noticed you don\'t have any tags yet. Feel free to order them by visiting the ordering page',
 	'generate' => 'Generate',
 	'filter' => 'Filter',
+	'ban' => 'Ban',
+	'unban' => 'Unban',
+	'block' => 'Block',
+	'unblock' => 'Unblock',
 ];

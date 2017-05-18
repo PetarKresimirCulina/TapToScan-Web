@@ -34,7 +34,7 @@
 								<td><a href="{{ route('products.view', ['lang' => App::getLocale(),'catID' => $category->id]) }}" class="btn btn-success"><span class="badge">{{ $category->products->count() }}</span> @lang('dashboardCategories.categoryEditProducts')</a></td> 
 								<td>
 									<a href="#" class="btn btn-primary btn-edit" data-toggle="modal" data-target="#editCat" data-id="{{ $category->id }}" data-name="{{ $category->name }}" data-icon="{{ $category->icon->id }}"><i class="material-icons">edit</i> @lang('actions.edit')</a>
-									<a href="#" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirmDelete" data-id="{{ $category->id }}"><i class="material-icons">delete</i> @lang('actions.delete')</button>
+									<a href="#" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirmDelete" data-id="{{ $category->id }}"><i class="material-icons">delete</i> @lang('actions.delete')</a>
 								</td>
 							</tr>
 						@endforeach

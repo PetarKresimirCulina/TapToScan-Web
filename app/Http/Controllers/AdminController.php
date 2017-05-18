@@ -36,6 +36,15 @@ class AdminController extends Controller
 		return view('dashboard.tags')->with('tags', $tags);
 	}
 	
+	public function users() {
+		$query = User::query();
+		if(Input::has('email')) {
+			$query->where('email', Input::get('email'));
+		}
+		$users = $query->paginate(10);
+		return view('dashboard.users')->with('users', $users);
+	}
+	
 	public function tagsAdd(Request $data)
     {
 		if ($data->isMethod('post')){
@@ -100,6 +109,61 @@ class AdminController extends Controller
 
 			return redirect()->back()->with('results', $resultSet);
 		}
+	}
+	
+	public function userBanChangeStatus(Request $data)
+    {
+		$rules = ['user' => 'required|numeric|min:1',
+			'status' => 'numeric|between:0,1'];
+			
+		$validator = Validator::make($data->all(), $rules);
+			
+		if ($validator->fails())
+		{
+			$messages = $validator->messages();
+			return 'Validation failed';
+		}
+		else
+		{
+			$id = $data['user'];
+			$active = $data['status'];
+			$user = User::find($id);
+			if(Auth::user()->admin == 1 && $user)
+			{
+				if($user->banChangeStatus())
+				{
+					return 'Success';
+				}
+			}
+		}
+		return 'Failed to modify the user. Please refresh the page.';
+	}
+	public function userBlockChangeStatus(Request $data)
+    {
+		$rules = ['user' => 'required|numeric|min:1',
+			'status' => 'numeric|between:0,1'];
+			
+		$validator = Validator::make($data->all(), $rules);
+			
+		if ($validator->fails())
+		{
+			$messages = $validator->messages();
+			return 'Validation failed';
+		}
+		else
+		{
+			$id = $data['user'];
+			$active = $data['status'];
+			$user = User::find($id);
+			if(Auth::user()->admin == 1 && $user)
+			{
+				if($user->blockChangeStatus())
+				{
+					return 'Success';
+				}
+			}
+		}
+		return 'Failed to modify the user. Please refresh the page.';
 	}
 
 }

@@ -51,6 +51,26 @@ class User extends Authenticatable
 		return $this->belongsTo('App\Plan');
 	}
 	
+	public function banChangeStatus() {
+		if($this->banned == 0) {
+			$this->banned = 1;
+		}
+		else {
+			$this->banned = 0;
+		}
+		return $this->save();
+	}
+	
+	public function blockChangeStatus() {
+		if($this->blocked == 0) {
+			$this->blocked = 1;
+		}
+		else {
+			$this->blocked = 0;
+		}
+		return $this->save();
+	}
+	
 	public function getCountry() {
 		return $this->belongsTo('App\Country', 'country', 'id');
 	}

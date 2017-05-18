@@ -42,7 +42,7 @@
 								</td>
 								<td>
 									<a href="#" class="btn btn-primary btn-edit" data-toggle="modal" data-target="#editTag" data-tag="{{ $tag->id }}" data-name="{{ $tag->name }}"><i class="material-icons">edit</i> @lang('actions.rename')</a>
-									<a href="#" data-id="{{ $tag->id }}" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger btn-delete"><i class="material-icons">delete</i> @lang('actions.delete')</button>
+									<a href="#" data-id="{{ $tag->id }}" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger btn-delete"><i class="material-icons">delete</i> @lang('actions.delete')</a>
 								</td>
 							</tr>
 						@endforeach

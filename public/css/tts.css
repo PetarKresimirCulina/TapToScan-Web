@@ -11,6 +11,13 @@ body {
 .btn-round {
     border-radius: 10rem;
 }
+#currentUsers > tbody > tr > td.hiddenRow {
+    padding: 0px;
+	border-top: none;
+}
+#currentUsers > tbody > tr > td:not(.hiddenRow) {
+	cursor: pointer;
+}
 .bold {
 	font-weight: bold;
 }
