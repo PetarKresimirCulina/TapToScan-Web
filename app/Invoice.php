@@ -17,6 +17,7 @@ class Invoice extends Model
 		$this->saleVenue = $sv;
 		$this->saleOperator = $so;
 		
-		return $this->save();
+		$this->save();
+		return $this;
 	}
 }

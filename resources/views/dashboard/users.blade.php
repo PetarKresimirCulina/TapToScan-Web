@@ -154,9 +154,9 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title text-capitalize">@lang('dashboardUsers.deleteUser')</h4>
 				</div>
-				<form class="inline" action="{{ route('tags.deleteTable', App::getLocale()) }}" method="POST">
+				<form class="inline" action="{{ route('users.deleteUser', App::getLocale()) }}" method="POST">
 					{{ csrf_field() }}
-					<input id="confirmDeleteID" type="hidden" name="tag" value=""/>
+					<input id="confirmDeleteID" type="hidden" name="user" value=""/>
 					<div class="modal-body text-center">
 						<h3>@lang('dashboardUsers.deleteUserQuestion')</h3>
 					</div>

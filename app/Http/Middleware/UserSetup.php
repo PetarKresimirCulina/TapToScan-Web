@@ -18,6 +18,9 @@ class UserSetup
      */
     public function handle($request, Closure $next)
     {
+		if(Auth::user()->banned == 1) {
+			return '403 Forbidden - User banned for violation of ToS'; 
+		}
 		if(!Auth::user()->isUserSetup()) {
 			return redirect()->route('user.displaySetup', App::getLocale());
 		}

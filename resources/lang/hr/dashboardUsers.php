@@ -41,8 +41,9 @@ return [
 	'deleteUser' => 'Obriši korisnika',
 	'deleteUserQuestion' => 'Jeste li sigurni da želite obrisati ovog korisnika?',
 	'banUser' => 'Zabrani pristup',
-	'banUserQuestion' => 'Jeste li sigurni da želite zabraniti pristup ovom korisniku?',
+	'banUserQuestion' => 'Jeste li sigurni da želite promjeniti status zabrane pristupa ovom korisniku?',
 	'blockUser' => 'Blokiraj korisnika',
-	'blockUserQuestion' => 'Jeste li sigurni da želite blokirati ovog korisnika?',
+	'blockUserQuestion' => 'Jeste li sigurni da želite promjeniti status blokade ovog korisnika?',
+	'userDeleted' => 'Korisnik uspješno obrisan',
 	
 ];

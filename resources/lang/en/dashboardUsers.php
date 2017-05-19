@@ -41,8 +41,9 @@ return [
 	'deleteUser' => 'Delete user',
 	'deleteUserQuestion' => 'Are you sure you wish to delete the user?',
 	'banUser' => 'Ban user',
-	'banUserQuestion' => 'Are you sure you wish to ban this user?',
+	'banUserQuestion' => 'Are you sure you wish to change the ban status of this user?',
 	'blockUser' => 'Block user',
-	'blockUserQuestion' => 'Are you sure you wish to block this user?',
+	'blockUserQuestion' => 'Are you sure you wish to change the block status of this user?',
+	'userDeleted' => 'Used deleted successfuly',
 	
 ];

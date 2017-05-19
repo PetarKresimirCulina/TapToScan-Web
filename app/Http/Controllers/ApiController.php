@@ -188,7 +188,7 @@ class ApiController extends Controller
 					$user = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
 					if($user != null) {
 						$user->unblock();
-						file_put_contents("/webhook2.log", $webhookNotification, FILE_APPEND);
+						file_put_contents("webhook2.log", $webhookNotification, FILE_APPEND);
 						
 						$invoice = new Invoice();
 						$invoice->create($user->id, $user->taxPercentage(), 0, 0, 1, 1);

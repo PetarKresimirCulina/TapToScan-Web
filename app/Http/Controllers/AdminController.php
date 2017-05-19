@@ -165,5 +165,31 @@ class AdminController extends Controller
 		}
 		return 'Failed to modify the user. Please refresh the page.';
 	}
+	
+	public function userDelete(Request $data){
+		$rules = ['user' => 'required|numeric|min:1'];
+			
+		$validator = Validator::make($data->all(), $rules);
+			
+		if ($validator->fails())
+		{
+			$messages = $validator->messages();
+			return 'Validation failed';
+		}
+		else
+		{
+			$id = $data['user'];
+			$user = User::find($id);
+			if(Auth::user()->admin == 1 && $user)
+			{
+				if($user->delete())
+				{
+					Session::flash('alert-success', Lang::get('dashboardUsers.userDeleted'));
+					return redirect()->back();
+				}
+			}
+		}
+		return 'Failed to modify the user. Please refresh the page.';
+	}
 
 }
