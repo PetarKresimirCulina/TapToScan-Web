@@ -8,6 +8,8 @@ use App\Order;
 use App\Tag;
 use App\Plan;
 use App\Country;
+use App\Invoice;
+use App\InvoiceItem;
 use Auth;
 use emailVerification;
 use Carbon\Carbon;
@@ -228,7 +230,7 @@ class HomeController extends Controller
 	
 	public function billingHistory()
     {
-		$invoices = Auth::user()->invoicesIncludingPending();
+		$invoices = Auth::user()->getInvoices;
         return view('dashboard.billingHistory')->with('invoices', $invoices);
     }
 	
@@ -239,7 +241,9 @@ class HomeController extends Controller
 
 			//$pdf = App::make('snappy.pdf');
 			
-			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['data' => $request]);
+			$invoice = Invoice::where('id', $invoiceId)->first();
+
+			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['invoice' => $invoice]);
 			
 
 			return $pdf->download($invoiceId . '.pdf');

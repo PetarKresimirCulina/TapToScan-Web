@@ -18,18 +18,20 @@
 				@endif
 								
 				@if($_COOKIE['offset'] < 0)
-						{{ Carbon\Carbon::parse($data['invoiceDate'])->subMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
+						{{ Carbon\Carbon::parse($invoice->created_at)->subMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
 				@elseif($_COOKIE['offset'] == 0)
-					{{ 	Carbon\Carbon::parse($data['invoiceDate'])->addMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
+					{{ 	Carbon\Carbon::parse($invoice->created_at)->addMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
 				@else
-					{{ 	Carbon\Carbon::parse($data['invoiceDate'])->format("d.m.Y. - H:i:s") }}
+					{{ 	Carbon\Carbon::parse($invoice->created_at)->format("d.m.Y. - H:i:s") }}
 				@endif
 		</p>
 	</div>
 	<hr>
-			<p><span class="bold">@lang('dashboardBillingHistory.transactionID'):</span> {{ $data['invoiceId'] }}</p>
-			<p><span class="bold">@lang('dashboardBillingHistory.merchant'):</span> {{ $data['merchantAccountId'] }}</p>
-			<p><span class="bold">@lang('dashboardBillingHistory.total'):</span> {{ $data['currency'] . ' ' . $data['amount'] }}</p>
+	@php $currencyDummy = \App\Currency::where('id', Auth::user()->plan->currency)->first(); @endphp
+	
+			<p><span class="bold">@lang('dashboardBillingHistory.transactionID'):</span> {{ $invoice->id . '/' . sprintf( '%02d', $invoice->saleVenue ) . '/' . sprintf( '%02d', $invoice->saleOperator) }}</p>
+			<!--<p><span class="bold">@lang('dashboardBillingHistory.merchant'):</span> {{ $data['merchantAccountId'] }}</p>-->
+			<p><span class="bold">@lang('dashboardBillingHistory.total'):</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
 			<p><span class="bold">@lang('dashboardBillingHistory.transactionDate'):</span> 
 				
 				@if(!isset($_COOKIE['offset']))
@@ -37,11 +39,11 @@
 				@endif
 								
 				@if($_COOKIE['offset'] < 0)
-					{{ Carbon\Carbon::parse($data['invoiceDate'])->subMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
+					{{ Carbon\Carbon::parse($invoice->created_at)->subMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
 				@elseif($_COOKIE['offset'] == 0)
-					{{ 	Carbon\Carbon::parse($data['invoiceDate'])->addMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
+					{{ 	Carbon\Carbon::parse($invoice->created_at)->addMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
 				@else
-					{{ 	Carbon\Carbon::parse($data['invoiceDate'])->format("d.m.Y. - H:i:s") }}
+					{{ 	Carbon\Carbon::parse($invoice->created_at)->format("d.m.Y. - H:i:s") }}
 				@endif
 			
 			</p>

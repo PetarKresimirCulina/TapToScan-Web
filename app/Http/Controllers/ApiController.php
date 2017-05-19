@@ -18,6 +18,8 @@ use App\Invoice;
 use App\InvoiceItem;
 use App\Plan;
 use Braintree_WebhookNotification;
+use Storage;
+use Mail;
 
 /**
      * API Controller
@@ -188,21 +190,41 @@ class ApiController extends Controller
 					$user = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
 					if($user != null) {
 						$user->unblock();
-						file_put_contents("webhook2.log", $webhookNotification, FILE_APPEND);
 						
+						
+						// Code below handles just one invoice item - subscription
 						$invoice = new Invoice();
 						$invoice->create($user->id, $user->taxPercentage(), 0, 0, 1, 1);
 						$price = $user->plan->price;
-						$it = new InvoiceItem();
-						$plan = Plan::where('id', $user->plan_id);
+						$plan = Plan::where('id', $user->plan_id)->first();
 						$desc = 'Pretplatnički paket/Subscription package ' . $plan->name;
-						$it->create($invoice->id, $desc, $plan->price, $plan->currency->code, 1);
+						
+						// Create new invoice item - just one in the case of subscription
+						$it = new InvoiceItem();
+						$it->create($invoice->id, $desc, $plan->price, $plan->getCurrency->code, 1);
+						
 						$invoice->totalNet = $plan->price;
-						$invoice->totalWVat = $plan->price + ($plan->price * ($user->taxPercentage()/100))
+						$invoice->totalWVat = $plan->price + ($plan->price * ($user->taxPercentage()/100));
 						$invoice->save();
+						
+						
+						$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['invoice' => $invoice]);
+			
+						$date = \Carbon\Carbon::now();
+						$result = $date->format('Y-m-d H-i-s');
+						$filename = $result . '-' . $invoice->id  . '.pdf';
+						
+						Storage::disk('invoices')->put($filename, $pdf->output());
+						
+						Mail::send('emails.invoiceNotification', ['user' => $user], function($message) use($user, $pdf)
+						{
+							$message->from('no-reply@taptoscan.com', 'TapToScan.com');
+
+							$message->to($user->email, $user->first_name . ' ' . $user->last_name)->subject('Your invoice is ready');
+
+							$message->attachData($pdf->output(), "invoice.pdf");
+						});
 					}
-					
-					$msg = "Subscription charged successfuly";
 					break;
 				case Braintree_WebhookNotification::SUBSCRIPTION_CHARGED_UNSUCCESSFULLY:
 					// Do nothing atm, comment out the case
@@ -218,5 +240,59 @@ class ApiController extends Controller
 					break;
 			}
 		}
+	}
+	
+	public function test(){
+		
+		$sample_notification = \Braintree\WebhookTesting::sampleNotification(
+			Braintree_WebhookNotification::SUBSCRIPTION_CHARGED_SUCCESSFULLY,
+			"6t8ztw"
+		);
+		
+		
+		
+		$webhookNotification = Braintree_WebhookNotification::parse(
+			$sample_notification["bt_signature"], $sample_notification["bt_payload"]
+		);
+		
+		//var_dump($webhookNotification);
+		$user = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
+		if($user != null) {
+			$user->unblock();
+			
+			$plan = Plan::where('id', $user->plan_id)->first();
+			// Code below handles just one invoice item - subscription
+			$invoice = new Invoice();
+			$invoice->create($user->id, $user->taxPercentage(), 0, 0, 1, 1, $plan->currency);
+			$price = $user->plan->price;
+			$desc = 'Pretplatnički paket/Subscription package ' . $plan->name;
+			
+			// Create new invoice item - just one in the case of subscription
+			$it = new InvoiceItem();
+			$it->create($invoice->id, $desc, $plan->price, $plan->getCurrency->code, 1);
+			
+			$invoice->totalNet = $plan->price;
+			$invoice->totalWVat = $plan->price + ($plan->price * ($user->taxPercentage()/100));
+			$invoice->save();
+
+			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['invoice' => $invoice]);
+			
+			$date = \Carbon\Carbon::now();
+			$result = $date->format('Y-m-d H-i-s');
+			$filename = $result . '-' . $invoice->id  . '.pdf';
+			
+			Storage::disk('invoices')->put($filename, $pdf->output());
+			
+			Mail::send('emails.invoiceNotification', ['user' => $user], function($message) use($user, $pdf)
+			{
+				$message->from('no-reply@taptoscan.com', 'TapToScan.com');
+
+				$message->to($user->email, $user->first_name . ' ' . $user->last_name)->subject('Your invoice is ready');
+
+				$message->attachData($pdf->output(), "invoice.pdf");
+			});
+
+		}
+		
 	}
 }

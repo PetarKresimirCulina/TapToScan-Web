@@ -39,47 +39,19 @@
 					
 					<tbody>
 						@php $i = 0; @endphp
+						@php $currencyDummy = \App\Currency::where('id', Auth::user()->plan->currency)->first(); @endphp
 						@foreach ($invoices as $invoice)
 						<tr>
-							<td>{{ $invoice->id }}</td>
-							<td>{{ $invoice->date()->toFormattedDateString() }}</td> 
-							<td>{{ $invoice->total() }}</td> 
+							<td>{{ $invoice->id . '/' . sprintf( '%02d', $invoice->saleVenue ) . '/' . sprintf( '%02d', $invoice->saleOperator) }}</td>
+							<td>{{ $invoice->created_at->toFormattedDateString() }}</td> 
+							<td>{{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</td>
+
 							
 							<td>
 								<form id="generatePDF{{ $i }}" action="{{ route('dashboard.billing.invoice', App::getLocale())  }}" method="post">
 									{{ csrf_field() }}
-									<input type="hidden" value="{{ $invoice->id }}" name="invoiceId"/>
-									<input type="hidden" value="{{ $invoice->amount }}" name="amount"/>
-									<input type="hidden" value="{{ $invoice->currencyIsoCode }}" name="currency"/>
-									<input type="hidden" value="{{ $invoice->taxAmount }}" name="tax"/>
-									<input type="hidden" value="{{ $invoice->purchaseOrderNumber }}" name="purchaseOrderNumber"/>
-									<input type="hidden" value="{{ $invoice->orderId }}" name="orderId"/>
-									<input type="hidden" value="{{ $invoice->status }}" name="status"/>
-									
-
-										@if($invoice->paymentInstrumentType == 'credit_card')
-											@php $cc = $invoice->creditCardDetails @endphp
-											
-											<input type="hidden" value="{{ $cc->last4 }}" name="card_last_four"/>
-											<input type="hidden" value="{{ $cc->cardType }}" name="card_brand"/>
-											<input type="hidden" value="{{ $cc->cardholderName }}" name="cardholderName"/>
-										@endif
-										
-										
-										
-										
-									<input type="hidden" value="{{ Auth::user()->business_name }}" name="name"/>
-									<input type="hidden" value="{{ Auth::user()->vat_id }}" name="vatID"/>
-									
-									<input type="hidden" value="{{ Auth::user()->address }}" name="address1"/>
-									<input type="hidden" value="{{ Auth::user()->zip . ' ' .  Auth::user()->city . ', ' .  Auth::user()->country }}" name="address2"/>
-									
-									<input type="hidden" value="{{ $invoice->date() }}" name="invoiceDate"/>
+									<input name="invoiceId" type="hidden" value="{{ $invoice->id }}">
 									<a href="javascript:{}" onclick="document.getElementById('generatePDF{{ $i }}').submit(); return false;">@lang('dashboardBillingHistory.download')</a>
-								
-								
-									
-								
 								
 								</form>
 							</td>

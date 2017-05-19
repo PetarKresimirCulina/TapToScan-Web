@@ -82,6 +82,11 @@ class User extends Authenticatable
 		return $this->hasMany('App\Order', 'userID');
 	}
 	
+	public function getInvoices()
+	{
+		return $this->hasMany('App\Invoice', 'userID');
+	}
+	
 	public function tags()
 	{
 		return $this->hasMany('App\Tag', 'user')->where('deleted', 0);

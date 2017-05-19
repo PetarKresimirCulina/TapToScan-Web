@@ -29,7 +29,7 @@
 	
 </head>
 <body>
-	@php $invoiceDate = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['invoiceDate'], 'UTC') @endphp
+	@php $invoiceDate = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $invoice->created_at, 'UTC') @endphp
 	@php $invoiceDate->setTimezone('Europe/Zagreb') @endphp
     <div class="container">
 		<div class="row">
@@ -41,67 +41,71 @@
 				<p>IBAN: HR41 1234 5678 9012 3456 7</p>
 			</div>
 			<div class="col-xs-6 text-right">
-				<p class="bold">{{ $data['name'] }}</p>
-				<p>{{ $data['address1'] }}</p>
-				<p>{{ $data['address2'] }}</p>
-				@if($data['vatID'])
-					<p>OIB/VAT ID: {{ $data['vatID'] }}</p>
+				<p class="bold">{{ $invoice->user->business_name }}</p>
+				<p>{{ $invoice->user->address }}</p>
+				<p>{{ $invoice->user->zip . ', ' . $invoice->user->city . ', ' . $invoice->user->country }}</p>
+				@if($invoice->user->vat_id)
+					<p>OIB/VAT ID: {{ $invoice->user->vat_id }}</p>
 				@endif
 			</div>
 		</div>
 		
 		<hr>
 		<div class="row text-center">
-			<h2>Račun br./Invoice no. {{ $data['invoiceNumber'] }}</h2>
-			<p>Zagreb, {{ $invoiceDate->format("d.m.Y. - H:i:s") }} (UTC Europe/Zagreb)</p>
+			<h2>Račun br./Invoice no. {{ $invoice->id . '/' . sprintf( '%02d', $invoice->saleVenue ) . '/' . sprintf( '%02d', $invoice->saleOperator) }}</h2>
+			<p>Zagreb, {{ $invoice->created_at->format("d.m.Y. - H:i:s") }} (UTC Europe/Zagreb)</p>
 		</div>
 		
 		<hr>
+
 		
-		@if($data['tax'] == null)
-			@php $data['tax'] = 0 @endphp
-		@endif
-		
-		@php $priceNet = $data['amount'] - $data['tax'] @endphp
 		
 		<div class="row">
 			<table class="table table-bordered">
 				<thead>
 				  <tr>
-					<th>R.br./No.</th>
-					<th>Naziv/Name</th>
-					<th>Cijena/Price per unit</th>
-					<th>Količina/Quantity</th>
-					<th>Ukupno/Total</th>
+					<th style="vertical-align: middle;">R.br./No.</th>
+					<th style="vertical-align: middle;">Naziv/Name</th>
+					<th style="vertical-align: middle;">Cijena/Price per unit</th>
+					<th style="vertical-align: middle;">Količina/Quantity</th>
+					<th style="vertical-align: middle;">Ukupno/Total</th>
 				  </tr>
 				</thead>
 				<tbody>
+				@php $i = 1 @endphp
+				@php $currencyDummy = \App\Currency::where('id', Auth::user()->plan->currency)->first(); @endphp
+				
+				@foreach ($invoice->getInvoiceItems as $item)
 				  <tr>
-					<td>1</td>
-					<td>{{ $data['subscriptionName'] }}</td>
-					<td>{{ $priceNet . ' ' . $data['currency'] }}</td>
-					<td>1</td>
-					<td>{{ $priceNet . ' ' .  $data['currency'] }}</td>
+					<td>{{ $i }}</td>
+					<td>{{ $item->description }}</td>
+					<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $item->price, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</td>
+					<td>{{ $item->quantity }}</td>
+					@php $total = $item->quantity * $item->price @endphp
+					<td>{{ $currencyDummy->formatCurrency(App::getLocale(), $total, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</td>
 				  </tr>
+				  @php $i++ @endphp
+				@endforeach
+				
 				</tbody>
 			  </table>
 			  <div class="text-right">
-					<p><span class="bold">Ukupno/Total:</span> {{ $priceNet . ' ' .  $data['currency']}}</p>
+					<p><span class="bold">Ukupno/Total:</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
 					@if(env('TAX_EXEMPT') != 1)
-						<p><span class="bold">PDV/VAT ({{ $data['vatRate'] }}):</span> {{ $data['tax'] . ' ' .  $data['currency'] }}</p>
-						<p><span class="bold">Ukupno sa PDV-om/Total with VAT:</span> {{ $data['amount'] . ' ' .  $data['currency'] }}</p>
+						<p><span class="bold">PDV/VAT ({{ $invoice->vatRate }}):</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat - $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
+						<p><span class="bold">Ukupno sa PDV-om/Total with VAT:</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
 					@endif
 			  </div>
 		</div>
 		<hr>
 		<div class="row">
 			
-			<p><span class="bold">Datum dospijeća/Due date:</span> {{ $invoiceDate->format("d.m.Y.") }}</p>
-			<p><span class="bold">Datum isporuke/Delivery date:</span> {{ $invoiceDate->format("d.m.Y.") }}</p>
-			<p><span class="bold">Način plaćanja/Payment method:</span> Kartica/Card <span class="text-uppercase">{{ $data['card_brand']  }}</span></p>
+			<p><span class="bold">Datum dospijeća/Due date:</span> {{ $invoice->created_at->format("d.m.Y.") }}</p>
+			<p><span class="bold">Datum isporuke/Delivery date:</span> {{ $invoice->created_at->format("d.m.Y.") }}</p>
+			<p><span class="bold">Način plaćanja/Payment method:</span> Kartica/Card <span class="text-uppercase">{{ $invoice->user->card_brand  }}</span></p>
 			<p><span class="bold">Izdao/Issued by:</span> Automated System</p>
-			<p><span class="bold">ZKI:</span> XYZCXYGDFGSG34FSDGDFSGXY</p>
-			<p><span class="bold">JIR:</span> XYZCXYGDFGSG34FSDGDFSGXY</p>
+			<p><span class="bold">ZKI:</span> {{ $invoice->zki }}</p>
+			<p><span class="bold">JIR:</span> {{ $invoice->jir }}</p>
 			<hr>
 			<div class="text-center bold">
 				<p class="small">Obveznik nije u sustavu PDV-a. PDV nije obračunat temeljem čl.90 st. 1 i st. 2 Zakona o PDV-u (Narodne novine, br. 73/13).</p>
