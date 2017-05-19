@@ -32,6 +32,7 @@
 				<div class="table-responsive">
 				
 					<table class="table table-hover table-responsive">
+					<thead>
 						<tr class="text-capitalize">
 							<th>@lang('dashboardHistory.table')</th>
 							<th>@lang('dashboardHistory.orderNo')</th> 
@@ -41,6 +42,9 @@
 							<th>@lang('dashboardHistory.total')</th>
 							<th>@lang('dashboardHistory.datetime')</th>
 						</tr>
+					</thead>
+					
+					<tbody>
 						@foreach($orders as $order)
 						<tr>
 							<td>{{ $order->getTableName($order->tagID) }}</td>
@@ -147,6 +151,7 @@
 							</td>
 						</tr>
 						@endforeach
+						</tbody>
 					</table>
 				</div>
 

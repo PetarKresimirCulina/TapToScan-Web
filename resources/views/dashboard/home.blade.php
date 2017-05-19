@@ -21,6 +21,7 @@
 				<div class="table-responsive">
 				
 					<table id="currentOrders" class="table table-hover table-responsive">
+					<thead>
 						<tr class="text-capitalize">
 							<th>@lang('dashboardHome.table')</th>
 							<th>@lang('dashboardHome.orderNo')</th> 
@@ -31,6 +32,9 @@
 							<th>@lang('dashboardHome.datetime')</th>
 							<th>@lang('dashboardHome.status')</th>
 						</tr>
+					</thead>
+					
+					<tbody>
 						
 						@foreach($orders as $order)
 						<tr>
@@ -140,6 +144,7 @@
 							<!--<button class="btn btn-danger btn-lg table-btn" style="display: none;" data-id="{{ $order->id }}">@lang('dashboardHome.notServed')</button>-->
 						</tr>
 						@endforeach
+					</tbody>
 					</table>
 				</div>
 			</div>

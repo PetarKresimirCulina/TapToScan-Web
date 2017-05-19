@@ -25,13 +25,19 @@
 				<div class="table-responsive">
 				
 					<table class="table table-hover table-responsive">
+					<thead>
 						<tr class="text-capitalize">
 							<th>@lang('dashboardBillingHistory.invoiceID')</th>
 							<th>@lang('dashboardBillingHistory.date')</th> 
 							<th>@lang('dashboardBillingHistory.amount')</th>
 							<th></th>
+					
 
 						</tr>
+						
+					</thead>
+					
+					<tbody>
 						@php $i = 0; @endphp
 						@foreach ($invoices as $invoice)
 						<tr>
@@ -80,6 +86,7 @@
 						</tr>
 						@php $i++ @endphp
 						@endforeach
+						</tbody>
 					</table>
 				</div>
 			</div>

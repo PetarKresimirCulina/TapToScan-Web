@@ -182,6 +182,11 @@ class AdminController extends Controller
 			$user = User::find($id);
 			if(Auth::user()->admin == 1 && $user)
 			{
+				if($user->subscription('main')) {
+					$user->subscription('main')->cancel();
+				}
+				
+				$user->cancel();
 				if($user->delete())
 				{
 					Session::flash('alert-success', Lang::get('dashboardUsers.userDeleted'));

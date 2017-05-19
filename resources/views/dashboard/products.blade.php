@@ -24,11 +24,15 @@
 				
 				<div class="table-responsive">
 					<table id="currentTables" class="table table-hover">
+					<thead>
 						<tr class="text-capitalize">
 							<th>@lang('dashboardProducts.productName')</th>
 							<th>@lang('dashboardProducts.productPrice')</th> 
 							<th>@lang('dashboardProducts.productAction')</th>
 						</tr>
+					</thead>
+					
+					<tbody>
 						@foreach($products as $product)
 							<tr>
 								<td>{{ $product->name }}</td>
@@ -39,6 +43,7 @@
 								</td>
 							</tr>
 						@endforeach
+					</tbody>
 					</table>
 				</div>
 				

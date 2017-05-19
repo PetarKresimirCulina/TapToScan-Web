@@ -23,12 +23,16 @@
 				
 				<div class="table-responsive">
 					<table id="currentTables" class="table table-hover">
+					<thead>
 						<tr class="text-capitalize">
 							<th>@lang('dashboardTables.tagId')</th>
 							<th>@lang('dashboardTables.tableName')</th> 
 							<th class="text-center">@lang('dashboardTables.status')</th>
 							<th>@lang('dashboardTables.actions')</th>
 						</tr>
+					</thead>
+					
+					<tbody>
 						@foreach($tags as $tag)
 							<tr>
 								<td>{{ $tag->id }}</td>
@@ -46,6 +50,7 @@
 								</td>
 							</tr>
 						@endforeach
+					</tbody>
 					</table>
 				</div>
 				<div class="pagination"> {{ $tags->appends(Request::except('page'))->links() }} </div>

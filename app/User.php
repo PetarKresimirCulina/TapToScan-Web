@@ -54,6 +54,8 @@ class User extends Authenticatable
 	public function banChangeStatus() {
 		if($this->banned == 0) {
 			$this->banned = 1;
+			$user->subscription('main')->cancel();
+			$this->cancel();
 		}
 		else {
 			$this->banned = 0;
@@ -99,7 +101,7 @@ class User extends Authenticatable
 	
 	public function taxPercentage() {
 		// Nije obveznik PDV-a
-		if(env('TAX_EXEMPT') == '0') { return 0; }
+		if(env('TAX_EXEMPT') == '1') { return 0; }
 		
 		if($this->getCountry->id == 'HR') {
 			// nalazi se u Hrvatskoj, rokaj PDV

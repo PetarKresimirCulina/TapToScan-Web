@@ -21,12 +21,16 @@
 
 				<div class="table-responsive">
 					<table id="currentTables" class="table table-hover">
+					<thead>
 						<tr class="text-capitalize">
 							<th>@lang('dashboardCategories.categoryIcon')</th>
 							<th>@lang('dashboardCategories.categoryName')</th> 
 							<th>@lang('dashboardCategories.categoryProducts')</th>
 							<th>@lang('dashboardCategories.categoryActions')</th>
 						</tr>
+					</thead>
+					
+					<tbody>
 						@foreach($categories as $category)
 							<tr>
 								<td><img class="category-img" src="{{ URL::to('/') . '/img/icons/svg/' . $category->icon->icon_res }}"alt="Image"/></td>
@@ -38,6 +42,7 @@
 								</td>
 							</tr>
 						@endforeach
+					</tbody>
 					</table>
 				</div>
 				<div class="pagination"> {{ $categories->appends(Request::except('page'))->links() }} </div>

@@ -23,16 +23,20 @@
 				
 				<div class="table-responsive">
 					<table id="currentTables" class="table table-hover">
+					<thead>
 						<tr class="text-capitalize">
 							<th>@lang('dashboardTags.tagId')</th>
 						</tr>
+					</thead>
+					
+					<tbody>
 						
 						@foreach($results as $result)
 							<tr>
 								<td>{{ $result }}</td>
 							</tr>
 						@endforeach
-						
+					</tbody>
 					</table>
 				</div>
 			@else
