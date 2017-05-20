@@ -12,6 +12,7 @@ use Braintree_Customer;
 use Braintree_PaymentMethod;
 use Carbon\Carbon;
 use Braintree_Subscription;
+use SoapClient;
 
 
 /**
@@ -84,7 +85,7 @@ class User extends Authenticatable
 	
 	public function getInvoices()
 	{
-		return $this->hasMany('App\Invoice', 'userID');
+		return $this->hasMany('App\Invoice', 'userID')->orderBy('id', 'desc');
 	}
 	
 	public function tags()
@@ -141,13 +142,52 @@ class User extends Authenticatable
 		$this->zip = $request['zip'];
 		$this->braintree_id = $this->createBraintreeUser();
 		if($request['vatID'] != null) {
-			$this->vat_id = $request['countryCode'] . $request['vatID'];
+			if($this->viesCheck($request['countryCode'], $request['vatID'])) {
+				$this->vat_id = $request['countryCode'] . $request['vatID'];
+			} else {
+				$this->vat_id = null;
+			}
+			
 		} else {
 			$this->vat_id = null;
 		}
 		return $this->save();
 	}
 	
+	public function viesCheck($code, $VAT) {
+		/*$country1 = $code;
+		$country2 = 'HR';
+		$vatnum1 = $VAT;
+		$vatnum2 = env('VAT_ID');
+
+		//Prepare the URL
+		$url = 'http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms='.$country1.'&iso='.$country1.'&vat='.$vatnum1.'&name=&companyType=&street1=&postcode=&city=&requesterMs='.$country2.'&requesterIso='.$country2.'&requesterVat='.$vatnum2.'&BtnSubmitVat=Verify';
+
+		$response = file_get_contents($url);
+		// Do sth with the response*/
+		
+		$client = new SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
+
+		if($client){
+			$params = array('countryCode' => $code, 'vatNumber' => $VAT);
+			try{
+				$r = $client->checkVat($params);
+				
+				if($r->valid == true){
+					// Pravna osoba u pitanju
+					return true;
+				} else {
+					// Fizička - handle as fizička
+					return false;
+				}
+
+			} catch(SoapFault $e) {
+				echo 'Error, see message: '.$e->faultstring;
+			}
+		} else {
+			return false;
+		}
+	}
 	
 	public static function create($request)
 	{

@@ -34,14 +34,18 @@
     <div class="container">
 		<div class="row">
 			<div class="col-xs-6">
-				<p class="bold">TapToScan j.d.o.o.</p>
-				<p>Pere Perića 18</p>
-				<p>10000 Zagreb, HR</p>
-				<p>OIB/VAT ID: HR12345678901</p>
-				<p>IBAN: HR41 1234 5678 9012 3456 7</p>
+				<p class="bold">{{ env('LEGAL_NAME') }}</p>
+				<p>{{ env('LEGAL_ADDRESS') }}</p>
+				<p>{{ env('LEGAL_ADDRESS2') }}</p>
+				<p>OIB/VAT ID: {{ env('VAT_ID') }}</p>
+				<p>IBAN: {{ env('IBAN') }}</p>
 			</div>
 			<div class="col-xs-6 text-right">
-				<p class="bold">{{ $invoice->user->business_name }}</p>
+				@if($invoice->user->vat_id)
+					<p class="bold">{{ $invoice->user->business_name }}</p>
+				@else
+					<p class="bold">{{ $invoice->user->first_name . ' ' . $invoice->user->last_name }}</p>
+				@endif
 				<p>{{ $invoice->user->address }}</p>
 				<p>{{ $invoice->user->zip . ', ' . $invoice->user->city . ', ' . $invoice->user->country }}</p>
 				@if($invoice->user->vat_id)
@@ -91,7 +95,8 @@
 			  </table>
 			  <div class="text-right">
 					<p><span class="bold">Ukupno/Total:</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
-					@if(env('TAX_EXEMPT') != 1)
+
+					@if(env('TAX_EXEMPT') == '0')
 						<p><span class="bold">PDV/VAT ({{ $invoice->vatRate }}):</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat - $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
 						<p><span class="bold">Ukupno sa PDV-om/Total with VAT:</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
 					@endif
@@ -108,10 +113,16 @@
 			<p><span class="bold">JIR:</span> {{ $invoice->jir }}</p>
 			<hr>
 			<div class="text-center bold">
-				<p class="small">Obveznik nije u sustavu PDV-a. PDV nije obračunat temeljem čl.90 st. 1 i st. 2 Zakona o PDV-u (Narodne novine, br. 73/13).</p>
-				<p class="small">The taxpayer is not in the VAT system. VAT was not calculated on the basis of Article 90, paragraphs 1 and 2 of the VAT Act (Official Gazette 73/13).</p>
+				@if(env('TAX_EXEMPT' == '1'))
+					<p class="small">Obveznik nije u sustavu PDV-a. PDV nije obračunat temeljem čl.90 st. 1 i st. 2 Zakona o PDV-u (Narodne novine, br. 73/13).</p>
+					<p class="small">The taxpayer is not in the VAT system. VAT was not calculated on the basis of Article 90, paragraphs 1 and 2 of the VAT Act (Official Gazette 73/13).</p>
+				@endif
 				<p class="small">Račun je izdan elektroničkim putem i valjan je bez pečata i potpisa.</p>
 				<p class="small">The invoice is issued electronically and is valid without stamps and signatures.</p>
+				
+				@if($invoice->user->vat_id && $invoice->user->getCountry->eu == 1 && $invoice->user->getCountry->id != 'HR')
+					<p>REVERSE CHARGE - Customer to pay VAT under EC VAT reversal.</p>
+				@endif
 			</div>
 		</div>
 		<hr>

@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/test', function()
-	{
-		return View::make('emails/bill');
-	});
 
 Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 	/* ======================================================
@@ -28,7 +24,7 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 	Route::post('/contact', 'MailController@postContact')->name('contact.send');
 	Route::get('/business', 'PagesController@business')->name('page.business');
 	Route::get('/features', 'PagesController@features')->name('page.features');
-	Route::get('/test', 'ApiController@test')->name('test');
+	Route::get('/test/{id}', 'ApiController@test')->name('test');
 	
 	/* Footer routes */
 	Route::get('/terms', 'PagesController@terms')->name('page.terms');;

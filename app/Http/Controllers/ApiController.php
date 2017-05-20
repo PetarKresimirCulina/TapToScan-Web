@@ -242,14 +242,14 @@ class ApiController extends Controller
 		}
 	}
 	
-	public function test(){
+	public function test($l, $id){
 		
 		$sample_notification = \Braintree\WebhookTesting::sampleNotification(
 			Braintree_WebhookNotification::SUBSCRIPTION_CHARGED_SUCCESSFULLY,
-			"6t8ztw"
+			$id
 		);
 		
-		
+		//return $id;
 		
 		$webhookNotification = Braintree_WebhookNotification::parse(
 			$sample_notification["bt_signature"], $sample_notification["bt_payload"]
