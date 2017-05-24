@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=1280">
 
 
-    <title>TapToScan bill</title>
+    <title>{{ $invoice->id . '/' . sprintf( '%02d', $invoice->saleVenue ) . '/' . sprintf( '%02d', $invoice->saleOperator) }}</title>
 
     <!-- Bootstrap core CSS -->
     <!--<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">-->
@@ -41,11 +41,7 @@
 				<p>IBAN: {{ env('IBAN') }}</p>
 			</div>
 			<div class="col-xs-6 text-right">
-				@if($invoice->user->vat_id)
-					<p class="bold">{{ $invoice->user->business_name }}</p>
-				@else
-					<p class="bold">{{ $invoice->user->first_name . ' ' . $invoice->user->last_name }}</p>
-				@endif
+				<p class="bold">{{ $invoice->user->legal_name }}</p>
 				<p>{{ $invoice->user->address }}</p>
 				<p>{{ $invoice->user->zip . ', ' . $invoice->user->city . ', ' . $invoice->user->country }}</p>
 				@if($invoice->user->vat_id)
@@ -96,8 +92,8 @@
 			  <div class="text-right">
 					<p><span class="bold">Ukupno/Total:</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
 
-					@if(env('TAX_EXEMPT') == '0')
-						<p><span class="bold">PDV/VAT ({{ $invoice->vatRate }}):</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat - $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
+					@if(env('TAX_EXEMPT') == '0' && $invoice->vatRate > 0)
+						<p><span class="bold">PDV/VAT ({{ $invoice->vatRate }}%):</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat - $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
 						<p><span class="bold">Ukupno sa PDV-om/Total with VAT:</span> {{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</p>
 					@endif
 			  </div>
@@ -120,8 +116,15 @@
 				<p class="small">Račun je izdan elektroničkim putem i valjan je bez pečata i potpisa.</p>
 				<p class="small">The invoice is issued electronically and is valid without stamps and signatures.</p>
 				
-				@if($invoice->user->vat_id && $invoice->user->getCountry->eu == 1 && $invoice->user->getCountry->id != 'HR')
+				@php $vies = $invoice->user->viesCheck($invoice->user->country, substr($invoice->user->vat_id, 2)) @endphp
+				@if($invoice->user->vat_id && $invoice->user->getCountry->eu == 1 && $invoice->user->getCountry->id != 'HR' && $vies)
+					<p>REVERSE CHARGE - Kupac plaća PDV zbog poništavanja PDV-a EZ-a.</p>
 					<p>REVERSE CHARGE - Customer to pay VAT under EC VAT reversal.</p>
+				@endif
+				
+				@if(!$vies && Auth::user()->getCountry->eu == 1)
+					<p>VAT ID nije prisutan u VIES tražilici</p>
+					<p>VAT ID not present in VIES search engine.</p>
 				@endif
 			</div>
 		</div>

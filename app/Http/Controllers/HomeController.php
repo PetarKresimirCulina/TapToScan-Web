@@ -71,13 +71,26 @@ class HomeController extends Controller
 	{
 		if ($request->isMethod('post')){
 			
-			$rules = ['first_name' => 'required|min:2',
+			if(Auth::user()->getCountry->eu == 1) {
+				$rules = ['first_name' => 'required|min:2',
+						'last_name' => 'required|min:2',
+						'legalName' => 'required|min:5',
+						'name' => 'required|min:2',
+						'vatID' => 'required',
+						'address' => 'required|min:2',
+						'zip' => 'required|numeric',
+						'countryCode' => 'required',
+						'city' => 'required|min:2',];
+			}
+			else {
+				$rules = ['first_name' => 'required|min:2',
 					'last_name' => 'required|min:2',
+					'legalName' => 'required|min:5',
 					'name' => 'required|min:2',
 					'address' => 'required|min:2',
 					'zip' => 'required|numeric',
-					'countryCode' => 'required',
 					'city' => 'required|min:2',];
+			}
 				
 			
 			$validator = Validator::make($request->all(), $rules);

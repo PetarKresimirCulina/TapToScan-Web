@@ -30,5 +30,6 @@ return [
 	'repeatNewPass' => 'Repeat new password',
 	'updatePass' => 'Update password',
 	'vat' => 'VAT ID',
-	
+	'legalName' => 'Legal entity name',
+	'legalNameEx' => 'My company GMbH',
 ];

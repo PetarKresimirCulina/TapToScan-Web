@@ -49,6 +49,12 @@
 						<div class="form-group">
 							<p>@lang('setup.yourBusinessInfo')<p>
 						</div>
+						
+						<div class="form-group">
+							<label class="text-capitalize" for="legalName">@lang('dashboardSettings.legalName')</label>
+							<input type="text" class="form-control input-lg" name="legalName" id="legalName" placheholder="@lang('dashboardSettings.legalNameEx')" required autofocus>
+						</div>
+						
 						<div class="form-group">
 							<label class="text-capitalize" for="name">@lang('dashboardSettings.businessName')</label>
 							<input type="text" class="form-control input-lg" name="name" id="name" required>
@@ -68,17 +74,17 @@
 							<label class="text-capitalize" for="zip">@lang('dashboardSettings.zip')</label>
 							<input type="numeric" class="form-control input-lg" name="zip" id="zip" required>
 						</div>
-						
+						@if(Auth::user()->getCountry->eu == 1)
 						<div>
 							<label class="text-capitalize" for="zip">@lang('dashboardSettings.vat')</label>
 							<div class="input-group">
 								
 								<div class="input-group-addon">{{ $country }}</div>
-								<input type="hidden" id="countryCode" name="countryCode" value="{{ $country }}">
-								<input type="text" class="form-control" id="vatID" name="vatID" placeholder="123456789">
+								<input type="hidden" id="countryCode" name="countryCode" value="{{ $country }}" required>
+								<input type="text" class="form-control" id="vatID" name="vatID" placeholder="123456789" required>
 							</div>
 						</div>
-						
+						@endif
 						<button id="step2" type="submit" class="btn btn-primary margin-top-2">@lang('actions.next')</button>
 					</div>
 					
@@ -100,7 +106,7 @@
 					$('.progress-bar').css('width', '33%').attr('aria-valuenow', 33).html('');
 					$('#f_name').hide();
 					$('#f_business').removeClass('hidden');
-					$('#name').focus();
+					$('#legalName').focus();
 				}
 			});
 		});

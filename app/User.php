@@ -115,14 +115,20 @@ class User extends Authenticatable
 		}
 		if($this->getCountry->eu == 1) {
 			if($this->vat_id != null) {
-				// Pravna osoba
-				return 0;
+				$vatid = $this->vat_id;
+				$vatid = substr($vatid, 2); // samo broj VAT ID-a bez country code
+				if($this->viesCheck($this->country, $vatid)){
+					return 0;
+				} else {
+					return $this->getCountry->vat;
+				}
 			}
 			else {
 				// fizička
 				return $this->getCountry->vat;
 			}
 		}
+		return 0;
 	}
 	
 	public function isUserSetup() {
@@ -136,18 +142,14 @@ class User extends Authenticatable
 	public function setupUser($request) {
 		$this->first_name = $request['first_name'];
 		$this->last_name = $request['last_name'];
+		$this->legal_name = $request['legalName'];
 		$this->business_name = $request['name'];
 		$this->address = $request['address'];
 		$this->city = $request['city'];
 		$this->zip = $request['zip'];
 		$this->braintree_id = $this->createBraintreeUser();
 		if($request['vatID'] != null) {
-			if($this->viesCheck($request['countryCode'], $request['vatID'])) {
-				$this->vat_id = $request['countryCode'] . $request['vatID'];
-			} else {
-				$this->vat_id = null;
-			}
-			
+			$this->vat_id = $request['countryCode'] . $request['vatID'];
 		} else {
 			$this->vat_id = null;
 		}
@@ -165,7 +167,7 @@ class User extends Authenticatable
 
 		$response = file_get_contents($url);
 		// Do sth with the response*/
-		
+		if($VAT == null || $this->getCountry->eu == 0) { return false; }
 		$client = new SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
 
 		if($client){

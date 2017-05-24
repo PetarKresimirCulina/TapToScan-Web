@@ -30,5 +30,6 @@ return [
 	'repeatNewPass' => 'Ponovite novu lozinku',
 	'updatePass' => 'Promijeni lozinku',
 	'vat' => 'VAT ID (OIB pravne osobe)',
-	
+	'legalName' => 'Puni (zakonski) naziv pravne osobe/obrta',
+	'legalNameEx' => 'Ugostiteljski obrt "MARKO", vl. Marko Marić',
 ];
