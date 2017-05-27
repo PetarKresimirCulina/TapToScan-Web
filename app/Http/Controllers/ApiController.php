@@ -181,9 +181,14 @@ class ApiController extends Controller
 					// none
 					break;
 				case Braintree_WebhookNotification::SUBSCRIPTION_CANCELED:
-					$user = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first()->user;
-					if($user != null) {
-						$user->cancel();
+					// Check if subscription exists in base and check if user exists - if deleted by admin through dashboard, user won't be found.
+					// Used when canceled through Braintree Dashboard
+					$subscription = Subscription::where('braintree_id', $webhookNotification->subscription->id)->first();
+					if($subscription) {
+						$user = $subscription->user;
+						if($user != null) {
+							$user->cancel();
+						}	
 					}
 					break;
 				case Braintree_WebhookNotification::SUBSCRIPTION_CHARGED_SUCCESSFULLY:
