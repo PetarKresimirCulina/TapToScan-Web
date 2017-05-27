@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddCanceledToUser' => $baseDir . '/database/migrations/2017_04_24_191546_add_canceled_to_user.php',
+    'AddCardBrandAndDigits' => $baseDir . '/database/migrations/2017_05_27_154537_addCardBrandAndDigits.php',
     'AddLegalNameToUsers' => $baseDir . '/database/migrations/2017_05_24_183337_addLegalNameToUsers.php',
     'BraintreeTableModify' => $baseDir . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
     'Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',

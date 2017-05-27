@@ -103,7 +103,7 @@
 			
 			<p><span class="bold">Datum dospijeća/Due date:</span> {{ $invoice->created_at->format("d.m.Y.") }}</p>
 			<p><span class="bold">Datum isporuke/Delivery date:</span> {{ $invoice->created_at->format("d.m.Y.") }}</p>
-			<p><span class="bold">Način plaćanja/Payment method:</span> Kartica/Card <span class="text-uppercase">{{ $invoice->user->card_brand  }}</span></p>
+			<p><span class="bold">Način plaćanja/Payment method:</span> Kartica/Card <span class="text-uppercase">{{ $invoice->card_brand  }} ({{ $invoice->card_last_four  }})</span></p>
 			<p><span class="bold">Izdao/Issued by:</span> Automated System</p>
 			<p><span class="bold">ZKI:</span> {{ $invoice->zki }}</p>
 			<p><span class="bold">JIR:</span> {{ $invoice->jir }}</p>
@@ -122,7 +122,7 @@
 					<p>REVERSE CHARGE - Customer to pay VAT under EC VAT reversal.</p>
 				@endif
 				
-				@if(!$vies && Auth::user()->getCountry->eu == 1)
+				@if(!$vies && Auth::user()->getCountry->eu == 1 && Auth::user()->country != 'HR')
 					<p>VAT ID nije prisutan u VIES tražilici</p>
 					<p>VAT ID not present in VIES search engine.</p>
 				@endif

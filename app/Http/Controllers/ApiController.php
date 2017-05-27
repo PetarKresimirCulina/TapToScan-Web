@@ -194,7 +194,7 @@ class ApiController extends Controller
 						
 						// Code below handles just one invoice item - subscription
 						$invoice = new Invoice();
-						$invoice->create($user->id, $user->taxPercentage(), 0, 0, 1, 1);
+						$invoice->create($user->id, $user->taxPercentage(), 0, 0, 1, 1, $plan->currency);
 						$price = $user->plan->price;
 						$plan = Plan::where('id', $user->plan_id)->first();
 						$desc = 'Pretplatnički paket/Subscription package ' . $plan->name;
@@ -205,6 +205,8 @@ class ApiController extends Controller
 						
 						$invoice->totalNet = $plan->price;
 						$invoice->totalWVat = $plan->price + ($plan->price * ($user->taxPercentage()/100));
+						$invoice->card_brand = $user->card_brand;
+						$invoice->card_last_four = $user->card_last_four;
 						$invoice->save();
 						
 						
@@ -273,6 +275,9 @@ class ApiController extends Controller
 			
 			$invoice->totalNet = $plan->price;
 			$invoice->totalWVat = $plan->price + ($plan->price * ($user->taxPercentage()/100));
+			$invoice->card_brand = $user->card_brand;
+			$invoice->card_last_four = $user->card_last_four;
+			
 			$invoice->save();
 
 			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['invoice' => $invoice]);
