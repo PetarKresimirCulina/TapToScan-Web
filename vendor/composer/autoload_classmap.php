@@ -11,6 +11,7 @@ return array(
     'AddLegalNameToUsers' => $baseDir . '/database/migrations/2017_05_24_183337_addLegalNameToUsers.php',
     'BraintreeTableModify' => $baseDir . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
     'Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',
+    'CreateNFCORdersTable' => $baseDir . '/database/migrations/2017_06_02_145453_CreateNFCORdersTable.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',

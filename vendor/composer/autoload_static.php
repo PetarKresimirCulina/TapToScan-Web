@@ -355,6 +355,7 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
         'AddLegalNameToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_05_24_183337_addLegalNameToUsers.php',
         'BraintreeTableModify' => __DIR__ . '/../..' . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
+        'CreateNFCORdersTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_02_145453_CreateNFCORdersTable.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
