@@ -350,9 +350,14 @@ class ComposerStaticInit45daa09d2716799c6b61d4ebd60cfc2a
     );
 
     public static $classMap = array (
+        'AddBraintTreeID' => __DIR__ . '/../..' . '/database/migrations/2017_06_10_165836_addBraintTreeID.php',
         'AddCanceledToUser' => __DIR__ . '/../..' . '/database/migrations/2017_04_24_191546_add_canceled_to_user.php',
         'AddCardBrandAndDigits' => __DIR__ . '/../..' . '/database/migrations/2017_05_27_154537_addCardBrandAndDigits.php',
+        'AddInvoiceID' => __DIR__ . '/../..' . '/database/migrations/2017_06_11_143638_addInvoiceID.php',
+        'AddInvoiceType' => __DIR__ . '/../..' . '/database/migrations/2017_06_10_121029_addInvoiceType.php',
         'AddLegalNameToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_05_24_183337_addLegalNameToUsers.php',
+        'AddSHippingNAme' => __DIR__ . '/../..' . '/database/migrations/2017_06_10_101111_addSHippingNAme.php',
+        'AddTrackingNumber' => __DIR__ . '/../..' . '/database/migrations/2017_06_10_100054_addTrackingNumber.php',
         'BraintreeTableModify' => __DIR__ . '/../..' . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'CreateNFCORdersTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_02_145453_CreateNFCORdersTable.php',

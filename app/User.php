@@ -8,6 +8,7 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
 use Laravel\Cashier\Billable;
 use Illuminate\Http\Request;
 use App\Plan;
+use App\Country;
 use Braintree_Customer;
 use Braintree_PaymentMethod;
 use Carbon\Carbon;
@@ -83,6 +84,11 @@ class User extends Authenticatable
 		return $this->hasMany('App\Order', 'userID');
 	}
 	
+	public function tagOrders()
+	{
+		return $this->hasMany('App\TagOrder', 'user_id');
+	}
+	
 	public function getInvoices()
 	{
 		return $this->hasMany('App\Invoice', 'userID')->orderBy('id', 'desc');
@@ -120,11 +126,12 @@ class User extends Authenticatable
 				if($this->viesCheck($this->country, $vatid)){
 					return 0;
 				} else {
-					return $this->getCountry->vat;
+					$c = Country::where('id', 'HR')->first();
+					return $c->vat;
 				}
 			}
 			else {
-				// fizička
+				// fizička - ne koristi se
 				return $this->getCountry->vat;
 			}
 		}

@@ -37,6 +37,7 @@ return [
 	'retryCharge' => 'Retry payment',
 	'chargeSuccess' => 'Payment made successfuly',
 	'chargeFail' => 'Payment failed. Please check your payment method and try again.',
+	'failedToPlaceOrderButPaid' => 'Failed to place an order. Please contact staff to manually process your order. We apologize for the inconvinience.',
 	'blockedCanceled' => 'Your account was canceled due to outstanding payments. If you want to reactivate your account please contact support.',
 	'price' => 'Price',
 	'VAT' => 'VAT',

@@ -31,7 +31,8 @@ return [
 	'copyright' => 'Sva prava pridržana.',
 	'terms' => 'Uvjeti korištenja',
 	'privacy' => 'Izjava o privatnosti',
-	'usersManagement' => 'Upravljanje korisnicima',
-	'tagsManagement' => 'Upravljanje tagovima',
+	'usersManagement' => 'Korisnici',
+	'tagsManagement' => 'NFC tagovi',
+	'tagOrders' => 'NFC narudžbe',
 
 ];

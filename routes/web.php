@@ -29,6 +29,7 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 	/* Footer routes */
 	Route::get('/terms', 'PagesController@terms')->name('page.terms');;
 	Route::get('/privacy', 'PagesController@privacy')->name('page.privacy');;
+
 	/* auth routes */
 	Auth::routes();
 	
@@ -76,6 +77,8 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 
 		/* ordertags */
 		Route::get('/ordertags', 'HomeController@ordertags')->name('dashboard.ordertags');
+		Route::post('/ordertags/checkout', 'HomeController@ordertagsCheckout')->name('dashboard.ordertagsCheckout');
+		Route::get('/ordertags/history', 'HomeController@ordertagsHistory')->name('dashboard.ordertagsHistory');
 
 		/* settings */
 		Route::get('/settings', 'HomeController@settings')->name('dashboard.settings');
@@ -101,6 +104,10 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 			Route::post('/users/ban', 'AdminController@userBanChangeStatus')->name('users.banned');
 			Route::post('/users/blocked', 'AdminController@userBlockChangeStatus')->name('users.blocked');
 			Route::post('/users/delete', 'AdminController@userDelete')->name('users.deleteUser');
+			
+			/* Tag Orders */
+			Route::get('/tagorders', 'AdminController@tagOrders')->name('dashboard.tagOrdersManagement');
+			Route::post('/tagorders/shipped', 'AdminController@tagOrdersShipped')->name('dashboard.tagOrdersManagementShipped');
 		});
 		
 	});
@@ -128,5 +135,4 @@ Route::group(['prefix' => '{lang?}', 'middleware' => 'localize'], function () {
 });
 
 	Route::post('/pusher/auth', 'PusherAuth@auth')->name('pusher.auth');
-	
 	

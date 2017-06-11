@@ -293,11 +293,11 @@ footer ul {
     color: #4281A4;
     padding: 15px;
     font-size: 1rem;
-    line-height: 2.5rem;
+    line-height: 1.5rem;
 }
 
 .sidebar ul li a {
-    transition: all 0.5s ease;
+    transition: all 0.2s ease;
     color: #4281A4;
 }
 

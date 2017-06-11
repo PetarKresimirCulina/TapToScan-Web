@@ -37,6 +37,7 @@ return [
 	'retryCharge' => 'Pokušaj platiti ponovno',
 	'chargeSuccess' => 'Plaćanje uspješno izvršeno',
 	'chargeFail' => 'Plaćanje nije uspjelo. Provjerite svoje podatke o načinu plaćanja i pokušajte ponovno.',
+	'failedToPlaceOrderButPaid' => 'Greška pri obradi narudžbe. Molimo kontaktirajte nas kako bi ručno obradili narudžbu. Ispričavamo se na neugodnosti.',
 	'blockedCanceled' => 'Vaša pretplata je poništena radi neplaćenih naknada. Ako želite ponovno koristiti uslugu, molimo kontaktirajte podršku.',
 	'price' => 'Cijena',
 	'VAT' => 'PDV',

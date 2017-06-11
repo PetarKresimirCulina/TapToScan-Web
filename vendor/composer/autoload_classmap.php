@@ -6,9 +6,14 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddBraintTreeID' => $baseDir . '/database/migrations/2017_06_10_165836_addBraintTreeID.php',
     'AddCanceledToUser' => $baseDir . '/database/migrations/2017_04_24_191546_add_canceled_to_user.php',
     'AddCardBrandAndDigits' => $baseDir . '/database/migrations/2017_05_27_154537_addCardBrandAndDigits.php',
+    'AddInvoiceID' => $baseDir . '/database/migrations/2017_06_11_143638_addInvoiceID.php',
+    'AddInvoiceType' => $baseDir . '/database/migrations/2017_06_10_121029_addInvoiceType.php',
     'AddLegalNameToUsers' => $baseDir . '/database/migrations/2017_05_24_183337_addLegalNameToUsers.php',
+    'AddSHippingNAme' => $baseDir . '/database/migrations/2017_06_10_101111_addSHippingNAme.php',
+    'AddTrackingNumber' => $baseDir . '/database/migrations/2017_06_10_100054_addTrackingNumber.php',
     'BraintreeTableModify' => $baseDir . '/database/migrations/2017_04_19_093922_braintree_table_modify.php',
     'Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',
     'CreateNFCORdersTable' => $baseDir . '/database/migrations/2017_06_02_145453_CreateNFCORdersTable.php',

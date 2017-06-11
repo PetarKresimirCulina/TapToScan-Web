@@ -40,4 +40,20 @@ class Currency extends Model
 				break;
 		}
 	}
+	
+	public function convertToHRK($amount) {
+		$hnb = file_get_contents('http://www.hnb.hr/tecajn/htecajn.htm');
+		foreach(preg_split("/((\r?\n)|(\r\n?))/", $hnb) as $line){
+			// do stuff with $line
+	
+			$parts = preg_split('/\s+/', $line);
+			if($parts[0] == '978EUR001') {
+				//number_format($parts, 2, ',', '.');
+
+				$parts[2] = str_replace(',', '.', $parts[2]);
+				return $amount * floatval($parts[2]);
+			}
+		}
+
+	}
 }

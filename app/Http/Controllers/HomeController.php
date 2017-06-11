@@ -8,8 +8,10 @@ use App\Order;
 use App\Tag;
 use App\Plan;
 use App\Country;
+use App\Currency;
 use App\Invoice;
 use App\InvoiceItem;
+use App\TagOrder;
 use Auth;
 use emailVerification;
 use Carbon\Carbon;
@@ -23,6 +25,8 @@ use Lang;
 use App\Notifications\SendEmailVerification;
 use Braintree_Subscription;
 use Braintree_SubscriptionSearch;
+use Storage;
+use Mail;
 use Hash;
 
 
@@ -178,7 +182,7 @@ class HomeController extends Controller
 			
 			if($user->updateInfo($request['name'], $request['address'], $request['city'], $request['zip']))
 			{	
-				Session::flash('success', 'User information has been updated.' );
+				Session::flash('alert-success', 'User information has been updated.' );
 				return Redirect::back();
 			}
 			else {
@@ -254,9 +258,14 @@ class HomeController extends Controller
 
 			//$pdf = App::make('snappy.pdf');
 			
+			$footer = view('emails.footer');
+			
 			$invoice = Invoice::where('id', $invoiceId)->first();
 
 			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['invoice' => $invoice]);
+			
+			$pdf->setOption('footer-html', view('emails.footer'));
+			$pdf->setPaper('a4');
 			
 
 			return $pdf->download($invoiceId . '.pdf');
@@ -283,8 +292,161 @@ class HomeController extends Controller
 	*/
 	public function ordertags()
     {
-        return view('dashboard.ordertags');
+		if(Auth::user()->getCountry->id == 'HR') {
+			
+			$price = 8.16;
+			$shipping = 33.35;
+			$code = 'HRK';
+			$symbol = 'kn';
+		}
+		else {
+			
+			$price = 1.10;
+			$shipping = 4.50;
+			$code = 'EUR';
+			$symbol = '€';
+			
+		}
+
+        return view('dashboard.ordertags')->with('price', $price)->with('shipping', $shipping)->with('code', $code)->with('symbol', $symbol);
     }
+	
+	public function ordertagsCheckout(Request $request)
+    {
+		if(Auth::user()->getCountry->id == 'HR') {
+			
+			$price = 8.16;
+			$shipping = 33.35;
+			$code = 'HRK';
+			$symbol = 'kn';
+		}
+		else {
+			
+			$price = 1.10;
+			$shipping = 4.50;
+			$code = 'EUR';
+			$symbol = '€';
+			
+		}
+
+        
+		if ($request->isMethod('post')){
+			
+			$rules = ['address' => 'required|min:2',
+					'zip' => 'required|numeric',
+					'city' => 'required|min:2',
+					'numOfTags' => 'required|min:1|max:100'];
+				
+			
+			$validator = Validator::make($request->all(), $rules);
+			
+			if ($validator->fails())
+			{
+				$messages = $validator->messages();
+				Session::flash('fail', $messages);
+				return Redirect::back()->withErrors($validator->messages());
+			}
+			$user = Auth::user();
+			
+			if($user->country == 'HR') { $currency = 'HRK'; $merchant = 'taptoscancomHRK'; }
+			else { $currency = 'EUR'; $merchant = 'taptoscan'; }
+			
+			$total = (($price * intval($request['numOfTags'])) + floatval($shipping));
+			//return $total;
+			
+			try {
+				$response = $user->charge($total, ['taxAmount' => round(($total*$user->taxPercentage())/100, 2),
+												'merchantAccountId' => $merchant,
+												'billing' => ['firstName' => $user->first_name,
+																'lastName' => $user->last_name,
+																'company' => $user->legalName,
+																'streetAddress' => $user->address,
+																'locality' => $user->city,
+																'postalCode' => $user->zip,
+																'countryCodeAlpha2' => $user->country],
+												'shipping' => ['firstName' => $user->first_name,
+																'lastName' => $user->last_name,
+																'company' => $user->legalName,
+																'streetAddress' => $user->address,
+																'locality' => $user->city,
+																'postalCode' => $user->zip,
+																'countryCodeAlpha2' => $user->country]]);
+			}
+			catch(\Exception $e) {
+				var_dump($e);
+				if(strpos($e, 'Credit card type is not accepted by this merchant account') !== false) {
+					return Redirect::back()->withErrors(['message' => Lang::get('dashboardBilling.creditCardErrorNotAccepted')]);
+				}
+				else {
+					return Redirect::back()->withErrors(['message' => Lang::get('dashboardBilling.chargeFail')]);
+				}
+			}
+			
+			$invoice = new Invoice();
+			$c = Currency::where('code', $currency)->first();
+			$invoice->create($user->id, $user->taxPercentage(), 0, 0, 1, 1, $c->id);
+			$invoice->braintree_id = $response->transaction->id;
+			$invoice->save();
+						
+			$desc = 'NFC oznake + naljepnice/NFC tags + stickers';
+						
+			// Create new invoice item - just one in the case of subscription
+			$it = new InvoiceItem();
+			$it->create($invoice->id, $desc, $price, $currency, intval($request['numOfTags']));
+						
+			$it = new InvoiceItem();
+			$desc = 'Poštarina/Shipping';
+			$it->create($invoice->id, $desc, floatval($shipping), $currency, 1);
+						
+			$invoice->totalNet = $total;
+			$invoice->totalWVat = $total + ($total * ($user->taxPercentage()/100));
+			$invoice->card_brand = $user->card_brand;
+			$invoice->card_last_four = $user->card_last_four;
+			$invoice->save();
+			
+			// Create an order in the database for tag_orders table
+			
+			$tagOrder = new TagOrder();
+			if(!$tagOrder->createOrder($user->id, $user->address, $user->zip, $user->city, $user->getCountry->value, intval($request['numOfTags']), 1, 0, null, $user->first_name . ' ' . $user->last_name, $invoice->id)) {
+				return Redirect::back()->withErrors(['message' => Lang::get('dashboardBilling.failedToPlaceOrderButPaid')]);
+			}
+			
+			
+						
+						
+			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['invoice' => $invoice]);
+			$pdf->setOption('footer-html', view('emails.footer'));
+			$pdf->setPaper('a4');
+			
+			
+			$date = \Carbon\Carbon::now();
+			$result = $date->format('Y-m-d H-i-s');
+			$filename = $result . '-' . $invoice->id  . '.pdf';
+						
+			Storage::disk('invoices')->put($filename, $pdf->output());
+						
+			Mail::send('emails.invoiceNotificationTagsOrder', ['user' => $user], function($message) use($user, $pdf)
+			{
+				$message->from('no-reply@taptoscan.com', 'TapToScan.com');
+
+				$message->to($user->email, $user->first_name . ' ' . $user->last_name)->subject('Your order has been received');
+
+				$message->attachData($pdf->output(), "invoice.pdf");
+			});
+				
+			Session::flash('alert-success', 'Your order has been successfuly placed and your credit card has been charged. You will receive an email with the receipt soon and will be notified once the order has been shiped to your address.' );
+			return Redirect::route('dashboard.ordertagsHistory', App::getLocale());
+		}
+		return Redirect::back()->withErrors(['message' => Lang::get('dashboardBilling.chargeFail')]);
+		
+		
+    }
+	
+	public function ordertagsHistory() {
+		
+		$orders = Auth::user()->tagOrders()->where('paid', 1)->orderBy('id', 'desc')->paginate(10);
+		return view('dashboard.ordertagsHistory')->with('orders', $orders);
+	}
 	
 	/**
 		* Show user's settings

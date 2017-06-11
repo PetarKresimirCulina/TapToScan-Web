@@ -5,9 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1280">
 
-
-    <title>{{ $invoice->id . '/' . sprintf( '%02d', $invoice->saleVenue ) . '/' . sprintf( '%02d', $invoice->saleOperator) }}</title>
-
     <!-- Bootstrap core CSS -->
     <!--<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">-->
 	<style>
@@ -24,162 +21,37 @@
 		
 		html, body {
 			font-size: 12px;
-			
 		}
-		body { padding-top: 40px; }
-
 		
 		
 	</style>
 	
 </head>
 <body>
-	@php $invoiceDate = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $invoice->created_at, 'UTC') @endphp
-	@php $invoiceDate->setTimezone('Europe/Zagreb') @endphp
-    <div class="container">
-		<div class="row">
-			<div class="col-xs-6">
-				<p class="bold">{{ env('LEGAL_NAME') }}</p>
-				<p>{{ env('LEGAL_ADDRESS') }}</p>
-				<p>{{ env('LEGAL_ADDRESS2') }}</p>
-				<p>OIB/VAT ID: {{ env('VAT_ID') }}</p>
-				<p>IBAN: {{ env('IBAN') }}</p>
-			</div>
-			<div class="col-xs-6 text-right">
-				<p class="bold">{{ $invoice->user->legal_name }}</p>
-				<p>{{ $invoice->user->address }}</p>
-				<p>{{ $invoice->user->zip . ', ' . $invoice->user->city . ', ' . $invoice->user->country }}</p>
-				@if($invoice->user->vat_id)
-					<p>OIB/VAT ID: {{ $invoice->user->vat_id }}</p>
-				@endif
-			</div>
-		</div>
-		
-		<hr>
-		<div class="row text-center">
-			<h2>Račun br./Invoice no. {{ $invoice->id . '/' . sprintf( '%02d', $invoice->saleVenue ) . '/' . sprintf( '%02d', $invoice->saleOperator) }}</h2>
-			<p>Zagreb, {{ $invoice->created_at->format("d.m.Y. - H:i:s") }} (UTC Europe/Zagreb)</p>
-		</div>
-		
-		<hr>
-
-		
-		
-		<div class="row">
-			<table class="table table-bordered">
-				<thead>
-				  <tr>
-					<th style="vertical-align: middle;">R.br./No.</th>
-					<th style="vertical-align: middle;">Naziv/Name</th>
-					<th style="vertical-align: middle;">Cijena/Price per unit</th>
-					<th style="vertical-align: middle;">Količina/Quantity</th>
-					<th style="vertical-align: middle;">Ukupno/Total</th>
-				  </tr>
-				</thead>
-				<tbody>
-				@php $i = 1 @endphp
-				@php $currencyDummy = \App\Currency::where('id', Auth::user()->plan->currency)->first(); @endphp
-				
-				@foreach ($invoice->getInvoiceItems as $item)
-				  <tr>
-					<td>{{ $i }}</td>
-					<td>{{ $item->description }}</td>
-					
-					@if($invoice->getCurrency->id == 'HRK')
-						<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $item->price, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</td>
-					@else
-						<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($item->price), 'HRK', 'kn') }} ({{  $currencyDummy->formatCurrency(App::getLocale(), $item->price, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})</td>
-					@endif
-					<td>{{ $item->quantity }}</td>
-					@php $total = $item->quantity * $item->price @endphp
-					@if($invoice->getCurrency->id == 'HRK')
-						<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $total, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</td>
-					@else
-						<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($total), 'HRK', 'kn') }} ({{  $currencyDummy->formatCurrency(App::getLocale(), $total, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})</td>
-					@endif
-				  </tr>
-				  @php $i++ @endphp
-				@endforeach
-				
-				</tbody>
-			  </table>
-			  <div class="text-right">
-					<p><span class="bold">Ukupno/Total:</span> 
-						@if($invoice->getCurrency->id == 'HRK')
-							{{  $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}
-						@else
-							{{  $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($invoice->totalNet), 'HRK', 'kn') }} ({{  $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})
-						@endif
-					
-					@if(env('TAX_EXEMPT') == '0' && $invoice->vatRate > 0)
-						
-							<p><span class="bold">PDV/VAT ({{ $invoice->vatRate }}%):</span> 
-								@if($invoice->getCurrency->id == 'HRK')
-									{{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat - $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}
-								@else
-									{{ $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($invoice->totalWVat - $invoice->totalNet), 'HRK', 'kn') }} ({{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat - $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})
-								@endif
-							</p>
-						
-							<p><span class="bold">Ukupno sa PDV-om/Total with VAT:</span> 
-								@if($invoice->getCurrency->id == 'HRK')
-									{{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}
-								@else
-									{{ $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($invoice->totalWVat), 'HRK', 'kn') }} ({{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})
-								@endif
-							</p>
-						
-					@endif
-			  </div>
-		</div>
-		<hr>
-		<div class="row">
-			
-			<p class="small"><span class="bold">Datum dospijeća/Due date:</span> {{ $invoice->created_at->format("d.m.Y.") }}</p>
-			<p class="small"><span class="bold">Datum isporuke/Delivery date:</span> {{ $invoice->created_at->format("d.m.Y.") }}</p>
-			<p class="small"><span class="bold">Način plaćanja/Payment method:</span> Kartica/Card <span class="text-uppercase">{{ $invoice->card_brand  }} ({{ $invoice->card_last_four  }})</span></p>
-			<p class="small"><span class="bold">Izdao/Issued by:</span> Automated System</p>
-			<p class="small"><span class="bold">ZKI:</span> {{ $invoice->zki }}</p>
-			<p class="small"><span class="bold">JIR:</span> {{ $invoice->jir }}</p>
+	<div class="container">
+	<div class="text-center row">
 			<hr>
-			<div class="text-center bold">
-				@if(env('TAX_EXEMPT' == '1'))
-					<p class="small">Obveznik nije u sustavu PDV-a. PDV nije obračunat temeljem čl.90 st. 1 i st. 2 Zakona o PDV-u (Narodne novine, br. 73/13).</p>
-					<p class="small">The taxpayer is not in the VAT system. VAT was not calculated on the basis of Article 90, paragraphs 1 and 2 of the VAT Act (Official Gazette 73/13).</p>
-				@endif
-				<p class="small">Račun je izdan elektroničkim putem i valjan je bez pečata i potpisa.</p>
-				<p class="small">The invoice is issued electronically and is valid without stamps and signatures.</p>
-				
-				@php $vies = $invoice->user->viesCheck($invoice->user->country, substr($invoice->user->vat_id, 2)) @endphp
-				@if($invoice->user->vat_id && $invoice->user->getCountry->eu == 1 && $invoice->user->getCountry->id != 'HR' && $vies)
-					@if($invoice->transaction_type == 0)
-						<p class="small">Ne podliježe oporezivanju prema čl. 17. St. 1. Zakona o PDV-u - PRIJENOS POREZNE OBVEZE</p>
-						<p class="small">Not taxable according to Art. 17. St. 1 of the Law on VAT - REVERSE CHARGE</p>
-					@else
-						<p class="small">Isporuka je oslobođena PDV -a sukladno čl. 41. stavak 1. Zakona o PDV-u.</p>
-						<p class="small">The delivery is exempt from VAT according to Art. 41. paragraph 1 of the Law on VAT.</p>
-					@endif
-					
-				@endif
-				
-				@if(!$vies && Auth::user()->getCountry->eu == 1 && Auth::user()->country != 'HR')
-					<p class="small">VAT ID nije prisutan u VIES tražilici.</p>
-					<p class="small">VAT ID not present in VIES search engine.</p>
-				@endif
-				
-				@if(Auth::user()->getCountry->eu != 1)
-					@if($invoice->transaction_type == 0)
-						<p class="small">Ne podliježe oporezivanju prema čl. 24. stavak 1. Zakona o PDV-u.</p>
-						<p class="small">It is not taxable according to Art. 24. paragraph 1 of the Law on VAT.</p>
-					@else
-						<p class="small">Isporuka je oslobođena PDV-a sukladno čl. 45 stavak 1. Zakona o PDV -u, čl. 108. stavak 1. Pravilnika o PDV-u.</p>
-						<p class="small">The delivery is exempt from VAT according to Art. 45 paragraph 1 of the VAT Act, Art. 108. paragraph 1 of the Ordinance on VAT.</p>
-					@endif
-				@endif
-			</div>
+			<p class="small">{{ env('LEGAL_NAME') }} registrirano kod TS u Zagrebu TT-12345 (MB: 023414) MBS: 123456 | Temeljni kapital: 10,00 HRK uplaćen u cjelosti | Članovi uprave: Philip Rubčić, Petar-Krešimir Čulina</p>
+			<p class="small">TapToScan.com | Dokument generiran datuma/Document generated at: 
+			
+									@if(!isset($_COOKIE['offset']))
+										@php $_COOKIE['offset'] = 0 @endphp
+									@endif
+							
+									@if($_COOKIE['offset'] < 0)
+										{{ Carbon\Carbon::now()->subMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
+										@php $offset = ($_COOKIE['offset']/60) @endphp
+										@php $offset = '+' . abs($offset) @endphp
+									@elseif($_COOKIE['offset'] > 0)
+										{{ 	Carbon\Carbon::now()->addMinutes($_COOKIE['offset'])->format("d.m.Y. - H:i:s") }}
+										@php $offset = ($_COOKIE['offset']/60) @endphp
+										@php $offset = '-' . abs($offset) @endphp
+									@else
+										{{ 	Carbon\Carbon::now()->format("d.m.Y. - H:i:s") }}
+									@endif
+			UTC{{ $offset }}
+			</p>
 		</div>
-		
 	</div>
-
 </body>
 </html>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tag;
 use App\Order;
 use App\User;
+use App\TagOrder;
 use Auth;
 use Carbon\Carbon;
 use Session;
@@ -13,6 +14,7 @@ use Validator;
 use Redirect;
 use Lang;
 use Illuminate\Support\Facades\Input;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -45,6 +47,33 @@ class AdminController extends Controller
 		return view('dashboard.users')->with('users', $users);
 	}
 	
+	public function tagOrders() {
+		$orders = TagOrder::where('paid', 1)->paginate(10);
+		return view('dashboard.tagOrders')->with('orders', $orders);
+	}
+	
+	public function tagOrdersShipped(Request $data) {
+		if ($data->isMethod('post')){
+			$order = TagOrder::where('id', $data['orderID'])->where('shipped', 0)->where('paid', 1)->first();
+			$user = User::where('id', $order->user_id)->first();
+			$order->shipped = 1;
+			if($order->save()) {
+				
+				Mail::send('emails.invoiceNotificationTagsOrderShipped', ['user' => $user], function($message) use($user)
+				{
+					$message->from('no-reply@taptoscan.com', 'TapToScan.com');
+
+					$message->to($user->email, $user->first_name . ' ' . $user->last_name)->subject('Your order has been shipped');
+				});
+				
+				
+				return Redirect::back();
+			}
+			return Redirect::back()->withErrors(array('message' => Lang::get('dashboardTables.errorInvalidRequest')));
+		}
+		return Redirect::back()->withErrors(array('message' => Lang::get('dashboardTables.errorInvalidRequest')));
+	}
+	
 	public function tagsAdd(Request $data)
     {
 		if ($data->isMethod('post')){
@@ -70,7 +99,7 @@ class AdminController extends Controller
 				{
 					return Redirect::back();
 				}
-				 return Redirect::back()->withErrors(array('message' => Lang::get('dashboardTables.errorInvalidTag')));
+				return Redirect::back()->withErrors(array('message' => Lang::get('dashboardTables.errorInvalidTag')));
 			}
         }
         return Redirect::back()->withErrors(array('message' => Lang::get('dashboardTables.errorInvalidRequest')));

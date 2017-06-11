@@ -216,6 +216,8 @@ class ApiController extends Controller
 						
 						
 						$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['invoice' => $invoice]);
+						$pdf->setOption('footer-html', view('emails.footer'));
+						$pdf->setPaper('a4');
 			
 						$date = \Carbon\Carbon::now();
 						$result = $date->format('Y-m-d H-i-s');
@@ -286,6 +288,8 @@ class ApiController extends Controller
 			$invoice->save();
 
 			$pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('emails.bill', ['invoice' => $invoice]);
+			$pdf->setOption('footer-html', view('emails.footer'));
+			$pdf->setPaper('a4');
 			
 			$date = \Carbon\Carbon::now();
 			$result = $date->format('Y-m-d H-i-s');
