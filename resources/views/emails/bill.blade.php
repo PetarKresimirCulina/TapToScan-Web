@@ -85,14 +85,15 @@
 					<td>{{ $i }}</td>
 					<td>{{ $item->description }}</td>
 					
-					@if($invoice->getCurrency->id == 'HRK')
+					@if($invoice->getCurrency->code == 'HRK')
 						<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $item->price, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</td>
 					@else
 						<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($item->price), 'HRK', 'kn') }} ({{  $currencyDummy->formatCurrency(App::getLocale(), $item->price, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})</td>
 					@endif
 					<td>{{ $item->quantity }}</td>
+					
 					@php $total = $item->quantity * $item->price @endphp
-					@if($invoice->getCurrency->id == 'HRK')
+					@if($invoice->getCurrency->code == 'HRK')
 						<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $total, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}</td>
 					@else
 						<td>{{  $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($total), 'HRK', 'kn') }} ({{  $currencyDummy->formatCurrency(App::getLocale(), $total, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})</td>
@@ -105,7 +106,7 @@
 			  </table>
 			  <div class="text-right">
 					<p><span class="bold">Ukupno/Total:</span> 
-						@if($invoice->getCurrency->id == 'HRK')
+						@if($invoice->getCurrency->code == 'HRK')
 							{{  $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}
 						@else
 							{{  $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($invoice->totalNet), 'HRK', 'kn') }} ({{  $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})
@@ -114,7 +115,7 @@
 					@if(env('TAX_EXEMPT') == '0' && $invoice->vatRate > 0)
 						
 							<p><span class="bold">PDV/VAT ({{ $invoice->vatRate }}%):</span> 
-								@if($invoice->getCurrency->id == 'HRK')
+								@if($invoice->getCurrency->code == 'HRK')
 									{{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat - $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}
 								@else
 									{{ $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($invoice->totalWVat - $invoice->totalNet), 'HRK', 'kn') }} ({{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat - $invoice->totalNet, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})
@@ -122,7 +123,7 @@
 							</p>
 						
 							<p><span class="bold">Ukupno sa PDV-om/Total with VAT:</span> 
-								@if($invoice->getCurrency->id == 'HRK')
+								@if($invoice->getCurrency->code == 'HRK')
 									{{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }}
 								@else
 									{{ $currencyDummy->formatCurrency(App::getLocale(), $currencyDummy->convertToHRK($invoice->totalWVat), 'HRK', 'kn') }} ({{ $currencyDummy->formatCurrency(App::getLocale(), $invoice->totalWVat, $invoice->getCurrency->code, $invoice->getCurrency->symbol) }})

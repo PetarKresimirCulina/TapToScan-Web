@@ -45,6 +45,12 @@
 						@if(Auth::user()->admin == 1)
 							<li class="text-uppercase"><a {{{ (Request::is('*/tags') ? 'class=active' : '') }}} href="{{ route('dashboard.tagsManagement', App::getLocale()) }}"><i class="material-icons">storage</i> @lang('navbar.tagsManagement')</a></li>
 							<li class="text-uppercase"><a {{{ (Request::is('*/users') ? 'class=active' : '') }}} href="{{ route('dashboard.usersManagement', App::getLocale()) }}"><i class="material-icons">people</i> @lang('navbar.usersManagement')</a></li>		
+							<li><a {{{ (Request::is('*/tagorders') ? 'class=active' : '') }}} href="{{ route('dashboard.tagOrdersManagement', App::getLocale()) }}"><i class="material-icons">shopping_cart</i> @lang('navbar.tagOrders')				
+								@php $orders = \App\TagOrder::where('shipped', 0)->where('paid', 1)->count() @endphp
+								@if($orders > 0)
+									<span class="badge notification"> {{ $orders }} </span>
+								@endif
+							</a></li>
 							<li role="separator" class="divider"></li>
 						@endif
 						<li class="text-uppercase"><a  {{{ (Request::is('*/home') ? 'class=active' : '') }}} href="{{ route('dashboard.home', App::getLocale()) }}"><i class="material-icons">receipt</i> @lang('navbar.orders')
@@ -71,6 +77,12 @@
 				@if(Auth::user()->admin == 1)
 					<li class="text-uppercase"><a {{{ (Request::is('*/tags') ? 'class=active' : '') }}} href="{{ route('dashboard.usersManagement', App::getLocale()) }}"><i class="material-icons">storage</i> @lang('navbar.tagsManagement')</a></li>
 					<li class="text-uppercase"><a {{{ (Request::is('*/users') ? 'class=active' : '') }}} href="{{ route('dashboard.tagsManagement', App::getLocale()) }}"><i class="material-icons">people</i> @lang('navbar.usersManagement')</a></li>	
+					<li><a {{{ (Request::is('*/tagorders') ? 'class=active' : '') }}} href="{{ route('dashboard.tagOrdersManagement', App::getLocale()) }}"><i class="material-icons">shopping_cart</i> @lang('navbar.tagOrders')				
+						@php $orders = \App\TagOrder::where('shipped', 0)->where('paid', 1)->count() @endphp
+						@if($orders > 0)
+							<span class="badge notification"> {{ $orders }} </span>
+						@endif
+					</a></li>
 					<li role="separator" class="divider"></li>
 				@endif
 				<li class="text-uppercase"><a  {{{ (Request::is('*/home') ? 'class=active' : '') }}} href="{{ route('dashboard.home', App::getLocale()) }}"><i class="material-icons">receipt</i> @lang('navbar.orders')
