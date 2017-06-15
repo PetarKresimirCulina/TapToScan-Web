@@ -66,7 +66,7 @@
 						<li class="text-uppercase"><a {{{ (Request::is('*/billing*') ? 'class=active' : '') }}} href="{{ route('dashboard.billing', App::getLocale()) }}"><i class="material-icons">monetization_on</i> @lang('navbar.billing')</a></li>
 						<li class="text-uppercase"><a {{{ (Request::is('*/ordertags*') ? 'class=active' : '') }}} href="{{ route('dashboard.ordertags', App::getLocale()) }}"><i class="material-icons">nfc</i> @lang('navbar.order')</a></li>
 						<li class="text-uppercase"><a {{{ (Request::is('*/settings*') ? 'class=active' : '') }}} href="{{ route('dashboard.settings', App::getLocale()) }}"><i class="material-icons">tune</i> @lang('navbar.settings')</a></li>
-						<li class="text-uppercase"><a {{{ (Request::is('*/help') ? 'class=active' : '') }}} href="{{ route('dashboard.help', App::getLocale()) }}"><i class="material-icons">help</i> @lang('navbar.help')</a></li>
+						<li class="text-uppercase hidden"><a {{{ (Request::is('*/help') ? 'class=active' : '') }}} href="{{ route('dashboard.help', App::getLocale()) }}"><i class="material-icons">help</i> @lang('navbar.help')</a></li>
 						<li role="separator" class="divider"></li>
 						<li class="text-uppercase"><a href="{{ route('dashboard.logout', App::getLocale()) }}"><i class="material-icons">exit_to_app</i> {{ __('navbar.logout') }}</a></li>
 					</ul>
@@ -98,7 +98,7 @@
 				<li class="text-uppercase"><a {{{ (Request::is('*/billing*') ? 'class=active' : '') }}} href="{{ route('dashboard.billing', App::getLocale()) }}"><i class="material-icons">monetization_on</i> @lang('navbar.billing')</a></li>
 				<li class="text-uppercase"><a {{{ (Request::is('*/ordertags*') ? 'class=active' : '') }}} href="{{ route('dashboard.ordertags', App::getLocale()) }}"><i class="material-icons">nfc</i> @lang('navbar.order')</a></li>
 				<li class="text-uppercase"><a {{{ (Request::is('*/settings*') ? 'class=active' : '') }}} href="{{ route('dashboard.settings', App::getLocale()) }}"><i class="material-icons">tune</i> @lang('navbar.settings')</a></li>
-				<li class="text-uppercase"><a {{{ (Request::is('*/help') ? 'class=active' : '') }}} href="{{ route('dashboard.help', App::getLocale()) }}"><i class="material-icons">help</i> @lang('navbar.help')</a></li>
+				<li class="text-uppercase hidden"><a {{{ (Request::is('*/help') ? 'class=active' : '') }}} href="{{ route('dashboard.help', App::getLocale()) }}"><i class="material-icons">help</i> @lang('navbar.help')</a></li>
 				<li role="separator" class="divider"></li>
 				<li class="text-uppercase"><a href="{{ route('dashboard.logout', App::getLocale()) }}"><i class="material-icons">exit_to_app</i> @lang('navbar.logout')</a></li>
 			</ul>
